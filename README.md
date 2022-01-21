@@ -1,4 +1,4 @@
-# Avalon
+# VVMA By Avalon
 
 Avalon is a MERN framework, which serves the primary purpose to be **PLUG and PLAY**. Following some simple steps will get you up and running in no time, and will save a lot of time for you to start writing a framework from the scratch. 
 
