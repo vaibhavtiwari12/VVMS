@@ -3,6 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 /* const { controller } = require('./Mongo/mongoController'); */
 const MongoRouter = require('./Router/mongoRouter');
+const KisanRouter = require('./Router/kisanRouter');
 
 //Conifiguring the dotenv to read the env file variables.
 dotenv.config({ path: path.resolve(__dirname, '../.env.prod') });
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/mongo',MongoRouter);
+app.use('/kisan',KisanRouter);
 
 // ALL the API Calls Get Here 
 app.get('/api/getName', (req,res) => {

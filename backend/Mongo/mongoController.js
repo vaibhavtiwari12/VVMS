@@ -1,5 +1,5 @@
 const { createDBConnection } = require("./mongoConnector");
-const BlogPosts = require('./mongoSchema');
+const Kisan = require("../Schema/kisanSchema");
 
 /* IMPORTANT
     RDBMS       VS      MONGO
@@ -9,22 +9,23 @@ const BlogPosts = require('./mongoSchema');
     Columns             Fields
 
 */
-const controller = async (type, data) => { 
-    //Creating MONGO Connection
-    await createDBConnection();
+const controller = async (type, data) => {
+  //Creating MONGO Connection
+  await createDBConnection();
 
-    //All Operation in Mongo
-    switch(type) {
-        case 'Get': {
-            // Find Request 
-            const posts = await BlogPosts.find()
-            return posts;
-        }
-        case 'Add': {
-            //Adding data 
-            return await data.save();
-        }
-        case 'Patch': {
+  //All Operation in Mongo
+  switch (type) {
+    case "Get": {
+      // Find Request
+      const posts = await Kisan.find();
+      return posts;
+    }
+    case "Add": {
+      //Adding data
+      return await data.save();
+    }
+
+    /*  case 'Patch': {
             // Updating the data
             const post = await BlogPosts.findById(data.id)
             post.title = data.title;
@@ -36,9 +37,7 @@ const controller = async (type, data) => {
             const post = await BlogPosts.findById(data.id)
             const deletedData = await BlogPosts.deleteOne(post)
             return deletedData;
-        }
-
-    }
-
-}
-module.exports = {controller}
+        } */
+  }
+};
+module.exports = { controller };

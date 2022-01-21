@@ -10,7 +10,7 @@ MongoRouter.get("/get",async (req,res) => {
 });
 
 MongoRouter.post("/add",async (req,res) => {
-    console.log(req.body)
+    console.log("IS here", req.body)
     const post = new BlogPosts({
         title:req.body.title,
         body:req.body.body,

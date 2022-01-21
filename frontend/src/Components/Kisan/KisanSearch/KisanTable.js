@@ -1,0 +1,50 @@
+import { Table } from "reactstrap";
+import { Link } from "react-router-dom";
+const KisanTable = ({ kisans, term, type }) => {
+  return (
+    <div>
+      <Table striped size="sm" className="mt-3">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Father's Name</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {kisans
+            .filter((kisan) => {
+              if (type.toLowerCase() === "name") {
+                return kisan.name.toLowerCase().includes(term.toLowerCase());
+              } else if (type.toLowerCase() === "fathername") {
+                console.log("Kisan father", kisan.fatherName);
+                console.log("Term", term);
+                return kisan.fatherName
+                  .toLowerCase()
+                  .includes(term.toLowerCase());
+              } else {
+                return kisan.phone.toString().includes(term);
+              }
+            })
+            .map((kisan, index) => {
+              return (
+                <tr key={kisan._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>
+                    <Link to={`kisanDetails/${kisan._id}`}>{kisan.name}</Link>
+                  </td>
+                  <td>{kisan.fatherName}</td>
+                  <td>{kisan.phone}</td>
+                  <td>{kisan.address}</td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
+    </div>
+  );
+};
+
+export default KisanTable;

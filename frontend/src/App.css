@@ -1,3 +1,17 @@
-*{
+.AppContent {
   margin: 5px;
+}
+
+.kisan-detail th {
+  width: 50% !important;
+}
+
+.link-no-decoration {
+  text-decoration: none !important;
+  color: white;
+}
+
+.link-no-decoration:hover {
+  text-decoration: none !important;
+  color: white;
 }
