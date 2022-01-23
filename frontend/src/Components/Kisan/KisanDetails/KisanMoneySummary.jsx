@@ -8,11 +8,11 @@ const Kisanmoneysummary = ({ kisan }) => {
         <tbody>
           <tr>
             <th>Name</th>
-            <td>{kisan.name}</td>
+            <td className="capitalize">{kisan.name}</td>
           </tr>
           <tr>
             <th>Father's Name</th>
-            <td>{kisan.fatherName}</td>
+            <td className="capitalize">{kisan.fatherName}</td>
           </tr>
           <tr>
             <th>Phone Number</th>
@@ -20,11 +20,15 @@ const Kisanmoneysummary = ({ kisan }) => {
           </tr>
           <tr>
             <th>Address</th>
-            <td>{kisan.address}</td>
+            <td className="capitalize">{kisan.address}</td>
           </tr>
           <tr>
-            <th>Balance</th>
+            <th>Advance Balance</th>
             <td>{kisan.balance}</td>
+          </tr>
+          <tr>
+            <th>Carry Forward up to Last Bill</th>
+            <td>{kisan.carryForwardAmount}</td>
           </tr>
         </tbody>
       </Table>

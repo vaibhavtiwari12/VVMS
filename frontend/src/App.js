@@ -5,6 +5,7 @@ import Blog from "./Components/Blog/Blog";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import AddKisan from "./Components/Kisan/AddKisan/AddKisan";
+import CreditForm from "./Components/Kisan/KisanDetails/CreditForm";
 import Debitform from "./Components/Kisan/KisanDetails/DebitForm";
 import Kisandetails from "./Components/Kisan/KisanDetails/KisanDetails";
 import KisanLanding from "./Components/Kisan/KisanLanding";
@@ -25,7 +26,27 @@ function App() {
             path="/kisanDetails/:id"
             component={Kisandetails}
           ></Route>
-          <Route exact path="/kisanDebitForm/:id" component={Debitform}></Route>
+          <Route
+            exact
+            path="/kisanDebitForm/:id/:type"
+            component={Debitform}
+          ></Route>
+          <Route
+            exact
+            path="/kisanDebitForm/:id/:type/:transactionNumber"
+            component={Debitform}
+          ></Route>
+          <Route
+            exact
+            path="/kisanCreditForm/:id/:type"
+            component={CreditForm}
+          ></Route>
+          <Route
+            exact
+            path="/kisanCreditForm/:id/:type/:transactionNumber"
+            component={CreditForm}
+          ></Route>
+
           <Route exact path="/Blog" component={Blog}></Route>
         </Switch>
       </div>

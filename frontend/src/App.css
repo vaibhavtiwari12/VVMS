@@ -15,3 +15,35 @@
   text-decoration: none !important;
   color: white;
 }
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
+
+.hide-till-print {
+  display: none !important;
+}
+
+.receipt-font-size {
+  font-size: 1.9vh;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-shadow-im {
+  text-shadow: 2px 1px #ff0000;
+}
+.fill-row {
+  width: 80%;
+}
+.company-heading {
+  font-size: 4vh;
+}
+.no-border {
+  border-style: hidden !important;
+}

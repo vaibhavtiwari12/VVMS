@@ -1,6 +1,7 @@
 const express = require("express");
 const { controller } = require("../Mongo/kisanController");
 const Kisan = require("../Schema/kisanSchema");
+const mongoose = require("mongoose");
 
 const KisanRouter = express.Router();
 
@@ -24,6 +25,7 @@ KisanRouter.post("/add", async (req, res) => {
     address: req.body.address,
     date: new Date().toString(),
     balance: 0,
+    carryForwardAmount: 0,
     transactions: [],
   });
   const addedKisan = await controller("Add", newkisan);
@@ -31,17 +33,21 @@ KisanRouter.post("/add", async (req, res) => {
 });
 
 KisanRouter.post("/AddTransaction/:id", async (req, res) => {
-  console.log(
-    "TRANSACTION ",
-    req.params.id,
-    req.body.transaction,
-    req.body.balance
-  );
+  var id = mongoose.Types.ObjectId();
   const addedTransaction = await controller("AddTransaction", {
     id: req.params.id,
-    transaction: { ...req.body.transaction, date: new Date() },
+    transaction: { ...req.body.transaction, date: new Date(), _id: id },
   });
   res.json(addedTransaction);
+});
+
+KisanRouter.post("/editTransaction/:id", async (req, res) => {
+  const editedTransaction = await controller("editTransaction", {
+    id: req.params.id,
+    transactionNumber: req.body.transactionNumber,
+    comment: req.body.comment,
+  });
+  res.json(editedTransaction);
 });
 
 /*KisanRouter.get("/delete/:id",async (req,res) => {

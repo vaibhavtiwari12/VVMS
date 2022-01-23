@@ -12,6 +12,7 @@ const KisanSchema = new Schema({
   address: String,
   date: Date,
   balance: Number,
+  carryForwardAmount: Number,
   transactions: [],
 });
 

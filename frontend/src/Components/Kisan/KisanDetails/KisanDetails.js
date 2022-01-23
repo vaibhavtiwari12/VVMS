@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
 import Kisantransactionstable from "./kisanTransactionsTable";
 import { Link } from "react-router-dom";
+
 const Kisandetails = () => {
   const { id } = useParams();
   const [kisan, setKisan] = useState({});
+
   useEffect(() => {
       console.log(id)
     try {
@@ -25,7 +27,7 @@ const Kisandetails = () => {
   }, [kisan]);
   return (
     <div>
-      <h2 className="d-flex justify-content-center mt-2">{kisan.name}</h2>
+      <h2 className="d-flex justify-content-center mt-2 capitalize">Kisan Details</h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan}></Kisanmoneysummary>
@@ -33,12 +35,11 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-          <Button color="primary"><Link className="link-no-decoration" to={`/kisanDebitForm/${id}`}>Debit Entry</Link></Button>
-          <Button color="primary" className="ms-3">Credit Entry</Button>
+          <Button color="primary"><Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}>Debit Entry</Link></Button>
+          <Button color="primary" className="ms-3"><Link className="link-no-decoration" to={`/kisanCreditForm/${id}/add`}>Credit Entry</Link></Button>
       </div>
       <h3 className="text-center mt-4">Transaction Record</h3>
       <div className="p-3">
-
       <Kisantransactionstable kisan={kisan}/>
       </div>
     </div>

@@ -32,12 +32,30 @@ const controller = async (type, data) => {
     case "AddTransaction": {
       // Updating the data
       let updatekisan = await Kisan.findById(data.id);
-      console.log("KISAN", updatekisan);
       updatekisan.transactions.push(data.transaction);
-      updatekisan.balance += data.transaction.transactionAmount;
-      console.log("Update Kisan", updatekisan);
-      const updatedPost = await updatekisan.save();
-      return updatedPost;
+      if (data.transaction.type === "DEBIT") {
+        updatekisan.balance += data.transaction.transactionAmount;
+      } else {
+        updatekisan.balance += parseInt(data.transaction.advanceSettlement);
+        updatekisan.carryForwardAmount =
+          data.transaction.carryForwardFromThisEntry;
+      }
+      const finalKisan = await updatekisan.save();
+      return finalKisan;
+    }
+    case "editTransaction": {
+      // Delete
+      const kisanToUpdate = await Kisan.findById(data.id);
+      const newKisanTransaction = kisanToUpdate.transactions.map((trans) => {
+        if (trans._id == data.transactionNumber) {
+          return { ...trans, comment: data.comment };
+        } else return trans;
+      });
+      console.log("newKisanTransaction", newKisanTransaction);
+      kisanToUpdate.transactions = newKisanTransaction;
+      console.log("kisanToUpdate", kisanToUpdate);
+      const finalKisan = await kisanToUpdate.save();
+      return finalKisan;
     }
     case "Delete": {
       // Delete

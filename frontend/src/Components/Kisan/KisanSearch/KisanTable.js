@@ -11,6 +11,7 @@ const KisanTable = ({ kisans, term, type }) => {
             <th>Father's Name</th>
             <th>Phone Number</th>
             <th>Address</th>
+            <th>Balance</th>
           </tr>
         </thead>
         <tbody>
@@ -19,8 +20,6 @@ const KisanTable = ({ kisans, term, type }) => {
               if (type.toLowerCase() === "name") {
                 return kisan.name.toLowerCase().includes(term.toLowerCase());
               } else if (type.toLowerCase() === "fathername") {
-                console.log("Kisan father", kisan.fatherName);
-                console.log("Term", term);
                 return kisan.fatherName
                   .toLowerCase()
                   .includes(term.toLowerCase());
@@ -32,12 +31,19 @@ const KisanTable = ({ kisans, term, type }) => {
               return (
                 <tr key={kisan._id}>
                   <th scope="row">{index + 1}</th>
-                  <td>
+                  <td className="capitalize">
                     <Link to={`kisanDetails/${kisan._id}`}>{kisan.name}</Link>
                   </td>
-                  <td>{kisan.fatherName}</td>
+                  <td className="capitalize">{kisan.fatherName}</td>
                   <td>{kisan.phone}</td>
-                  <td>{kisan.address}</td>
+                  <td className="capitalize">{kisan.address}</td>
+                  <td>
+                    {kisan.balance < 0 ? (
+                      <span class="text-danger">{kisan.balance}</span>
+                    ) : (
+                      <span class="text-primary">{kisan.balance}</span>
+                    )}
+                  </td>
                 </tr>
               );
             })}
