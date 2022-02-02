@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ButtonDropdown,
@@ -16,8 +16,10 @@ import {
   NavLink,
 } from "reactstrap";
 import logo from "./no-bg.svg";
-const NavBar = ({ isAuthenticated, logout }) => {
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
+const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => {
     setCollapsed(!collapsed);
@@ -29,6 +31,15 @@ const NavBar = ({ isAuthenticated, logout }) => {
   const toggelDropDown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  const handleLanguageChange = () => {
+    setIsLanguageEnglish((isLanguageEnglish) => !isLanguageEnglish);
+  };
+
+  useEffect(() => {
+    console.log("Language Change ", isLanguageEnglish);
+    changelanguage(isLanguageEnglish);
+  }, [isLanguageEnglish]);
 
   return (
     <div>
@@ -58,6 +69,13 @@ const NavBar = ({ isAuthenticated, logout }) => {
             </NavItem>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
+            <BootstrapSwitchButton
+              checked={isLanguageEnglish}
+              onlabel="En"
+              offlabel="Hi"
+              offstyle="outline-light"
+              onChange={handleLanguageChange}
+            />
             {isAuthenticated === "TRUE" ? (
               <div className="text-white">
                 <ButtonDropdown

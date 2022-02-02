@@ -61,7 +61,19 @@
 .form-width {
   width: 50%;
 }
-
+.switch-handle {
+  background-color: white !important;
+  border-color: white !important;
+}
+.switch-on {
+  background-color: #0d6efd !important;
+  border-color: white !important;
+}
+.btn-outline-light:hover {
+  background-color: #0d6efd !important;
+  border-color: white !important;
+  color: white !important;
+}
 @media (max-width: 576px) {
   .form-width {
     width: 100%;
