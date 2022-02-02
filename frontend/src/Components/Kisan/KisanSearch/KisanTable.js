@@ -39,9 +39,9 @@ const KisanTable = ({ kisans, term, type }) => {
                   <td className="capitalize">{kisan.address}</td>
                   <td>
                     {kisan.balance < 0 ? (
-                      <span class="text-danger">{kisan.balance}</span>
+                      <span className="text-danger">{kisan.balance}</span>
                     ) : (
-                      <span class="text-primary">{kisan.balance}</span>
+                      <span className="text-primary">{kisan.balance}</span>
                     )}
                   </td>
                 </tr>

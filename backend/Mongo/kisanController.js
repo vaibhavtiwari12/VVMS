@@ -1,5 +1,9 @@
 const { createDBConnection } = require("./mongoConnector");
 const Kisan = require("../Schema/kisanSchema");
+const {
+  getTransactionsBetweenDates,
+  getTransaction,
+} = require("../Utilities/utility");
 
 /* IMPORTANT
     RDBMS       VS      MONGO
@@ -57,11 +61,35 @@ const controller = async (type, data) => {
       const finalKisan = await kisanToUpdate.save();
       return finalKisan;
     }
-    case "Delete": {
+    case "todaystransactions": {
       // Delete
-      const post = await Kisan.findById(data.id);
-      const deletedData = await Kisan.deleteOne(post);
-      return deletedData;
+      const allKisans = await Kisan.find();
+      const transactions = getTransaction(
+        allKisans,
+        data.dateToSearch,
+        "byDate"
+      );
+      return transactions;
+    }
+    case "monthTransaction": {
+      // Delete
+      const allKisans = await Kisan.find();
+      const transactions = getTransaction(
+        allKisans,
+        data.monthToSearch,
+        "byMonth"
+      );
+      return transactions;
+    }
+    case "transactionBetweenDates": {
+      // Delete
+      const allKisans = await Kisan.find();
+      const transactions = getTransactionsBetweenDates(
+        allKisans,
+        data.startDate,
+        data.endDate
+      );
+      return transactions;
     }
   }
 };

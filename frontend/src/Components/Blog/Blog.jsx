@@ -5,7 +5,7 @@ const Blog = () => {
     return (
         <div >
             <Alert color="primary">
-                <h1 className="text-center"> Vaibhav's Blog</h1>          
+                <h1 className="text-center"> LOGIN</h1>          
             </Alert>
             <BlogForm />
             <BlogTable/>

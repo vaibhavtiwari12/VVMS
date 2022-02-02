@@ -50,10 +50,31 @@ KisanRouter.post("/editTransaction/:id", async (req, res) => {
   res.json(editedTransaction);
 });
 
-/*KisanRouter.get("/delete/:id",async (req,res) => {
-    console.log("Reaching Router");
-    const deletedPost = await controller('Delete', {id: req.params.id});
-    res.json(deletedPost);
+KisanRouter.get("/getTodaysTransaction/:dateToSearch", async (req, res) => {
+  const todaysTransaction = await controller("todaystransactions", {
+    dateToSearch: req.params.dateToSearch,
+  });
+  console.log("todaystransactions", todaysTransaction);
+  res.json(todaysTransaction);
 });
- */
+
+KisanRouter.get("/getTransactionByMonth/:monthToSearch", async (req, res) => {
+  const monthsTransaction = await controller("monthTransaction", {
+    monthToSearch: req.params.monthToSearch,
+  });
+  console.log("monthsTransaction", monthsTransaction);
+  res.json(monthsTransaction);
+});
+KisanRouter.get(
+  "/getTransactionsBetweenDates/:startDate/:endDate",
+  async (req, res) => {
+    const monthsTransaction = await controller("transactionBetweenDates", {
+      startDate: req.params.startDate,
+      endDate: req.params.endDate,
+    });
+    console.log("between Dates", monthsTransaction);
+    res.json(monthsTransaction);
+  }
+);
+
 module.exports = KisanRouter;

@@ -1,9 +1,6 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import "./App.css";
-import Blog from "./Components/Blog/Blog";
-import Header from "./Components/Header";
-import Home from "./Components/Home";
 import AddKisan from "./Components/Kisan/AddKisan/AddKisan";
 import CreditForm from "./Components/Kisan/KisanDetails/CreditForm";
 import Debitform from "./Components/Kisan/KisanDetails/DebitForm";
@@ -11,43 +8,111 @@ import Kisandetails from "./Components/Kisan/KisanDetails/KisanDetails";
 import KisanLanding from "./Components/Kisan/KisanLanding";
 import Landing from "./Components/Landing/Landing";
 import NavBar from "./Components/NavBar/NavBar";
+import Report from "./Components/Kisan/Report/Report";
+import Login from "./Components/Login/Login";
+import AuthenticatedRoute from "./Auth/AuthenticatedRoute";
+import UnAuthenticatedRoute from "./Auth/unAuthenticatedRoute";
+import axios from "axios";
 
 function App() {
+  const [isAuthenticated, userHasAuthenticated] = useState("INIT");
+  const history = useHistory();
+  useEffect(() => {
+    console.log("IS in the use Effect");
+    let doesHisotoryAlreadyLoaded = false;
+    history.listen(() => {
+      console.log("IS in the history to be changed");
+      onLoad();
+      doesHisotoryAlreadyLoaded = true;
+    });
+    if (!doesHisotoryAlreadyLoaded) {
+      onLoad();
+    }
+  }, []);
+
+  async function onLoad() {
+    console.log("in on load functions");
+    const userName = window.sessionStorage.getItem("userName");
+    if (userName && userName.length > 0) {
+      console.log("valid User In sesssion.", userName);
+      userHasAuthenticated("TRUE");
+    } else {
+      userHasAuthenticated("FALSE");
+    }
+  }
+
+  const logout = async () => {
+    window.sessionStorage.removeItem("userName");
+    await axios.get("/logout");
+    history.push("/Login");
+  };
+
   return (
     <React.Fragment>
-      <NavBar />
+      <NavBar isAuthenticated={isAuthenticated} logout={logout} />
       <div className="AppContent">
         <Switch>
-          <Route exact path="/" component={Landing}></Route>
-          <Route exact path="/addKisan" component={AddKisan}></Route>
-          <Route exact path="/kisan" component={KisanLanding}></Route>
-          <Route
+          <AuthenticatedRoute
+            exact
+            path="/"
+            component={Landing}
+            appProps={{ isAuthenticated }}
+          />
+          <UnAuthenticatedRoute
+            exact
+            path="/Login"
+            component={Login}
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
+            exact
+            path="/addKisan"
+            component={AddKisan}
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
+            exact
+            path="/kisan"
+            component={KisanLanding}
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
             exact
             path="/kisanDetails/:id"
             component={Kisandetails}
-          ></Route>
-          <Route
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
             exact
             path="/kisanDebitForm/:id/:type"
             component={Debitform}
-          ></Route>
-          <Route
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
             exact
             path="/kisanDebitForm/:id/:type/:transactionNumber"
             component={Debitform}
-          ></Route>
-          <Route
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
             exact
             path="/kisanCreditForm/:id/:type"
             component={CreditForm}
-          ></Route>
-          <Route
+            appProps={{ isAuthenticated }}
+          />
+          <AuthenticatedRoute
             exact
             path="/kisanCreditForm/:id/:type/:transactionNumber"
             component={CreditForm}
-          ></Route>
+            appProps={{ isAuthenticated }}
+          />
 
-          <Route exact path="/Blog" component={Blog}></Route>
+          <AuthenticatedRoute
+            exact
+            path="/Report"
+            component={Report}
+            appProps={{ isAuthenticated }}
+          />
         </Switch>
       </div>
     </React.Fragment>

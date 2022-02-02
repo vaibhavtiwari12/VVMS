@@ -16,6 +16,13 @@
   color: white;
 }
 
+.text-white {
+  color: white !important;
+}
+.text-white:hover {
+  color: gainsboro !important;
+}
+
 @media print {
   .no-print,
   .no-print * {
@@ -46,4 +53,17 @@
 }
 .no-border {
   border-style: hidden !important;
+}
+
+.logo {
+  height: 5vh;
+}
+.form-width {
+  width: 50%;
+}
+
+@media (max-width: 576px) {
+  .form-width {
+    width: 100%;
+  }
 }
