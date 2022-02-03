@@ -2,7 +2,7 @@ const { MongoClient } = require("mongodb");
 
 module.exports = {
   isAuthenticated: async (req, res, next) => {
-    console.log("Session", req.session.user);
+    console.log("Session", req.body, req.session.user);
     if (req && req.session && req.session.user && (await isValidSession(req))) {
       next();
     } else {

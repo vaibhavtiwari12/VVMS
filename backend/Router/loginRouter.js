@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const loginRouter = express.Router();
 
 loginRouter.post("/addUser", async (req, res) => {
+console.log("Request ", req.body)
   const logins = await controller("add", {
     userName: req.body.userName,
     password: req.body.password,

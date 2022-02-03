@@ -16,6 +16,7 @@ const controller = async (type, data) => {
     }
     case "add": {
       // Find Request
+      console.log("Data", data)
       const logn = new login({
         userName: data.userName.toLowerCase(),
         password: data.password,

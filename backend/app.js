@@ -80,6 +80,21 @@ app.get("/logout", sessionMW, (req, res) => {
   res.status(200).send({ message: "Logout SuccessFul" });
 });
 
+
+
+
+app.post("/addUser",sessionMW, async (req, res) => {
+console.log("Request ", req.body)
+  const logins = await controller("add", {
+    userName: req.body.userName,
+    password: req.body.password,
+  });
+  res.json(logins);
+});
+
+
+
+
 // ALL the API Calls Get Here
 app.get("/api/getName", (req, res) => {
   res.send({ message: "hello From API" });
