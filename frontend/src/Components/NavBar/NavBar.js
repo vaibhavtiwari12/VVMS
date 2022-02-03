@@ -17,7 +17,6 @@ import {
   NavLink,
 } from "reactstrap";
 import logo from "./no-bg.svg";
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
 const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
@@ -71,13 +70,19 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
             <div className="mt-1">
-              <BootstrapSwitchButton
-                checked={isLanguageEnglish}
-                onlabel="Eng"
-                offlabel="हिंदी"
-                offstyle="outline-light"
-                onChange={handleLanguageChange}
-              />
+              <label class="toggle-switch">
+                <input
+                  type="checkbox"
+                  name="toggleSwitch"
+                  class="toggle-switch__checkbox"
+                  id="myToggleSwitch"
+                  onChange={handleLanguageChange}
+                  checked={isLanguageEnglish}
+                />
+                <span class="toggle-switch__label">
+                  <span class="toggle-switch__inner"></span>
+                </span>
+              </label>
             </div>
 
             {isAuthenticated === "TRUE" ? (
