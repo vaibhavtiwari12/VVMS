@@ -69,7 +69,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
             </NavItem>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
-            <div className="mt-1">
+            <div className="switch-container">
               <label class="toggle-switch">
                 <input
                   type="checkbox"
