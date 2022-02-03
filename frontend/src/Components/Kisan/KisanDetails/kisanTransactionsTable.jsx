@@ -136,7 +136,7 @@ const Kisantransactionstable = ({ kisan }) => {
                                 className="link-no-decoration"
                                 to={`/kisanDebitForm/${kisan._id}/edit/${transaction._id}`}
                               >
-                                <FormattedMessage id="editButtonText"/>
+                               <FormattedMessage id="editButtonText"/>
                               </Link>
                             </Button>
                             <Button

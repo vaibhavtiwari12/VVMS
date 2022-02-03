@@ -6,6 +6,7 @@ const hi = {
     fatherName: "पिता का नाम",
     phone: "फ़ोन नंबर",
     address: "पता",
+    currency: "₹",
 
     /*login Page */
     login: "लॉगइन",
@@ -44,13 +45,13 @@ const hi = {
 
     /*Kisan Detail Page*/
     kisanDetailsTitle: "किसान का विवरण",
-    carryForwardAmount: "पिछले बिल तक का बक़ाया भुगतान",
+    carryForwardAmount: "पिछले बिल तक का बक़ाया भुगतान (₹)",
     debitEntryKisanButtonText: "एडवांस की एंट्री",
     creditEntryKisanButtonText: "बिल की एंट्री",
     transactionDetailsTitle: "लेन-देन का विवरण",
 
     /*Table columns Kisan Detail Page*/
-    balance: "कुल बक़ाया एडवांस(₹)",
+    balance: "कुल बक़ाया एडवांस (₹)",
     date: "दिनांक",
     comment: "एंट्री का विवरण",
     advanceDebited: "एडवांस लिया (₹)",
@@ -67,22 +68,39 @@ const hi = {
     advanceDetails: "एडवांस का विवरण",
     amount: "एडवांस की राशि",
     createCreditEntryButtonText: "एडवांस की एंट्री करें",
+    amountSBGTZ:"एडवांस की राशि 0 से अधिक होनी चाहिये। ",
 
     /*Credit Entry Form*/
     billDetails: "बिल का विवरण",
     purchaseSectionTitle: "खरीददारी का विवरण",
-    numberOfBags: "बोरों की संख्या :",
+    numberOfBags: "बोरों की संख्या (नग) :",
     totalWeight: "कुल वजन (कि.ग्रा.में) :",
     ratePerKg: "प्रति किलोग्राम भाव (₹) :",
-    grossTotal: "बिल की कुल राशि:",
+    grossTotal: "कुल खरीददारी : ₹ ",
     deductionsSectionTitle: "कटौती",
     commission: "कमीशन (% में) :",
-    totalCommission: "कुल कमीशन:",
+    totalCommission: "कुल कमीशन : ",
     hammali: "हम्माली (₹) :",
     bhada: "भाड़ा (₹) :",
-    netTotal: "कटौती के बाद बिल की कुल राशि :",
+    netTotal: "बिल टोटल (कटौती के बाद) : ₹ ",
+    amountToSettle: "समायोजित की जाने वाली राशि : ",
     settlementSectionTitle: "समायोजन",
+    balanceTextWithoutCurrency: "कुल बक़ाया एडवांस",
+    carryForwardAmountWithoutCurrency: "पिछले बिल तक का बक़ाया भुगतान",
 
+    /*Credit Entry Form Errors*/
+    numberOfBagsCNBLTZ: "बोरों की संख्या (नग) 0 से काम नहीं हो सकती है। ",
+    totalWeightCNBLTZ: "वजन 0 से काम नहीं हो सकता है। ",
+    ratePerKgCNBLTZ: "प्रति किलोग्राम भाव 0 से काम नहीं हो सकता है। ",
+    totalCommissionCNBLTZ: "कमीशन 0 से काम नहीं हो सकती है। ",
+    hammaliCNBLTZ: "हम्माली 0 से काम नहीं हो सकती है। ",
+    bhadaCNBLTZ: "भाड़ा 0 से काम नहीं हो सकता है। ",
+    balanceCNBLTZ: "एडवांस चुकाने की राशि  0 से काम नहीं हो सकती है।",
+    cashPaidCNBLTZ: "नगद भुगतान की राशि  0 से काम नहीं हो सकती है।",
+    balanceCBMTCB: "एडवांस चुकाने की राशि, \"समायोजित की जाने वाली राशि\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ",
+    balanceCBMTOA: "एडवांस चुकाने की राशि, \"कुल बक़ाया एडवांस\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹",
+    cashPaidCBMTCB: "नगद भुगतान की राशि \"समायोजित की जाने वाली राशि\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ",
+    commentIsRequired: "एंट्री का विवरण देना अनिवार्य है। ",
   },
 };
 export default hi;

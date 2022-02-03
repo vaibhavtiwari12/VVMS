@@ -430,7 +430,7 @@ const CreditForm = () => {
               value={numberofBags.toString()}
               onChange={(e) => numberofBagsChange(e)}
             />
-            <FormFeedback> Number of Bags cannot be less than 0 </FormFeedback>
+            <FormFeedback><FormattedMessage id="numberOfBagsCNBLTZ"/></FormFeedback>
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="totalweight"><FormattedMessage id="totalWeight"/></Label>{" "}
@@ -445,7 +445,7 @@ const CreditForm = () => {
               value={totalweight.toString()}
               onChange={(e) => totalWeightChange(e)}
             />
-            <FormFeedback> Weigth cannot be less than 0 </FormFeedback>{" "}
+            <FormFeedback><FormattedMessage id="totalWeightCNBLTZ"/></FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="rate"><FormattedMessage id="ratePerKg"/></Label>
@@ -458,7 +458,7 @@ const CreditForm = () => {
               onChange={(e) => rateChange(e)}
               onWheel={(e) => e.target.blur()}
             />
-            <FormFeedback>Rate cannot be less than 0.</FormFeedback>
+            <FormFeedback><FormattedMessage id="ratePerKgCNBLTZ"/></FormFeedback>
             <div className="text-end mt-3">
               <h5><FormattedMessage id="grossTotal"/> {grossTotal}</h5>
             </div>
@@ -469,8 +469,8 @@ const CreditForm = () => {
           <FormGroup className="mt-2">
             <Label for="commission">
               {" "}
-              <FormattedMessage id="commission"/> - <b><FormattedMessage id="totalCommission"/> {" "}
-              <span className="text-primary">{grossTotal * (commission / 100)}</span></b>
+              <FormattedMessage id="commission"/> -  <b><FormattedMessage id="totalCommission"/> {" "}
+              <span className="text-primary"><FormattedMessage id="currency"/> {grossTotal * (commission / 100)}</span></b>
             </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
@@ -483,7 +483,7 @@ const CreditForm = () => {
               value={commission.toString()}
               onChange={(e) => commisionChange(e)}
             />
-            <FormFeedback> Commission cannot be 0 or less. </FormFeedback>{" "}
+            <FormFeedback> <FormattedMessage id="totalCommissionCNBLTZ"/> </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="hammali"> <FormattedMessage id="hammali"/></Label>{" "}
@@ -496,39 +496,45 @@ const CreditForm = () => {
               value={hammali.toString()}
               onChange={(e) => hammaliChange(e)}
             />
-            <FormFeedback> Hammali cannot be less than 0.</FormFeedback>{" "}
+            <FormFeedback> <FormattedMessage id="hammaliCNBLTZ"/></FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="bhada"><FormattedMessage id="bhada"/></Label>
             <Input
               disabled={type === "edit" ? true : false}
-              invalid={bhada && bhada <= 0 && isBhadaValid === ""}
+              invalid={bhada && bhada < 0 && isBhadaValid === ""}
               name="bhada"
               type="number"
               onWheel={(e) => e.target.blur()}
               value={bhada.toString()}
               onChange={(e) => bhadaChange(e)}
             />
-            <FormFeedback>Bhada cannot be less than 0. </FormFeedback>
+            <FormFeedback><FormattedMessage id="bhadaCNBLTZ"/></FormFeedback>
             <div className="text-end mt-3">
               <h5><FormattedMessage id="netTotal"/>  {netTotal}</h5>
+            </div>
+            <div className="text-end mt-3">
+            <span>
+                 <FormattedMessage id="netTotal"/>
+                  <b>{netTotal}</b>
+                   {" "} + {" "}
+                 <FormattedMessage id="carryForwardAmountWithoutCurrency"/> : <FormattedMessage id="currency"/>{" "}
+                 <b>{previousBillSettlementAmount}</b> = {" "}
+                 <b><span className="text-primary"> <FormattedMessage id="currency"/> {netTotal + previousBillSettlementAmount}</span></b>
+            </span>
             </div>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">
           <div>
             <h4 className="text-secondary"><FormattedMessage id="settlementSectionTitle"/></h4>
-            <h6>
-              <FormattedMessage id="netTotal"/> ({netTotal}) + <FormattedMessage id="carryForwardAmount"/> (
-              {previousBillSettlementAmount}) = {" "}
-              <b><span className="text-primary">{netTotal + previousBillSettlementAmount}</span></b>
-            </h6>
+            <h5><FormattedMessage id="amountToSettle"/><span className="text-primary"><FormattedMessage id="currency"/> {netTotal + previousBillSettlementAmount}</span></h5>
           </div>
           <FormGroup className="mt-2">
             <Label for="advanceSettlement">
               {" "}
-              <FormattedMessage id="advanceCredited"/> - <b><FormattedMessage id="balance"/> :{" "}
-              <span className="text-primary">{kisan.balance}</span></b>
+              <FormattedMessage id="advanceCredited"/> - <b><FormattedMessage id="balanceTextWithoutCurrency"/> : {" "}
+              <span className="text-primary"><FormattedMessage id="currency"/> {kisan.balance}</span></b>
             </Label>{" "}
             <Input
               disabled={type === "edit" || kisan.balance === 0 ? true : false}
@@ -545,15 +551,15 @@ const CreditForm = () => {
             />
             <FormFeedback>
               {isAdvanceSettlementValid === "" ? (
-                <span>Advance Settlement Cannot be less than 0.</span>
+                <span><FormattedMessage id="balanceCNBLTZ"/></span>
               ) : isAdvanceSettlementValid === "OUTSTANDINGEXCEEDED" ? (
                 <span>
-                  Advance cannot be more than {Math.abs(kisan.balance)}
+                  <FormattedMessage id="balanceCBMTOA"/> {Math.abs(kisan.balance)}
                 </span>
               ) : (
                 <span>
-                  Advance cannot be more than the Current Bill Amount :{" "}
-                  {netTotal + previousBillSettlementAmount}.
+                  <FormattedMessage id="balanceCBMTCB"/> {" "}
+                  {netTotal + previousBillSettlementAmount}
                 </span>
               )}{" "}
             </FormFeedback>{" "}
@@ -574,9 +580,10 @@ const CreditForm = () => {
             />
             <FormFeedback>
               {isPaidToKisanValid === "TOTALEXCEEDED" ? (
-                <span>Cash paid cannot be greater than Bill Amount</span>
+                <span><FormattedMessage id="cashPaidCBMTCB"/> {" "}
+                {netTotal + previousBillSettlementAmount}</span>
               ) : (
-                <span>Cash paid cannot be less than 0.</span>
+                <span><FormattedMessage id="cashPaidCNBLTZ"/></span>
               )}
             </FormFeedback>{" "}
           </FormGroup>
@@ -604,7 +611,7 @@ const CreditForm = () => {
             value={comment}
             onChange={(e) => commentChange(e)}
           />{" "}
-          <FormFeedback> Comment is required</FormFeedback>{" "}
+          <FormFeedback> <FormattedMessage id="commentIsRequired"/></FormFeedback>{" "}
         </FormGroup>{" "}
         {type === "add" ? (
           <React.Fragment>

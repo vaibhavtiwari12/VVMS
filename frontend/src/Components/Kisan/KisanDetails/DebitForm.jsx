@@ -176,7 +176,7 @@ const Debitform = () => {
             onWheel={(e) => e.target.blur()}
             onChange={(e) => amountChange(e)}
           />
-          <FormFeedback> Amount should be greater than 0</FormFeedback>
+          <FormFeedback> <FormattedMessage id="amountSBGTZ"/></FormFeedback>
         </FormGroup>
         <FormGroup className="mt-2">
           <Label for="comment"> <FormattedMessage id="comment"/></Label>
@@ -188,7 +188,7 @@ const Debitform = () => {
             onWheel={(e) => e.target.blur()}
             onChange={(e) => commentChange(e)}
           />
-          <FormFeedback> Comment is required</FormFeedback>
+          <FormFeedback> <FormattedMessage id="commentIsRequired"/></FormFeedback>
         </FormGroup>
         {type === "add" ? (
           <React.Fragment>
