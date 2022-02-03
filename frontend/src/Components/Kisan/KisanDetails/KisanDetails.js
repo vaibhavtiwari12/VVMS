@@ -38,10 +38,10 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-          <Button color="primary"><Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}>Debit Entry</Link></Button>
-          <Button color="primary" className="ms-3"><Link className="link-no-decoration" to={`/kisanCreditForm/${id}/add`}>Credit Entry</Link></Button>
+          <Button color="primary"><Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}><FormattedMessage id="debitEntryKisanButtonText"/></Link></Button>
+          <Button color="primary" className="ms-3"><Link className="link-no-decoration" to={`/kisanCreditForm/${id}/add`}><FormattedMessage id="creditEntryKisanButtonText"/></Link></Button>
       </div>
-      <h3 className="text-center mt-4">Transaction Record</h3>
+      <h3 className="text-center mt-4"><FormattedMessage id="transactionDetailsTitle"/></h3>
       <div className="p-3">
       <Kisantransactionstable kisan={kisan}/>
       </div>

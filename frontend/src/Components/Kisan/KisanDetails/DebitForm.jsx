@@ -13,6 +13,9 @@ import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
+import { FormattedMessage } from "react-intl";
+
+
 
 const Debitform = () => {
   const { id, type, transactionNumber } = useParams();
@@ -148,9 +151,11 @@ const Debitform = () => {
       setHasError(true);
     }
   };
+
+
   return (
     <div>
-      <h2 className="text-center text-secondary mt-3">Debit Entry</h2>
+      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="debitEntryKisanButtonText"/></h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan} />
@@ -159,8 +164,9 @@ const Debitform = () => {
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
+        <h2 className="text-center text-secondary mt-3"><FormattedMessage id="advanceDetails"/></h2>
         <FormGroup className="mt-2">
-          <Label for="amount"> Amount </Label>
+          <Label for="amount"> <FormattedMessage id="amount"/> </Label>
           <Input
             disabled={type === "edit" ? true : false}
             invalid={amount <= 0 && isAmountValid === ""}
@@ -173,7 +179,7 @@ const Debitform = () => {
           <FormFeedback> Amount should be greater than 0</FormFeedback>
         </FormGroup>
         <FormGroup className="mt-2">
-          <Label for="comment"> Comment</Label>
+          <Label for="comment"> <FormattedMessage id="comment"/></Label>
           <Input
             invalid={comment.length <= 0 && isCommentValid === ""}
             name="comment"
@@ -187,7 +193,7 @@ const Debitform = () => {
         {type === "add" ? (
           <React.Fragment>
             <Button type="submit" color="primary" className="mt-3">
-              Create a Debit Entry
+              <FormattedMessage id="createCreditEntryButtonText" />
             </Button>
             <Button
               type="reset"
@@ -195,7 +201,7 @@ const Debitform = () => {
               className="ms-1 mt-3"
               onClick={clear}
             >
-              Reset
+              <FormattedMessage id="resetButtonText"/>
             </Button>
           </React.Fragment>
         ) : (
@@ -205,7 +211,7 @@ const Debitform = () => {
             className="mt-3"
             onClick={handleEdit}
           >
-            Edit a Debit Entry
+            <FormattedMessage id="editButtonText"/>
           </Button>
         )}
         {showAlert ? (

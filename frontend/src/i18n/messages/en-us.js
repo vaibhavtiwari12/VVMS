@@ -6,7 +6,6 @@ const en = {
     fatherName: "Father Name",
     phone: "Phone Number",
     address: "Address",
-    balance: "Balance",
 
     /*login Page */
     login: "LOGIN",
@@ -45,7 +44,45 @@ const en = {
 
     /*Kisan Detail Page*/
     kisanDetailsTitle: "Kisan Details",
-    carryForwardAmount: "Carry Forward Amount up to Last Bill",
+    carryForwardAmount: "Carry forward payments up to last Bill",
+    debitEntryKisanButtonText: "Debit/Advance Entry",
+    creditEntryKisanButtonText: "Credit/Bill Entry",
+    transactionDetailsTitle: "Transaction Details",
+
+    /*Table columns Kisan Detail Page*/
+    balance: "Outstanding Advance  (₹)",
+    date: "Date",
+    comment: "Comment",
+    advanceDebited: "Advance Taken (₹)",
+    billTotal: "Bill Total (₹)",
+    advanceCredited: "Advance Settled (₹)",
+    cashPaid: "Cash Paid (₹)",
+    carryForward: "Carry Forward From Bill (₹)",
+    actions: "Actions",
+    editButtonText: "Edit",
+    printButtonText: "Print",
+    viewButtonText: "View",
+
+    /*Debit Entry Form*/
+    advanceDetails: "Debit/Advance Details",
+    amount: "Advance Amount",
+    createCreditEntryButtonText: "Create Advance Entry",
+
+    /*Credit Entry Form*/
+    billDetails: "Credit/Bill Details",
+    purchaseSectionTitle: "Purchase",
+    numberOfBags: "Number Of Bags :",
+    totalWeight: "Total Weight (In KGs) :",
+    ratePerKg: "Rate per KG (₹) :",
+    grossTotal: "Gross Total:",
+    deductionsSectionTitle: "Deductions",
+    commission: "Commission (In%) :",
+    totalCommission: "Total Commission:",
+    hammali: "Hammali (₹) :",
+    bhada: "Bhada (₹):",
+    netTotal: "Total After Deductions:",
+    settlementSectionTitle: "Settlement",
+
   },
 };
 export default en;

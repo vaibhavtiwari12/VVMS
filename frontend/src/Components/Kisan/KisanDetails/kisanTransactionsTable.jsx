@@ -8,6 +8,9 @@ import Kisanreceipt from "./KisanReceipt";
 import { useRef } from "react";
 import { dateConverter } from "../../../Utility/utility";
 import Kisancreditreceipt from "./KisanCreditReceipt";
+import { FormattedMessage } from "react-intl";
+
+
 
 const Kisantransactionstable = ({ kisan }) => {
   const [balances, setBalances] = useState([]);
@@ -90,15 +93,15 @@ const Kisantransactionstable = ({ kisan }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Date</th>
-            <th>Comment</th>
-            <th>Advance Debit</th>
-            <th>Bill Total</th>
-            <th>Advance Credit</th>
-            <th>Cash Paid</th>
-            <th>Carry Forward</th>
-            <th>Advance Balance</th>
-            <th>Actions</th>
+            <th><FormattedMessage id="date"/></th>
+            <th><FormattedMessage id="comment"/></th>
+            <th><FormattedMessage id="advanceDebited"/></th>
+            <th><FormattedMessage id="billTotal"/></th>
+            <th><FormattedMessage id="advanceCredited"/></th>
+            <th><FormattedMessage id="cashPaid"/></th>
+            <th><FormattedMessage id="carryForward"/></th>
+            <th><FormattedMessage id="balance"/></th>
+            <th><FormattedMessage id="actions"/></th>
           </tr>
         </thead>
         <tbody>
@@ -128,12 +131,12 @@ const Kisantransactionstable = ({ kisan }) => {
                       <td>
                         {transaction.type === "DEBIT" ? (
                           <div>
-                            <Button color="secondary">
+                            <Button color="success">
                               <Link
                                 className="link-no-decoration"
                                 to={`/kisanDebitForm/${kisan._id}/edit/${transaction._id}`}
                               >
-                                Edit
+                                <FormattedMessage id="editButtonText"/>
                               </Link>
                             </Button>
                             <Button
@@ -141,17 +144,17 @@ const Kisantransactionstable = ({ kisan }) => {
                               color="primary"
                               onClick={(e) => print(transaction)}
                             >
-                              Print
+                              <FormattedMessage id="printButtonText"/>
                             </Button>
                           </div>
                         ) : (
                           <div>
-                            <Button color="secondary">
+                            <Button color="danger">
                               <Link
                                 className="link-no-decoration"
                                 to={`/kisanCreditForm/${kisan._id}/edit/${transaction._id}`}
                               >
-                                View
+                                <FormattedMessage id="viewButtonText"/>
                               </Link>
                             </Button>
                             <Button
@@ -159,7 +162,7 @@ const Kisantransactionstable = ({ kisan }) => {
                               color="primary"
                               onClick={(e) => printCreditEntry(transaction)}
                             >
-                              Print
+                              <FormattedMessage id="printButtonText"/>
                             </Button>
                           </div>
                         )}

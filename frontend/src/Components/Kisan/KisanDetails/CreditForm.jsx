@@ -13,6 +13,9 @@ import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
+import { FormattedMessage } from "react-intl";
+
+
 
 const CreditForm = () => {
   const { id, type, transactionNumber } = useParams();
@@ -380,9 +383,13 @@ const CreditForm = () => {
       setHasError(true);
     }
   };
+
+
+  /*------------------------------------------HTML-------------------------------------*/
+
   return (
     <div>
-      <h2 className="text-center text-secondary mt-3">Credit Entry</h2>
+      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="creditEntryKisanButtonText"/></h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan} />
@@ -390,10 +397,10 @@ const CreditForm = () => {
         <div></div>
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
+      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="billDetails"/></h2>
         <FormGroup className="mt-2">
           <Label for="previousBillSettlementAmount">
-            {" "}
-            Previous Bill Settlement Amount{" "}
+            <FormattedMessage id="carryForwardAmount"/>
           </Label>{" "}
           <Input
             disabled
@@ -402,16 +409,16 @@ const CreditForm = () => {
             value={previousBillSettlementAmount}
             onWheel={(e) => e.target.blur()}
             onChange={(e) => previousBillSettlementAmountChange(e)}
-          />{" "}
+          />
           <FormFeedback>
             {" "}
             Previous Bill Settlement Amount is required.{" "}
           </FormFeedback>{" "}
         </FormGroup>{" "}
         <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary">Purchase</h4>
+          <h4 className="text-secondary"><FormattedMessage id="purchaseSectionTitle"/></h4>
           <FormGroup className="mt-2">
-            <Label for="numberofBags"> Bags</Label>{" "}
+            <Label for="numberofBags"><FormattedMessage id="numberOfBags"/></Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -426,7 +433,7 @@ const CreditForm = () => {
             <FormFeedback> Number of Bags cannot be less than 0 </FormFeedback>
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="totalweight"> Total Weight</Label>{" "}
+            <Label for="totalweight"><FormattedMessage id="totalWeight"/></Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -441,7 +448,7 @@ const CreditForm = () => {
             <FormFeedback> Weigth cannot be less than 0 </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="rate">Rate per Kilogram</Label>
+            <Label for="rate"><FormattedMessage id="ratePerKg"/></Label>
             <Input
               disabled={type === "edit" ? true : false}
               invalid={rate && rate < 0 && isRateValid === ""}
@@ -453,16 +460,16 @@ const CreditForm = () => {
             />
             <FormFeedback>Rate cannot be less than 0.</FormFeedback>
             <div className="text-end mt-3">
-              <h5>Gross Total : {grossTotal}</h5>
+              <h5><FormattedMessage id="grossTotal"/> {grossTotal}</h5>
             </div>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary">Deductions</h4>
+          <h4 className="text-secondary"><FormattedMessage id="deductionsSectionTitle"/></h4>
           <FormGroup className="mt-2">
             <Label for="commission">
               {" "}
-              Commission (In %) - <b>Total Commission :{" "}
+              <FormattedMessage id="commission"/> - <b><FormattedMessage id="totalCommission"/> {" "}
               <span className="text-primary">{grossTotal * (commission / 100)}</span></b>
             </Label>{" "}
             <Input
@@ -479,7 +486,7 @@ const CreditForm = () => {
             <FormFeedback> Commission cannot be 0 or less. </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="hammali"> Hammali</Label>{" "}
+            <Label for="hammali"> <FormattedMessage id="hammali"/></Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={hammali && hammali <= 0 && isHammalivalid === ""}
@@ -492,7 +499,7 @@ const CreditForm = () => {
             <FormFeedback> Hammali cannot be less than 0.</FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="bhada">Bhada</Label>
+            <Label for="bhada"><FormattedMessage id="bhada"/></Label>
             <Input
               disabled={type === "edit" ? true : false}
               invalid={bhada && bhada <= 0 && isBhadaValid === ""}
@@ -504,23 +511,23 @@ const CreditForm = () => {
             />
             <FormFeedback>Bhada cannot be less than 0. </FormFeedback>
             <div className="text-end mt-3">
-              <h5>Total After Deductions : {netTotal}</h5>
+              <h5><FormattedMessage id="netTotal"/>  {netTotal}</h5>
             </div>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">
           <div>
-            <h4 className="text-secondary">Settlement</h4>
+            <h4 className="text-secondary"><FormattedMessage id="settlementSectionTitle"/></h4>
             <h6>
-              Bill Amount ({netTotal}) + Previous Bill Amount to Settle (
-              {previousBillSettlementAmount}) :{" "}
+              <FormattedMessage id="netTotal"/> ({netTotal}) + <FormattedMessage id="carryForwardAmount"/> (
+              {previousBillSettlementAmount}) = {" "}
               <b><span className="text-primary">{netTotal + previousBillSettlementAmount}</span></b>
             </h6>
           </div>
           <FormGroup className="mt-2">
             <Label for="advanceSettlement">
               {" "}
-              Advance Settlement / Adding To Balance - <b>Remaining Advance :{" "}
+              <FormattedMessage id="advanceCredited"/> - <b><FormattedMessage id="balance"/> :{" "}
               <span className="text-primary">{kisan.balance}</span></b>
             </Label>{" "}
             <Input
@@ -552,7 +559,7 @@ const CreditForm = () => {
             </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="paidToKisan"> Cash Paid To Kisan</Label>{" "}
+            <Label for="paidToKisan"> <FormattedMessage id="cashPaid"/></Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -575,7 +582,7 @@ const CreditForm = () => {
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="carryForwardFromThisEntry">
-              Carry Forward From this Entry
+              <FormattedMessage id="carryForward"/>
             </Label>{" "}
             <Input
               disabled
@@ -589,7 +596,7 @@ const CreditForm = () => {
           </FormGroup>
         </div>
         <FormGroup className="mt-2">
-          <Label for="comment"> Comment</Label>{" "}
+          <Label for="comment"> <FormattedMessage id="comment"/></Label>{" "}
           <Input
             invalid={comment.length <= 0 && isCommentValid === ""}
             name="comment"

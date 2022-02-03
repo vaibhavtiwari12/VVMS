@@ -6,7 +6,6 @@ const hi = {
     fatherName: "पिता का नाम",
     phone: "फ़ोन नंबर",
     address: "पता",
-    balance: "बक़ाया",
 
     /*login Page */
     login: "लॉगइन",
@@ -45,7 +44,44 @@ const hi = {
 
     /*Kisan Detail Page*/
     kisanDetailsTitle: "किसान का विवरण",
-    carryForwardAmount: "पिछले बिलों का कुल बक़ाया",
+    carryForwardAmount: "पिछले बिल तक का बक़ाया भुगतान",
+    debitEntryKisanButtonText: "एडवांस की एंट्री",
+    creditEntryKisanButtonText: "बिल की एंट्री",
+    transactionDetailsTitle: "लेन-देन का विवरण",
+
+    /*Table columns Kisan Detail Page*/
+    balance: "कुल बक़ाया एडवांस(₹)",
+    date: "दिनांक",
+    comment: "एंट्री का विवरण",
+    advanceDebited: "एडवांस लिया (₹)",
+    billTotal: "बिल टोटल (₹)",
+    advanceCredited: "एडवांस चुकाया (₹)",
+    cashPaid: "नगद भुगतान किया (₹)",
+    carryForward: "बिल का बक़ाया भुगतान (₹)",
+    actions: "कार्यवाही",
+    editButtonText: "सुधारें",
+    printButtonText: "प्रिंट",
+    viewButtonText: "देखें",
+
+    /*Debit Entry Form*/
+    advanceDetails: "एडवांस का विवरण",
+    amount: "एडवांस की राशि",
+    createCreditEntryButtonText: "एडवांस की एंट्री करें",
+
+    /*Credit Entry Form*/
+    billDetails: "बिल का विवरण",
+    purchaseSectionTitle: "खरीददारी का विवरण",
+    numberOfBags: "बोरों की संख्या :",
+    totalWeight: "कुल वजन (कि.ग्रा.में) :",
+    ratePerKg: "प्रति किलोग्राम भाव (₹) :",
+    grossTotal: "बिल की कुल राशि:",
+    deductionsSectionTitle: "कटौती",
+    commission: "कमीशन (% में) :",
+    totalCommission: "कुल कमीशन:",
+    hammali: "हम्माली (₹) :",
+    bhada: "भाड़ा (₹) :",
+    netTotal: "कटौती के बाद बिल की कुल राशि :",
+    settlementSectionTitle: "समायोजन",
 
   },
 };
