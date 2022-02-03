@@ -53,30 +53,33 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="" navbar>
-            <NavItem className="ps-2">
+            <NavItem className="ps-3">
               <Link className="link-no-decoration text-white" to="/">
-                <FormattedMessage id="purchaser"/>
+                <FormattedMessage id="purchaser" />
               </Link>
             </NavItem>
-            <NavItem className="ps-2">
+            <NavItem className="ps-3">
               <Link className="link-no-decoration text-white" to="/kisan">
-                <FormattedMessage id="kisan"/>
+                <FormattedMessage id="kisan" />
               </Link>
             </NavItem>
-            <NavItem className="ps-2">
+            <NavItem className="ps-3">
               <Link className="link-no-decoration text-white" to="/Report">
-                <FormattedMessage id="report"/>
+                <FormattedMessage id="report" />
               </Link>
             </NavItem>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
-            <BootstrapSwitchButton
-              checked={isLanguageEnglish}
-              onlabel="Eng"
-              offlabel="हिंदी"
-              offstyle="outline-light"
-              onChange={handleLanguageChange}
-            />
+            <div className="mt-1">
+              <BootstrapSwitchButton
+                checked={isLanguageEnglish}
+                onlabel="Eng"
+                offlabel="हिंदी"
+                offstyle="outline-light"
+                onChange={handleLanguageChange}
+              />
+            </div>
+
             {isAuthenticated === "TRUE" ? (
               <div className="text-white">
                 <ButtonDropdown
@@ -86,16 +89,19 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
                 >
                   <DropdownToggle color="primary" caret>
                     <span className="capitalize">
-                      <FormattedMessage id="hello"/> {window.sessionStorage.getItem("userName")}
+                      <FormattedMessage id="hello" />{" "}
+                      {window.sessionStorage.getItem("userName")}
                     </span>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={handleLogOut}><FormattedMessage id="logout"/></DropdownItem>
+                    <DropdownItem onClick={handleLogOut}>
+                      <FormattedMessage id="logout" />
+                    </DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </div>
             ) : (
-              <NavItem className="ps-2">
+              <NavItem className="ps-3">
                 <NavLink>
                   <Link className="link-no-decoration text-white" to="/Login">
                     Sign In

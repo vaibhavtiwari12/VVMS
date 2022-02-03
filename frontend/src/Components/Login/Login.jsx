@@ -43,7 +43,7 @@ const Login = () => {
         })
         setHasError("");
         window.sessionStorage.setItem("userName", username);
-        history.push('/kisan')
+        history.push(history.location.search.split("=")[1])
       }catch (error) {
         setHasError(error.response.data.message)
       }
@@ -93,7 +93,7 @@ const Login = () => {
             <FormFeedback><FormattedMessage id="passwordError" /></FormFeedback>
           </FormGroup>
           <React.Fragment>
-            <Button type="submit" color="primary" className="mt-3" size="lg">
+            <Button type="submit" color="primary" className="mt-3" size="md">
             <FormattedMessage id="signin" />
             </Button>
             {/* <Button

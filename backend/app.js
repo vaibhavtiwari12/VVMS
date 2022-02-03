@@ -80,20 +80,23 @@ app.get("/logout", sessionMW, (req, res) => {
   res.status(200).send({ message: "Logout SuccessFul" });
 });
 
-
-
-
-app.post("/addUser",sessionMW, async (req, res) => {
-console.log("Request ", req.body)
+app.post("/addUser", sessionMW, async (req, res) => {
+  console.log("Request ", req.body);
   const logins = await controller("add", {
     userName: req.body.userName,
     password: req.body.password,
   });
   res.json(logins);
 });
-
-
-
+app.get(
+  "/hasValidSession",
+  sessionMW,
+  middlewares.isAuthenticated,
+  (req, res) => {
+    console.log("Has valid Session", req.session);
+    res.json({ validSession: true, User: req.session.user });
+  }
+);
 
 // ALL the API Calls Get Here
 app.get("/api/getName", (req, res) => {

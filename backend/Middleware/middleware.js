@@ -2,14 +2,15 @@ const { MongoClient } = require("mongodb");
 
 module.exports = {
   isAuthenticated: async (req, res, next) => {
-    console.log("Session", req.body, req.session.user);
     if (req && req.session && req.session.user && (await isValidSession(req))) {
       next();
     } else {
       res.status(401).send({ success: false, error: "user is unauthorized" });
     }
   },
-  login: {},
+  login: async (req, res, next) => {
+    next();
+  },
 };
 
 const isValidSession = async (req) => {

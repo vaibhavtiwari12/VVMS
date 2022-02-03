@@ -14,16 +14,15 @@ import AuthenticatedRoute from "./Auth/AuthenticatedRoute";
 import UnAuthenticatedRoute from "./Auth/unAuthenticatedRoute";
 import axios from "axios";
 import { I18nProvider, LOCALES } from "./i18n";
+import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
   const [locale, setLocale] = useState(LOCALES.ENGLISH);
   const history = useHistory();
   useEffect(() => {
-    console.log("IS in the use Effect");
     let doesHisotoryAlreadyLoaded = false;
     history.listen(() => {
-      console.log("IS in the history to be changed");
       onLoad();
       doesHisotoryAlreadyLoaded = true;
     });
@@ -33,12 +32,12 @@ function App() {
   }, []);
 
   async function onLoad() {
-    console.log("in on load functions");
-    const userName = window.sessionStorage.getItem("userName");
-    if (userName && userName.length > 0) {
-      console.log("valid User In sesssion.", userName);
+    try {
+      const sessionDetails = await axios.get("/hasValidSession");
+      window.sessionStorage.setItem("userName", sessionDetails.data.User);
       userHasAuthenticated("TRUE");
-    } else {
+    } catch (error) {
+      window.sessionStorage.removeItem("userName");
       userHasAuthenticated("FALSE");
     }
   }
@@ -59,78 +58,81 @@ function App() {
 
   return (
     <React.Fragment>
-      <I18nProvider locale={locale}>
-        <NavBar
-          isAuthenticated={isAuthenticated}
-          logout={logout}
-          changelanguage={changelanguage}
-        />
-        <div className="AppContent">
-          <Switch>
-            <AuthenticatedRoute
-              exact
-              path="/"
-              component={Landing}
-              appProps={{ isAuthenticated }}
-            />
-            <UnAuthenticatedRoute
-              exact
-              path="/Login"
-              component={Login}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/addKisan"
-              component={AddKisan}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisan"
-              component={KisanLanding}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisanDetails/:id"
-              component={Kisandetails}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisanDebitForm/:id/:type"
-              component={Debitform}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisanDebitForm/:id/:type/:transactionNumber"
-              component={Debitform}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisanCreditForm/:id/:type"
-              component={CreditForm}
-              appProps={{ isAuthenticated }}
-            />
-            <AuthenticatedRoute
-              exact
-              path="/kisanCreditForm/:id/:type/:transactionNumber"
-              component={CreditForm}
-              appProps={{ isAuthenticated }}
-            />
+      <ErrorBoundary>
+        <I18nProvider locale={locale}>
+          <NavBar
+            isAuthenticated={isAuthenticated}
+            logout={logout}
+            changelanguage={changelanguage}
+          />
+          <div className="AppContent">
+            <Switch>
+              <AuthenticatedRoute
+                exact
+                path="/"
+                component={Landing}
+                appProps={{ isAuthenticated }}
+              />
+              <UnAuthenticatedRoute
+                exact
+                path="/Login"
+                component={Login}
+                history={history}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/addKisan"
+                component={AddKisan}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisan"
+                component={KisanLanding}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanDetails/:id"
+                component={Kisandetails}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanDebitForm/:id/:type"
+                component={Debitform}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanDebitForm/:id/:type/:transactionNumber"
+                component={Debitform}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanCreditForm/:id/:type"
+                component={CreditForm}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanCreditForm/:id/:type/:transactionNumber"
+                component={CreditForm}
+                appProps={{ isAuthenticated }}
+              />
 
-            <AuthenticatedRoute
-              exact
-              path="/Report"
-              component={Report}
-              appProps={{ isAuthenticated }}
-            />
-          </Switch>
-        </div>
-      </I18nProvider>
+              <AuthenticatedRoute
+                exact
+                path="/Report"
+                component={Report}
+                appProps={{ isAuthenticated }}
+              />
+            </Switch>
+          </div>
+        </I18nProvider>
+      </ErrorBoundary>
     </React.Fragment>
   );
 }
