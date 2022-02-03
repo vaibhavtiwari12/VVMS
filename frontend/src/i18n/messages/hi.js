@@ -5,7 +5,7 @@ const hi = {
     login: "लॉग इन ",
     username: "यूज़र का नाम",
     password: "पासवर्ड",
-    signin: "साइन इन ",
+    signin: "साइन इन",
   },
 };
 export default hi;
