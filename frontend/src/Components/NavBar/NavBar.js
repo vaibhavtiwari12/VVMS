@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -54,25 +55,25 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
           <Nav className="" navbar>
             <NavItem className="ps-2">
               <Link className="link-no-decoration text-white" to="/">
-                Purchaser
+                <FormattedMessage id="purchaser"/>
               </Link>
             </NavItem>
             <NavItem className="ps-2">
               <Link className="link-no-decoration text-white" to="/kisan">
-                Kisan
+                <FormattedMessage id="kisan"/>
               </Link>
             </NavItem>
             <NavItem className="ps-2">
               <Link className="link-no-decoration text-white" to="/Report">
-                Report
+                <FormattedMessage id="report"/>
               </Link>
             </NavItem>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
             <BootstrapSwitchButton
               checked={isLanguageEnglish}
-              onlabel="En"
-              offlabel="Hi"
+              onlabel="Eng"
+              offlabel="हिंदी"
               offstyle="outline-light"
               onChange={handleLanguageChange}
             />
@@ -85,11 +86,11 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
                 >
                   <DropdownToggle color="primary" caret>
                     <span className="capitalize">
-                      Hello {window.sessionStorage.getItem("userName")}
+                      <FormattedMessage id="hello"/> {window.sessionStorage.getItem("userName")}
                     </span>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem onClick={handleLogOut}>Logout</DropdownItem>
+                    <DropdownItem onClick={handleLogOut}><FormattedMessage id="logout"/></DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </div>

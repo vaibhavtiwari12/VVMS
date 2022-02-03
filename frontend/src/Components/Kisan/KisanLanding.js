@@ -4,6 +4,9 @@ import { Button } from "reactstrap";
 import KisanSearch from "./KisanSearch/KisanSearch";
 import KisanTable from "./KisanSearch/KisanTable";
 import { getAllKisan } from "../../Utility/utility";
+import { FormattedMessage } from "react-intl";
+
+
 const KisanLanding = () => {
   const history = useHistory();
   const handleAddKisanClick = () => {
@@ -37,14 +40,14 @@ const KisanLanding = () => {
     <div className="mt-3">
       <div className="d-flex">
         <h3 className="flex-fill d-flex justify-content-center">
-          Kisan Landing
+          <FormattedMessage id="kisanLandingTitle"/>
         </h3>
         <Button
           className="justify-content-end me-3"
           color="primary"
           onClick={handleAddKisanClick}
         >
-          + Add Kisan
+          + <FormattedMessage id="addKisanButtonText"/>
         </Button>
       </div>
       {/* <AddKisan></AddKisan> */}

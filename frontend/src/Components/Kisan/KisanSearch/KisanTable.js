@@ -1,5 +1,9 @@
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+
+
 const KisanTable = ({ kisans, term, type }) => {
   return (
     <div>
@@ -7,11 +11,11 @@ const KisanTable = ({ kisans, term, type }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Father's Name</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            <th>Balance</th>
+            <th><FormattedMessage id="name"/></th>
+            <th><FormattedMessage id="fatherName"/></th>
+            <th><FormattedMessage id="phone"/></th>
+            <th><FormattedMessage id="address"/></th>
+            <th><FormattedMessage id="balance"/></th>
           </tr>
         </thead>
         <tbody>

@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 const AddKisan = () => {
   const [name, setName] = useState("");
@@ -113,8 +114,11 @@ const AddKisan = () => {
   return (
     <Form onSubmit={(e) => submit(e)} className="p-3">
       {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>}{" "} */}
+      <h3 className="flex-fill d-flex justify-content-center">
+        <FormattedMessage id="newKisanDeatils"/>
+      </h3>
       <FormGroup className="mt-2">
-        <Label for="name"> Name </Label>{" "}
+        <Label for="name"><FormattedMessage id="name"/>:</Label>{" "}
         <Input
           invalid={name.length <= 0 && isnameValid === ""}
           name="name"
@@ -122,10 +126,10 @@ const AddKisan = () => {
           value={name}
           onChange={(e) => nameChange(e)}
         />{" "}
-        <FormFeedback> name is required. </FormFeedback>{" "}
+        <FormFeedback><FormattedMessage id="nameIsRequired"/></FormFeedback>{" "}
       </FormGroup>{" "}
       <FormGroup className="mt-2">
-        <Label for="fatherName"> Father 's Name</Label>{" "}
+        <Label for="fatherName"><FormattedMessage id="fatherName"/>:</Label>{" "}
         <Input
           invalid={fatherName.length <= 0 && isfatherNameValid === ""}
           name="fatherName"
@@ -133,10 +137,10 @@ const AddKisan = () => {
           value={fatherName}
           onChange={(e) => fatherNameChange(e)}
         />{" "}
-        <FormFeedback> Father 's Name is required</FormFeedback>{" "}
+        <FormFeedback><FormattedMessage id="fatherNameIsRequired"/></FormFeedback>{" "}
       </FormGroup>{" "}
       <FormGroup className="mt-2">
-        <Label for="phone"> Phone Number </Label>{" "}
+        <Label for="phone"><FormattedMessage id="phone"/>:</Label>{" "}
         <Input
           invalid={phone.length <= 0 && isPhonePristine === ""}
           name="phone"
@@ -144,10 +148,10 @@ const AddKisan = () => {
           value={phone}
           onChange={(e) => phoneChange(e)}
         />{" "}
-        <FormFeedback> Phone Number is required. </FormFeedback>{" "}
+        <FormFeedback><FormattedMessage id="phoneIsRequired"/></FormFeedback>{" "}
       </FormGroup>{" "}
       <FormGroup className="mt-2">
-        <Label for="address"> Address </Label>{" "}
+        <Label for="address"><FormattedMessage id="address"/>:</Label>{" "}
         <Input
           invalid={address.length <= 0 && isAddressValid === ""}
           name="address"
@@ -155,15 +159,15 @@ const AddKisan = () => {
           value={address}
           onChange={(e) => addressChange(e)}
         />{" "}
-        <FormFeedback> Address is required. </FormFeedback>{" "}
+        <FormFeedback><FormattedMessage id="addressIsRequired"/></FormFeedback>{" "}
       </FormGroup>{" "}
       <Button type="submit" color="primary" className="mt-3">
         {" "}
-        Add Kisan{" "}
+        <FormattedMessage id="addNewKisanButtonText"/>{" "}
       </Button>{" "}
       <Button type="reset" color="danger" className="ms-1 mt-3" onClick={clear}>
         {" "}
-        Reset{" "}
+         <FormattedMessage id="resetButtonText"/>{" "}{" "}
       </Button>{" "}
       {showAlert ? (
         <Alert className="mt-4">Kisan has been added successfully</Alert>

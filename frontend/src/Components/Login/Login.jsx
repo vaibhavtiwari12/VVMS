@@ -79,10 +79,10 @@ const Login = () => {
               value={username}
               onChange={(e) => userNameChange(e)}
             />
-            <FormFeedback> UserName is required</FormFeedback>
+            <FormFeedback><FormattedMessage id="usernameError" /></FormFeedback>
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="password"> <FormattedMessage id="password" /></Label>
+            <Label for="password"> <FormattedMessage id="password"/></Label>
             <Input
               invalid={password.length === 0 && isPasswordValid === ""}
               name="password"
@@ -90,7 +90,7 @@ const Login = () => {
               value={password}
               onChange={(e) => passwordChange(e)}
             />
-            <FormFeedback> Password is required</FormFeedback>
+            <FormFeedback><FormattedMessage id="passwordError" /></FormFeedback>
           </FormGroup>
           <React.Fragment>
             <Button type="submit" color="primary" className="mt-3" size="lg">

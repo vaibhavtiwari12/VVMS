@@ -1,6 +1,8 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { FormattedMessage,useIntl } from "react-intl";
 import useSearch from "./useSearch";
 const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
+  const intl = useIntl();
   const {
     handleChange,
     handleSubmit,
@@ -13,7 +15,7 @@ const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
     <div className="mx-3 mt-3 shadow px-3 py-4">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="searchType">Search By:</Label>
+          <Label for="searchType"><FormattedMessage id="searchBy"/>:</Label>
           <Input
             type="select"
             name="select"
@@ -27,13 +29,13 @@ const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
             }
             onChange={(e) => handleSelectChange(e)}
           >
-            <option value="Name">Name</option>
-            <option value="fatherName">Father's Name</option>
-            <option value="phone">Phone</option>
+            <option value="Name">{intl.formatMessage({id:"name"})}</option>
+            <option value="fatherName">{intl.formatMessage({id:"fatherName"})}</option>
+            <option value="phone">{intl.formatMessage({id:"phone"})}</option>
           </Input>
         </FormGroup>
         <FormGroup className="mt-2">
-          <Label for="search">Search Kisan</Label>
+          <Label for="search"><FormattedMessage id="searchValue"/>:</Label>
           <Input
             name="search"
             onChange={(e) => handleChange(e)}
@@ -42,15 +44,15 @@ const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
         </FormGroup>
         <FormGroup inline>
           <Button size="md" color="primary" className="mt-3" type="submit">
-            Submit
+            <FormattedMessage id="searchButtonText"/>
           </Button>
           <Button
             size="md"
-            color="primary"
+            color="danger"
             onClick={handleReset}
             className="mt-3 ms-2"
           >
-            Reset
+            <FormattedMessage id="resetButtonText"/>
           </Button>
         </FormGroup>
       </Form>

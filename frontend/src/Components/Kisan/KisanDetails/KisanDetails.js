@@ -5,6 +5,9 @@ import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
 import Kisantransactionstable from "./kisanTransactionsTable";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+
 
 const Kisandetails = () => {
   const { id } = useParams();
@@ -27,7 +30,7 @@ const Kisandetails = () => {
   }, [kisan]);
   return (
     <div>
-      <h2 className="d-flex justify-content-center mt-2 capitalize">Kisan Details</h2>
+      <h2 className="d-flex justify-content-center mt-2 capitalize"><FormattedMessage id="kisanDetailsTitle"/></h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan}></Kisanmoneysummary>

@@ -1,5 +1,10 @@
 import React from "react";
 import { Table } from "reactstrap";
+import { FormattedMessage } from "react-intl";
+
+
+
+
 
 const Kisanmoneysummary = ({ kisan }) => {
   return (
@@ -7,27 +12,27 @@ const Kisanmoneysummary = ({ kisan }) => {
       <Table bordered responsive className="p-3 kisan-detail">
         <tbody>
           <tr>
-            <th>Name</th>
+            <th><FormattedMessage id="name"/></th>
             <td className="capitalize">{kisan.name}</td>
           </tr>
           <tr>
-            <th>Father's Name</th>
+            <th><FormattedMessage id="fatherName"/></th>
             <td className="capitalize">{kisan.fatherName}</td>
           </tr>
           <tr>
-            <th>Phone Number</th>
+            <th><FormattedMessage id="phone"/></th>
             <td>{kisan.phone}</td>
           </tr>
           <tr>
-            <th>Address</th>
+            <th><FormattedMessage id="address"/></th>
             <td className="capitalize">{kisan.address}</td>
           </tr>
           <tr>
-            <th>Advance Balance</th>
+            <th><FormattedMessage id="balance"/></th>
             <td>{kisan.balance}</td>
           </tr>
           <tr>
-            <th>Carry Forward up to Last Bill</th>
+            <th><FormattedMessage id="carryForwardAmount"/></th>
             <td>{kisan.carryForwardAmount}</td>
           </tr>
         </tbody>
