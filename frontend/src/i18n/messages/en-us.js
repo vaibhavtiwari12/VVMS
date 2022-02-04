@@ -48,6 +48,7 @@ const en = {
     carryForwardAmount: "Carry forward payments up to last Bill (₹)",
     debitEntryKisanButtonText: "Debit/Advance Entry",
     creditEntryKisanButtonText: "Credit/Bill Entry",
+    advanceSettlementKisanButtonText: "Advance Settlement Entry",
     transactionDetailsTitle: "Transaction Details",
 
     /*Table columns Kisan Detail Page*/
@@ -68,7 +69,7 @@ const en = {
     advanceDetails: "Debit/Advance Details",
     amount: "Advance Amount",
     createCreditEntryButtonText: "Create Advance Entry",
-    amountSBGTZ:"Amount should be greater than 0.",
+    amountSBGTZ: "Amount should be greater than 0.",
 
     /*Credit Entry Form*/
     billDetails: "Credit/Bill Details",
@@ -97,11 +98,13 @@ const en = {
     bhadaCNBLTZ: "Bhada cannot be less than 0.",
     balanceCNBLTZ: "Advance Settled cannot be less than 0.",
     cashPaidCNBLTZ: "Cash Paid cannot be less than 0.",
-    balanceCBMTCB: "Advance settled cannot be more than the \"Amount to Settle\". Max allowed amount =  ₹ ",
-    balanceCBMTOA: "Advance settled cannot be more than \"Outstanding Advance\". Max allowed amount =  ₹ ",
-    cashPaidCBMTCB: "Cash paid cannot be greater than the \"Amount to Settle\". Max allowed amount =  ₹  ",
+    balanceCBMTCB:
+      'Advance settled cannot be more than the "Amount to Settle". Max allowed amount =  ₹ ',
+    balanceCBMTOA:
+      'Advance settled cannot be more than "Outstanding Advance". Max allowed amount =  ₹ ',
+    cashPaidCBMTCB:
+      'Cash paid cannot be greater than the "Amount to Settle". Max allowed amount =  ₹  ',
     commentIsRequired: "Comment is required.",
-
   },
 };
 export default en;

@@ -70,7 +70,10 @@
 .form-width {
   width: 50%;
 }
-
+.signin-nav {
+  margin-top: 0.3rem !important;
+  padding-right: 0.3rem !important;
+}
 .switch-container {
   margin-top: 0.3rem !important;
   padding-left: 0.5rem !important;

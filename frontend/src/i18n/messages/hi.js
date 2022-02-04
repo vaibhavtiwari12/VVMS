@@ -48,6 +48,7 @@ const hi = {
     carryForwardAmount: "पिछले बिल तक का बक़ाया भुगतान (₹)",
     debitEntryKisanButtonText: "एडवांस की एंट्री",
     creditEntryKisanButtonText: "बिल की एंट्री",
+    advanceSettlementKisanButtonText: "एडवांस समायोजन की एंट्री",
     transactionDetailsTitle: "लेन-देन का विवरण",
 
     /*Table columns Kisan Detail Page*/
@@ -68,7 +69,7 @@ const hi = {
     advanceDetails: "एडवांस का विवरण",
     amount: "एडवांस की राशि",
     createCreditEntryButtonText: "एडवांस की एंट्री करें",
-    amountSBGTZ:"एडवांस की राशि 0 से अधिक होनी चाहिये। ",
+    amountSBGTZ: "एडवांस की राशि 0 से अधिक होनी चाहिये। ",
 
     /*Credit Entry Form*/
     billDetails: "बिल का विवरण",
@@ -97,9 +98,12 @@ const hi = {
     bhadaCNBLTZ: "भाड़ा 0 से काम नहीं हो सकता है। ",
     balanceCNBLTZ: "एडवांस चुकाने की राशि  0 से काम नहीं हो सकती है।",
     cashPaidCNBLTZ: "नगद भुगतान की राशि  0 से काम नहीं हो सकती है।",
-    balanceCBMTCB: "एडवांस चुकाने की राशि, \"समायोजित की जाने वाली राशि\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ",
-    balanceCBMTOA: "एडवांस चुकाने की राशि, \"कुल बक़ाया एडवांस\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹",
-    cashPaidCBMTCB: "नगद भुगतान की राशि \"समायोजित की जाने वाली राशि\" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ",
+    balanceCBMTCB:
+      'एडवांस चुकाने की राशि, "समायोजित की जाने वाली राशि" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ',
+    balanceCBMTOA:
+      'एडवांस चुकाने की राशि, "कुल बक़ाया एडवांस" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹',
+    cashPaidCBMTCB:
+      'नगद भुगतान की राशि "समायोजित की जाने वाली राशि" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ',
     commentIsRequired: "एंट्री का विवरण देना अनिवार्य है। ",
   },
 };

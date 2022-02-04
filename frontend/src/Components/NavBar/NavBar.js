@@ -91,7 +91,10 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
                 </ButtonDropdown>
               </div>
             ) : (
-              <Link className="ps-3 link-no-decoration text-white" to="/Login">
+              <Link
+                className="signin-nav ps-3 link-no-decoration text-white"
+                to="/Login"
+              >
                 Sign In
               </Link>
             )}

@@ -37,7 +37,10 @@ const controller = async (type, data) => {
       // Updating the data
       let updatekisan = await Kisan.findById(data.id);
       updatekisan.transactions.push(data.transaction);
-      if (data.transaction.type === "DEBIT") {
+      if (
+        data.transaction.type === "DEBIT" ||
+        data.transaction.type === "ADVANCESETTLEMENT"
+      ) {
         updatekisan.balance += data.transaction.transactionAmount;
       } else {
         updatekisan.balance += parseInt(data.transaction.advanceSettlement);

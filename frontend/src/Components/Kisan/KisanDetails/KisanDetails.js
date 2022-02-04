@@ -66,6 +66,14 @@ const Kisandetails = () => {
             <FormattedMessage id="creditEntryKisanButtonText" />
           </Link>
         </Button>
+        <Button color="primary" className="ms-3">
+          <Link
+            className="link-no-decoration"
+            to={`/kisanAdvanceSettlement/${id}/add`}
+          >
+            <FormattedMessage id="advanceSettlementKisanButtonText" />
+          </Link>
+        </Button>
       </div>
       <h3 className="text-center mt-4">
         <FormattedMessage id="transactionDetailsTitle" />

@@ -33,7 +33,7 @@ const Transactiontable = ({ transactionSummary }) => {
                       <th scope="row">{transaction.name}</th>
                       <td>{dateConverter(transaction.date)}</td>
                       <td>{transaction.comment}</td>
-                      <td>{transaction.transactionAmount}</td>
+                      <td>{transaction.type === "DEBIT" ? transaction.transactionAmount : ""}</td>
                       <td>
                         {transaction.type === "CREDIT" && (
                           <Fragment>
@@ -69,7 +69,7 @@ const Transactiontable = ({ transactionSummary }) => {
                         )}
                       </td>
                       <td>{transaction.netTotal}</td>
-                      <td>{transaction.advanceSettlement}</td>
+                      <td>{transaction.type === "CREDIT" ? transaction.advanceSettlement : transaction.type === "ADVANCESETTLEMENT" ? transaction.transactionAmount : ""}</td>
                       <td>{transaction.paidToKisan}</td>
                       <td>{transaction.carryForwardFromThisEntry}</td>
                     </tr>

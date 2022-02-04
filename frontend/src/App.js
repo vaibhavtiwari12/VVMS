@@ -15,6 +15,7 @@ import UnAuthenticatedRoute from "./Auth/unAuthenticatedRoute";
 import axios from "axios";
 import { I18nProvider, LOCALES } from "./i18n";
 import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
+import Advancesettlementform from "./Components/Kisan/KisanDetails/AdvanceSettlementForm";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
@@ -120,6 +121,18 @@ function App() {
                 exact
                 path="/kisanCreditForm/:id/:type/:transactionNumber"
                 component={CreditForm}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanAdvanceSettlement/:id/:type"
+                component={Advancesettlementform}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/kisanAdvanceSettlement/:id/:type/:transactionNumber"
+                component={Advancesettlementform}
                 appProps={{ isAuthenticated }}
               />
 
