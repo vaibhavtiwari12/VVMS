@@ -10,7 +10,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "reactstrap";
-
 import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { getKisanByID } from "../../../Utility/utility";
@@ -37,6 +36,7 @@ const CreditForm = () => {
   const [paidToKisan, setPaidToKisan] = useState(0);
   const [advanceSettlement, setAdvanceSettlement] = useState(0);
   const [carryForwardFromThisEntry, setCarryForwardFromThisEntry] = useState(0);
+  const [balanceAfterThisTransaction, setBalanceAfterThisTransaction] = useState(0);
 
   // Validity States
   const [isCommentValid, setIsCommentValid] = useState("PRISTINE");
@@ -110,9 +110,6 @@ const CreditForm = () => {
     }
   }, [paidToKisan, advanceSettlement, netTotal]);
 
-  /*
-   */
-
   useEffect(() => {
     if (Object.keys(kisan).length > 0) {
       setPreviousBillSettlementAmount(kisan.carryForwardAmount);
@@ -142,6 +139,7 @@ const CreditForm = () => {
       setPaidToKisan(transactionToedit.paidToKisan);
       setComment(transactionToedit.comment);
       setCarryForwardFromThisEntry(transactionToedit.carryForwardFromThisEntry);
+      setBalanceAfterThisTransaction(transactionToedit.balanceAfterThisTransaction);
     }
   }, [kisan]);
 
@@ -231,41 +229,41 @@ const CreditForm = () => {
   };
 
   const previousBillSettlementAmountChange = (e) => {
-    setPreviousBillSettlementAmount(e.target.value);
+    setPreviousBillSettlementAmount(parseInt(e.target.value));
     setIsPreviousBillSettlementAmountValid("");
   };
   const numberofBagsChange = (e) => {
-    setNumberOfBags(e.target.value);
+    setNumberOfBags(parseInt(e.target.value));
     setIsNumberofBagsValid("");
   };
   const totalWeightChange = (e) => {
-    setTotalweight(e.target.value);
+    setTotalweight(parseInt(e.target.value));
     setIsTotalWeigthValid("");
   };
   const rateChange = (e) => {
-    setRate(e.target.value);
+    setRate(parseInt(e.target.value));
     setIsRateValid("");
   };
   const commisionChange = (e) => {
-    setCommission(e.target.value);
+    setCommission(parseInt(e.target.value));
     setIsCommissionValid("");
   };
   const hammaliChange = (e) => {
-    setHammali(e.target.value);
+    setHammali(parseInt(e.target.value));
     setIsHammalivalid("");
   };
   const bhadaChange = (e) => {
-    setBhada(e.target.value);
+    setBhada(parseInt(e.target.value));
     setIsBhadaValid("");
   };
   const paidToKisanChange = (e) => {
-    setPaidToKisan(e.target.value);
+    setPaidToKisan(parseInt(e.target.value));
   };
   const advanceSettlementChange = (e) => {
-    setAdvanceSettlement(e.target.value);
+    setAdvanceSettlement(parseInt(e.target.value));
   };
   const carryForwardFromThisEntryChange = (e) => {
-    setCarryForwardFromThisEntry(e.target.value);
+    setCarryForwardFromThisEntry(parseInt(e.target.value));
     setIsCarryForwardFromThisEntryValid("");
   };
   useEffect(() => {
@@ -325,8 +323,10 @@ const CreditForm = () => {
           carryForwardFromThisEntry,
           type: "CREDIT",
           comment,
+          balanceAfterThisTransaction : kisan.balance + advanceSettlement
         },
       };
+      console.log("FORM DATA",formData)
       fetch(`/kisan/AddTransaction/${id}`, {
         method: "POST",
         body: JSON.stringify(formData),
@@ -447,7 +447,7 @@ const CreditForm = () => {
               onWheel={(e) => e.target.blur()}
               name="numberofBags"
               type="number"
-              value={numberofBags.toString()}
+              value={numberofBags}
               onChange={(e) => numberofBagsChange(e)}
             />
             <FormFeedback><FormattedMessage id="numberOfBagsCNBLTZ"/></FormFeedback>
@@ -462,7 +462,7 @@ const CreditForm = () => {
               onWheel={(e) => e.target.blur()}
               name="totalweight"
               type="number"
-              value={totalweight.toString()}
+              value={totalweight}
               onChange={(e) => totalWeightChange(e)}
             />
             <FormFeedback><FormattedMessage id="totalWeightCNBLTZ"/></FormFeedback>{" "}
@@ -474,7 +474,7 @@ const CreditForm = () => {
               invalid={rate && rate < 0 && isRateValid === ""}
               name="rate"
               type="number"
-              value={rate.toString()}
+              value={rate}
               onChange={(e) => rateChange(e)}
               onWheel={(e) => e.target.blur()}
             />
@@ -500,7 +500,7 @@ const CreditForm = () => {
               onWheel={(e) => e.target.blur()}
               name="commission"
               type="number"
-              value={commission.toString()}
+              value={commission}
               onChange={(e) => commisionChange(e)}
             />
             <FormFeedback> <FormattedMessage id="totalCommissionCNBLTZ"/> </FormFeedback>{" "}
@@ -513,7 +513,7 @@ const CreditForm = () => {
               onWheel={(e) => e.target.blur()}
               name="hammali"
               type="number"
-              value={hammali.toString()}
+              value={hammali}
               onChange={(e) => hammaliChange(e)}
             />
             <FormFeedback> <FormattedMessage id="hammaliCNBLTZ"/></FormFeedback>{" "}
@@ -526,7 +526,7 @@ const CreditForm = () => {
               name="bhada"
               type="number"
               onWheel={(e) => e.target.blur()}
-              value={bhada.toString()}
+              value={bhada}
               onChange={(e) => bhadaChange(e)}
             />
             <FormFeedback><FormattedMessage id="bhadaCNBLTZ"/></FormFeedback>
@@ -554,7 +554,7 @@ const CreditForm = () => {
             <Label for="advanceSettlement">
               {" "}
               <FormattedMessage id="advanceCredited"/> - <b><FormattedMessage id="balanceTextWithoutCurrency"/> : {" "}
-              <span className="text-primary"><FormattedMessage id="currency"/> {kisan.balance}</span></b>
+              <span className="text-primary"><FormattedMessage id="currency"/> {type==="add" ? kisan.balance : balanceAfterThisTransaction}</span></b>
             </Label>{" "}
             <Input
               disabled={type === "edit" || kisan.balance === 0 ? true : false}
@@ -595,7 +595,7 @@ const CreditForm = () => {
               name="paidToKisan"
               type="number"
               onWheel={(e) => e.target.blur()}
-              value={paidToKisan.toString()}
+              value={paidToKisan}
               onChange={(e) => paidToKisanChange(e)}
             />
             <FormFeedback>
@@ -616,7 +616,7 @@ const CreditForm = () => {
               name="carryForwardFromThisEntry"
               type="number"
               onWheel={(e) => e.target.blur()}
-              value={carryForwardFromThisEntry.toString()}
+              value={carryForwardFromThisEntry}
               onChange={(e) => carryForwardFromThisEntryChange(e)}
             />
             <FormFeedback> Paid To Kisan is required. </FormFeedback>{" "}

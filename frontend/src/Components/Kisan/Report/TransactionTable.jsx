@@ -6,9 +6,9 @@ const Transactiontable = ({ transactionSummary }) => {
   return (
     <div className="p-3">
       <h3 className="text-center">Transactions in the Date</h3>
-      
+
       <div className="pt-4">
-        <Table bordered hover responsive  size="sm">
+        <Table bordered={true} hover responsive size="sm">
           <thead>
             <tr>
               <th>Name</th>
@@ -23,48 +23,50 @@ const Transactiontable = ({ transactionSummary }) => {
             </tr>
           </thead>
           <tbody>
-            {transactionSummary && transactionSummary.length > 0
-              ? transactionSummary.sort((a,b)=>a.date<b.date ? 1 : -1).map((transaction, index) => {
+            {transactionSummary &&
+              transactionSummary.length > 0 &&
+              transactionSummary
+                .sort((a, b) => (a.date < b.date ? 1 : -1))
+                .map((transaction, index) => {
                   return (
                     <tr key={index}>
                       <th scope="row">{transaction.name}</th>
                       <td>{dateConverter(transaction.date)}</td>
                       <td>{transaction.comment}</td>
                       <td>{transaction.transactionAmount}</td>
-
                       <td>
-                        {transaction.type ==="CREDIT" ? (
-                            <Fragment>
-                            <table bordered>
-                              <tr>
-                                <td>Bags</td> 
-                                <td>{transaction.numberofBags}</td>
-                              </tr>
-                              <tr>
-                                <td>Weigth</td> 
-                                <td>{transaction.totalweight}</td>
-                              </tr>
-                              <tr>
-                                <td>Rate</td>
-                                <td>{transaction.rate}</td>
-                              </tr>
-                              <tr>
-                                <td>Hammali</td>
-                                <td>{transaction.hammali}</td>
-                              </tr>
-                              <tr>
-                                <td>Bhada</td> 
-                                <td>{transaction.bhada}</td>
-                              </tr>
-                              <tr>
-                                <td>Commission</td>
-                                <td>{transaction.commission}</td>
-                              </tr>
+                        {transaction.type === "CREDIT" && (
+                          <Fragment>
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td>Bags</td>
+                                  <td>{transaction.numberofBags}</td>
+                                </tr>
+                                <tr>
+                                  <td>Weigth</td>
+                                  <td>{transaction.totalweight}</td>
+                                </tr>
+                                <tr>
+                                  <td>Rate</td>
+                                  <td>{transaction.rate}</td>
+                                </tr>
+                                <tr>
+                                  <td>Hammali</td>
+                                  <td>{transaction.hammali}</td>
+                                </tr>
+                                <tr>
+                                  <td>Bhada</td>
+                                  <td>{transaction.bhada}</td>
+                                </tr>
+                                <tr>
+                                  <td>Commission</td>
+                                  <td>{transaction.commission}</td>
+                                </tr>
+                              </tbody>
                             </table>
-                            </Fragment>
-                        ): ""
-                          
-                        }
+                          </Fragment>
+                        )}
                       </td>
                       <td>{transaction.netTotal}</td>
                       <td>{transaction.advanceSettlement}</td>
@@ -72,8 +74,7 @@ const Transactiontable = ({ transactionSummary }) => {
                       <td>{transaction.carryForwardFromThisEntry}</td>
                     </tr>
                   );
-                })
-              : ""}
+                })}
           </tbody>
         </Table>
       </div>

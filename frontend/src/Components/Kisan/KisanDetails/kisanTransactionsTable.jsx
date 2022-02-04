@@ -106,7 +106,7 @@ const Kisantransactionstable = ({ kisan }) => {
         </thead>
         <tbody>
           {kisan && kisan.transactions
-            ? kisan.transactions
+            && kisan.transactions
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((transaction, index) => {
                   return (
@@ -170,7 +170,7 @@ const Kisantransactionstable = ({ kisan }) => {
                     </tr>
                   );
                 })
-            : ""}
+            }
         </tbody>
       </Table>
       <div className="hide-till-print">

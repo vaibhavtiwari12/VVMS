@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import { dateConverter } from "../../../Utility/utility";
 
-const Transactionperiodsummary = ({ transactionSummary, searchDate, type }) => {
+const Transactionperiodsummary = ({ transactionSummary, date }) => {
   const [outGoingCash, setOutGoingCash] = useState(0);
   const [advanceSettled, setTotalAdvanceSettled] = useState(0);
   const [carryForwardAmount, setCarryForwardAmount] = useState(0);
   const [advanceTaken, setAdvanceTaken] = useState(0);
   const [cashPaidTokisan, setCashPaidTokisan] = useState(0);
-    useEffect(() => {
-       console.log("props changed")
-        calculateOutGoingCash()
-    }, [transactionSummary]);
+  useEffect(() => {
+    console.log("props changed");
+    calculateOutGoingCash();
+  }, [transactionSummary]);
 
-    //TODO : Remove all parse int once you change the credit form to use number instead of strings
+  //TODO : Remove all parse int once you change the credit form to use number instead of strings
   const calculateOutGoingCash = () => {
     let totalOutGoingCash = 0;
     let totalAdvanceSettled = 0;
@@ -22,11 +22,13 @@ const Transactionperiodsummary = ({ transactionSummary, searchDate, type }) => {
     let advanceTaken = 0;
     if (transactionSummary && transactionSummary.length > 0) {
       transactionSummary.map((transaction) => {
-        if ((transaction.type === "DEBIT")) {
-          totalOutGoingCash += Math.abs(parseInt(transaction.transactionAmount));
+        if (transaction.type === "DEBIT") {
+          totalOutGoingCash += Math.abs(
+            parseInt(transaction.transactionAmount)
+          );
           advanceTaken += Math.abs(parseInt(transaction.transactionAmount));
         }
-        if ((transaction.type === "CREDIT")) {
+        if (transaction.type === "CREDIT") {
           totalOutGoingCash += parseInt(transaction.paidToKisan);
           cashPaidTokisan += parseInt(transaction.paidToKisan);
           totalCarryForwardAmount += parseInt(transaction.carryForwardAmount);
@@ -48,7 +50,7 @@ const Transactionperiodsummary = ({ transactionSummary, searchDate, type }) => {
           <tbody>
             <tr>
               <th>Date</th>
-              <td className="capitalize">{dateConverter(searchDate)}</td>
+              <td className="capitalize">{date}</td>
             </tr>
             <tr>
               <th>Total Out Going Cash</th>

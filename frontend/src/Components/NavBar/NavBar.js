@@ -44,47 +44,32 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   return (
     <div>
       <Navbar color="primary" dark expand="md" light className="p-3">
-        <NavbarBrand>
-          <Link className="link-no-decoration text-white" to="/">
-            <img className="logo" src={logo} alt="MahrajVegetables" />
-          </Link>
-        </NavbarBrand>
+        <Link className="nav-brand link-no-decoration text-white" to="/">
+          <img className="logo" src={logo} alt="MahrajVegetables" />
+        </Link>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="" navbar>
-            <NavItem className="ps-3">
-              <Link className="link-no-decoration text-white" to="/">
-                <FormattedMessage id="purchaser" />
-              </Link>
-            </NavItem>
-            <NavItem className="ps-3">
-              <Link className="link-no-decoration text-white" to="/kisan">
-                <FormattedMessage id="kisan" />
-              </Link>
-            </NavItem>
-            <NavItem className="ps-3">
-              <Link className="link-no-decoration text-white" to="/Report">
-                <FormattedMessage id="report" />
-              </Link>
-            </NavItem>
+            <Link
+              className="nav-item ps-3 link-no-decoration text-white"
+              to="/"
+            >
+              <FormattedMessage id="purchaser" />
+            </Link>
+            <Link
+              className="nav-item ps-3 link-no-decoration text-white"
+              to="/kisan"
+            >
+              <FormattedMessage id="kisan" />
+            </Link>
+            <Link
+              className="nav-item ps-3 link-no-decoration text-white"
+              to="/Report"
+            >
+              <FormattedMessage id="report" />
+            </Link>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
-            <div className="switch-container">
-              <label class="toggle-switch">
-                <input
-                  type="checkbox"
-                  name="toggleSwitch"
-                  class="toggle-switch__checkbox"
-                  id="myToggleSwitch"
-                  onChange={handleLanguageChange}
-                  checked={isLanguageEnglish}
-                />
-                <span class="toggle-switch__label">
-                  <span class="toggle-switch__inner"></span>
-                </span>
-              </label>
-            </div>
-
             {isAuthenticated === "TRUE" ? (
               <div className="text-white greeting-container">
                 <ButtonDropdown
@@ -106,14 +91,25 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
                 </ButtonDropdown>
               </div>
             ) : (
-              <NavItem className="ps-3">
-                <NavLink>
-                  <Link className="link-no-decoration text-white" to="/Login">
-                    Sign In
-                  </Link>
-                </NavLink>
-              </NavItem>
+              <Link className="ps-3 link-no-decoration text-white" to="/Login">
+                Sign In
+              </Link>
             )}
+            <div className="switch-container">
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  name="toggleSwitch"
+                  className="toggle-switch__checkbox"
+                  id="myToggleSwitch"
+                  onChange={handleLanguageChange}
+                  checked={isLanguageEnglish}
+                />
+                <span className="toggle-switch__label">
+                  <span className="toggle-switch__inner"></span>
+                </span>
+              </label>
+            </div>
           </Nav>
         </Collapse>
       </Navbar>

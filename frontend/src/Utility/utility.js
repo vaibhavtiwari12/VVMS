@@ -28,7 +28,7 @@ export const convertOnlyDate = (date) => {
   const D = new Date(date);
   const formattedDate = `${D.getFullYear()}-${("0" + (D.getMonth() + 1)).slice(
     -2
-  )}-${D.getDate()}`;
+  )}-${("0" + D.getDate()).slice(-2)}`;
   return formattedDate;
 };
 export const getOnlyMonth = (date) => {

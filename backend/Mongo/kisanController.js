@@ -44,6 +44,7 @@ const controller = async (type, data) => {
         updatekisan.carryForwardAmount =
           data.transaction.carryForwardFromThisEntry;
       }
+      console.log("Kisan ", updatekisan);
       const finalKisan = await updatekisan.save();
       return finalKisan;
     }

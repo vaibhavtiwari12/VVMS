@@ -19,6 +19,7 @@ import {
   getTransactionsBydate,
   getTransactionsByMonth,
   getTransactionsBetweenDates,
+  dateConverter,
 } from "../../../Utility/utility";
 import Reportprint from "./ReportPrint";
 import Transactionperiodsummary from "./transactionPeriodSummary";
@@ -237,7 +238,7 @@ const Report = () => {
 
           <Transactionperiodsummary
             transactionSummary={transactions}
-            searchDate={date}
+            date = {radioSelection === "bydate" ? dateConverter(date) : radioSelection ==="bymonth" ? getOnlyMonth(month) : `${dateConverter(startDate)} to ${dateConverter(endDate)}`}
           />
           <Transactiontable transactionSummary={transactions} />
         </div>
@@ -259,8 +260,7 @@ const Report = () => {
       <div className="hide-till-print">
         <Reportprint
           transactionSummary={transactions}
-          searchDate={date}
-          type = {radioSelection }
+          date = {radioSelection === "bydate" ? dateConverter(date) : radioSelection ==="bymonth" ? getOnlyMonth(month) : `${dateConverter(startDate)} to ${dateConverter(endDate)}`}
           ref={componentRef}
         />
       </div>
