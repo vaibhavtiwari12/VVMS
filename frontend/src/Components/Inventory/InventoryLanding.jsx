@@ -1,0 +1,64 @@
+import { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
+import { getAllKisan } from "../../Utility/utility";
+import { FormattedMessage } from "react-intl";
+import axios from "axios";
+
+const InventoryLanding = () => {
+  const history = useHistory();
+  const [inventory, setInventory]= useState([])
+  const handleAddInventoryType = () => {
+    history.push("/addInventoryType");
+  };
+  useEffect(() => {
+    document.title = "VVMS - Inventory";
+    try {
+      const fetchData = async () => {
+        const inventoryData = await axios.get('/inventory/get');
+        setInventory(inventoryData);
+      };
+      fetchData();
+    } catch (e) {
+      throw new Error("Something Went Wrong ", e);
+    }
+  }, []);
+  useEffect(()=> {
+    console.log("Inventory", inventory)
+  },[inventory])
+  return (
+    <div className="mt-3">
+      <Breadcrumb className="ps-3 mt-2">
+        <BreadcrumbItem>
+          <Link className="link-no-decoration-black text-primary" to="/">
+            Home
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Inventory</BreadcrumbItem>
+      </Breadcrumb>
+      <div className="d-flex">
+        <h3 className="flex-fill d-flex justify-content-center">
+          <FormattedMessage id="inventoryLandingTitle" />
+        </h3>
+        <Button
+          className="justify-content-end me-3"
+          color="primary"
+          onClick={handleAddInventoryType}
+        >
+          + <FormattedMessage id="addfasalType" />
+        </Button>
+      </div>
+      {/* <AddKisan></AddKisan> */}
+      {/* <KisanSearch
+        setSearchTermChange={handleSearchTermChange}
+        setSearchTermType={handleSearchTypeChange}
+      ></KisanSearch>
+      <KisanTable
+        kisans={kisans}
+        term={searchTerm}
+        type={searchType}
+      ></KisanTable> */}
+    </div>
+  );
+};
+export default InventoryLanding;

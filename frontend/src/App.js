@@ -16,6 +16,8 @@ import axios from "axios";
 import { I18nProvider, LOCALES } from "./i18n";
 import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
 import Advancesettlementform from "./Components/Kisan/KisanDetails/AdvanceSettlementForm";
+import InventoryLanding from "./Components/Inventory/InventoryLanding";
+import AddInventoryType from "./Components/Inventory/AddInventoryType";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
@@ -89,6 +91,12 @@ function App() {
               />
               <AuthenticatedRoute
                 exact
+                path="/addInventoryType"
+                component={AddInventoryType}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
                 path="/kisan"
                 component={KisanLanding}
                 appProps={{ isAuthenticated }}
@@ -133,6 +141,12 @@ function App() {
                 exact
                 path="/kisanAdvanceSettlement/:id/:type/:transactionNumber"
                 component={Advancesettlementform}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/inventory"
+                component={InventoryLanding}
                 appProps={{ isAuthenticated }}
               />
 

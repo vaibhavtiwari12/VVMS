@@ -10,17 +10,16 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "reactstrap";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
-import { FormattedMessage } from "react-intl";
-
-
+import axios from "axios";
 
 const CreditForm = () => {
   const { id, type, transactionNumber } = useParams();
-
+  const intl = useIntl();
   //Form States
   const [comment, setComment] = useState("");
   const [previousBillSettlementAmount, setPreviousBillSettlementAmount] =
@@ -36,7 +35,9 @@ const CreditForm = () => {
   const [paidToKisan, setPaidToKisan] = useState(0);
   const [advanceSettlement, setAdvanceSettlement] = useState(0);
   const [carryForwardFromThisEntry, setCarryForwardFromThisEntry] = useState(0);
-  const [balanceAfterThisTransaction, setBalanceAfterThisTransaction] = useState(0);
+  const [balanceAfterThisTransaction, setBalanceAfterThisTransaction] =
+    useState(0);
+  const [itemType, setItemType] = useState("Matar");
 
   // Validity States
   const [isCommentValid, setIsCommentValid] = useState("PRISTINE");
@@ -52,14 +53,16 @@ const CreditForm = () => {
   const [isBhadaValid, setIsBhadaValid] = useState("PRISTINE");
   const [isPaidToKisanValid, setIsPaidToKisanValid] = useState("PRISTINE");
   const [isAdvanceSettlementValid, setIsAdvanceSettlementValid] =
-    useState("PRISTINE");
+  useState("PRISTINE");
   const [
     isCarryForwardFromThisEntryValid,
     setIsCarryForwardFromThisEntryValid,
   ] = useState("PRISTINE");
+  
 
   //Misclaeneous
   const [kisan, setKisan] = useState({});
+  const [inventory, setInventory] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -69,6 +72,8 @@ const CreditForm = () => {
 
       const fetchData = async () => {
         setKisan(await getKisanByID(id));
+        const inventoryData = await axios.get('/inventory/get');
+        setInventory(inventoryData.data)
       };
       fetchData();
     } catch (e) {
@@ -115,6 +120,9 @@ const CreditForm = () => {
       setPreviousBillSettlementAmount(kisan.carryForwardAmount);
     }
   }, [kisan]);
+  useEffect(() => {
+    console.log("INVENTORY ", inventory)
+  }, [inventory]);
 
   //EDIT
   useEffect(() => {
@@ -139,7 +147,9 @@ const CreditForm = () => {
       setPaidToKisan(transactionToedit.paidToKisan);
       setComment(transactionToedit.comment);
       setCarryForwardFromThisEntry(transactionToedit.carryForwardFromThisEntry);
-      setBalanceAfterThisTransaction(transactionToedit.balanceAfterThisTransaction);
+      setBalanceAfterThisTransaction(
+        transactionToedit.balanceAfterThisTransaction
+      );
     }
   }, [kisan]);
 
@@ -323,10 +333,11 @@ const CreditForm = () => {
           carryForwardFromThisEntry,
           type: "CREDIT",
           comment,
-          balanceAfterThisTransaction : kisan.balance + advanceSettlement
+          itemType,
+          balanceAfterThisTransaction: kisan.balance + advanceSettlement,
         },
       };
-      console.log("FORM DATA",formData)
+      console.log("FORM DATA", formData);
       fetch(`/kisan/AddTransaction/${id}`, {
         method: "POST",
         body: JSON.stringify(formData),
@@ -386,6 +397,9 @@ const CreditForm = () => {
     }
   };
 
+  const handleSelectChange = (e) => {
+
+  }
 
   /*------------------------------------------HTML-------------------------------------*/
 
@@ -403,13 +417,18 @@ const CreditForm = () => {
           </Link>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <Link className="link-no-decoration-black text-primary" to={`/kisanDetails/${kisan._id}`}>
-          Details
+          <Link
+            className="link-no-decoration-black text-primary"
+            to={`/kisanDetails/${kisan._id}`}
+          >
+            Details
           </Link>
         </BreadcrumbItem>
         <BreadcrumbItem active>Credit Form</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="creditEntryKisanButtonText"/></h2>
+      <h2 className="text-center text-secondary mt-3">
+        <FormattedMessage id="creditEntryKisanButtonText" />
+      </h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan} />
@@ -417,10 +436,12 @@ const CreditForm = () => {
         <div></div>
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
-      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="billDetails"/></h2>
+        <h2 className="text-center text-secondary mt-3">
+          <FormattedMessage id="billDetails" />
+        </h2>
         <FormGroup className="mt-2">
           <Label for="previousBillSettlementAmount">
-            <FormattedMessage id="carryForwardAmount"/>
+            <FormattedMessage id="carryForwardAmount" />
           </Label>{" "}
           <Input
             disabled
@@ -436,9 +457,37 @@ const CreditForm = () => {
           </FormFeedback>{" "}
         </FormGroup>{" "}
         <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary"><FormattedMessage id="purchaseSectionTitle"/></h4>
+          <h4 className="text-secondary">
+            <FormattedMessage id="purchaseSectionTitle" />
+          </h4>
+          <FormGroup>
+            <Label for="itemType">
+              <FormattedMessage id="searchBy" />:
+            </Label>
+            <Input
+              type="select"
+              name="select"
+              id="itemType"
+              value={itemType}
+              onChange={(e) => handleSelectChange(e)}
+            >
+              {inventory.map((item) => {
+                return <option key={item._id} value={item.itemName}>{item.itemName}</option>
+              })}
+             {/*  <option value="Matar">{intl.formatMessage({ id: "Matar" })}</option>
+              <option value="Tamatar">
+                {intl.formatMessage({ id: "Tamatar" })}
+              </option>
+              <option value="Dhaniya">
+                {intl.formatMessage({ id: "Dhaniya" })}
+              </option> */}
+            </Input>
+          </FormGroup>
+
           <FormGroup className="mt-2">
-            <Label for="numberofBags"><FormattedMessage id="numberOfBags"/></Label>{" "}
+            <Label for="numberofBags">
+              <FormattedMessage id="numberOfBags" />
+            </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -450,10 +499,14 @@ const CreditForm = () => {
               value={numberofBags}
               onChange={(e) => numberofBagsChange(e)}
             />
-            <FormFeedback><FormattedMessage id="numberOfBagsCNBLTZ"/></FormFeedback>
+            <FormFeedback>
+              <FormattedMessage id="numberOfBagsCNBLTZ" />
+            </FormFeedback>
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="totalweight"><FormattedMessage id="totalWeight"/></Label>{" "}
+            <Label for="totalweight">
+              <FormattedMessage id="totalWeight" />
+            </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -465,10 +518,14 @@ const CreditForm = () => {
               value={totalweight}
               onChange={(e) => totalWeightChange(e)}
             />
-            <FormFeedback><FormattedMessage id="totalWeightCNBLTZ"/></FormFeedback>{" "}
+            <FormFeedback>
+              <FormattedMessage id="totalWeightCNBLTZ" />
+            </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="rate"><FormattedMessage id="ratePerKg"/></Label>
+            <Label for="rate">
+              <FormattedMessage id="ratePerKg" />
+            </Label>
             <Input
               disabled={type === "edit" ? true : false}
               invalid={rate && rate < 0 && isRateValid === ""}
@@ -478,19 +535,31 @@ const CreditForm = () => {
               onChange={(e) => rateChange(e)}
               onWheel={(e) => e.target.blur()}
             />
-            <FormFeedback><FormattedMessage id="ratePerKgCNBLTZ"/></FormFeedback>
+            <FormFeedback>
+              <FormattedMessage id="ratePerKgCNBLTZ" />
+            </FormFeedback>
             <div className="text-end mt-3">
-              <h5><FormattedMessage id="grossTotal"/> {grossTotal}</h5>
+              <h5>
+                <FormattedMessage id="grossTotal" /> {grossTotal}
+              </h5>
             </div>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary"><FormattedMessage id="deductionsSectionTitle"/></h4>
+          <h4 className="text-secondary">
+            <FormattedMessage id="deductionsSectionTitle" />
+          </h4>
           <FormGroup className="mt-2">
             <Label for="commission">
               {" "}
-              <FormattedMessage id="commission"/> -  <b><FormattedMessage id="totalCommission"/> {" "}
-              <span className="text-primary"><FormattedMessage id="currency"/> {grossTotal * (commission / 100)}</span></b>
+              <FormattedMessage id="commission" /> -{" "}
+              <b>
+                <FormattedMessage id="totalCommission" />{" "}
+                <span className="text-primary">
+                  <FormattedMessage id="currency" />{" "}
+                  {grossTotal * (commission / 100)}
+                </span>
+              </b>
             </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
@@ -503,10 +572,16 @@ const CreditForm = () => {
               value={commission}
               onChange={(e) => commisionChange(e)}
             />
-            <FormFeedback> <FormattedMessage id="totalCommissionCNBLTZ"/> </FormFeedback>{" "}
+            <FormFeedback>
+              {" "}
+              <FormattedMessage id="totalCommissionCNBLTZ" />{" "}
+            </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="hammali"> <FormattedMessage id="hammali"/></Label>{" "}
+            <Label for="hammali">
+              {" "}
+              <FormattedMessage id="hammali" />
+            </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={hammali && hammali <= 0 && isHammalivalid === ""}
@@ -516,10 +591,15 @@ const CreditForm = () => {
               value={hammali}
               onChange={(e) => hammaliChange(e)}
             />
-            <FormFeedback> <FormattedMessage id="hammaliCNBLTZ"/></FormFeedback>{" "}
+            <FormFeedback>
+              {" "}
+              <FormattedMessage id="hammaliCNBLTZ" />
+            </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="bhada"><FormattedMessage id="bhada"/></Label>
+            <Label for="bhada">
+              <FormattedMessage id="bhada" />
+            </Label>
             <Input
               disabled={type === "edit" ? true : false}
               invalid={bhada && bhada < 0 && isBhadaValid === ""}
@@ -529,32 +609,56 @@ const CreditForm = () => {
               value={bhada}
               onChange={(e) => bhadaChange(e)}
             />
-            <FormFeedback><FormattedMessage id="bhadaCNBLTZ"/></FormFeedback>
+            <FormFeedback>
+              <FormattedMessage id="bhadaCNBLTZ" />
+            </FormFeedback>
             <div className="text-end mt-3">
-              <h5><FormattedMessage id="netTotal"/>  {netTotal}</h5>
+              <h5>
+                <FormattedMessage id="netTotal" /> {netTotal}
+              </h5>
             </div>
             <div className="text-end mt-3">
-            <span>
-                 <FormattedMessage id="netTotal"/>
-                  <b>{netTotal}</b>
-                   {" "} + {" "}
-                 <FormattedMessage id="carryForwardAmountWithoutCurrency"/> : <FormattedMessage id="currency"/>{" "}
-                 <b>{previousBillSettlementAmount}</b> = {" "}
-                 <b><span className="text-primary"> <FormattedMessage id="currency"/> {netTotal + previousBillSettlementAmount}</span></b>
-            </span>
+              <span>
+                <FormattedMessage id="netTotal" />
+                <b>{netTotal}</b> +{" "}
+                <FormattedMessage id="carryForwardAmountWithoutCurrency" /> :{" "}
+                <FormattedMessage id="currency" />{" "}
+                <b>{previousBillSettlementAmount}</b> ={" "}
+                <b>
+                  <span className="text-primary">
+                    {" "}
+                    <FormattedMessage id="currency" />{" "}
+                    {netTotal + previousBillSettlementAmount}
+                  </span>
+                </b>
+              </span>
             </div>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">
           <div>
-            <h4 className="text-secondary"><FormattedMessage id="settlementSectionTitle"/></h4>
-            <h5><FormattedMessage id="amountToSettle"/><span className="text-primary"><FormattedMessage id="currency"/> {netTotal + previousBillSettlementAmount}</span></h5>
+            <h4 className="text-secondary">
+              <FormattedMessage id="settlementSectionTitle" />
+            </h4>
+            <h5>
+              <FormattedMessage id="amountToSettle" />
+              <span className="text-primary">
+                <FormattedMessage id="currency" />{" "}
+                {netTotal + previousBillSettlementAmount}
+              </span>
+            </h5>
           </div>
           <FormGroup className="mt-2">
             <Label for="advanceSettlement">
               {" "}
-              <FormattedMessage id="advanceCredited"/> - <b><FormattedMessage id="balanceTextWithoutCurrency"/> : {" "}
-              <span className="text-primary"><FormattedMessage id="currency"/> {type==="add" ? kisan.balance : balanceAfterThisTransaction}</span></b>
+              <FormattedMessage id="advanceCredited" /> -{" "}
+              <b>
+                <FormattedMessage id="balanceTextWithoutCurrency" /> :{" "}
+                <span className="text-primary">
+                  <FormattedMessage id="currency" />{" "}
+                  {type === "add" ? kisan.balance : balanceAfterThisTransaction}
+                </span>
+              </b>
             </Label>{" "}
             <Input
               disabled={type === "edit" || kisan.balance === 0 ? true : false}
@@ -571,21 +675,27 @@ const CreditForm = () => {
             />
             <FormFeedback>
               {isAdvanceSettlementValid === "" ? (
-                <span><FormattedMessage id="balanceCNBLTZ"/></span>
+                <span>
+                  <FormattedMessage id="balanceCNBLTZ" />
+                </span>
               ) : isAdvanceSettlementValid === "OUTSTANDINGEXCEEDED" ? (
                 <span>
-                  <FormattedMessage id="balanceCBMTOA"/> {Math.abs(kisan.balance)}
+                  <FormattedMessage id="balanceCBMTOA" />{" "}
+                  {Math.abs(kisan.balance)}
                 </span>
               ) : (
                 <span>
-                  <FormattedMessage id="balanceCBMTCB"/> {" "}
+                  <FormattedMessage id="balanceCBMTCB" />{" "}
                   {netTotal + previousBillSettlementAmount}
                 </span>
               )}{" "}
             </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
-            <Label for="paidToKisan"> <FormattedMessage id="cashPaid"/></Label>{" "}
+            <Label for="paidToKisan">
+              {" "}
+              <FormattedMessage id="cashPaid" />
+            </Label>{" "}
             <Input
               disabled={type === "edit" ? true : false}
               invalid={
@@ -600,16 +710,20 @@ const CreditForm = () => {
             />
             <FormFeedback>
               {isPaidToKisanValid === "TOTALEXCEEDED" ? (
-                <span><FormattedMessage id="cashPaidCBMTCB"/> {" "}
-                {netTotal + previousBillSettlementAmount}</span>
+                <span>
+                  <FormattedMessage id="cashPaidCBMTCB" />{" "}
+                  {netTotal + previousBillSettlementAmount}
+                </span>
               ) : (
-                <span><FormattedMessage id="cashPaidCNBLTZ"/></span>
+                <span>
+                  <FormattedMessage id="cashPaidCNBLTZ" />
+                </span>
               )}
             </FormFeedback>{" "}
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="carryForwardFromThisEntry">
-              <FormattedMessage id="carryForward"/>
+              <FormattedMessage id="carryForward" />
             </Label>{" "}
             <Input
               disabled
@@ -623,7 +737,10 @@ const CreditForm = () => {
           </FormGroup>
         </div>
         <FormGroup className="mt-2">
-          <Label for="comment"> <FormattedMessage id="comment"/></Label>{" "}
+          <Label for="comment">
+            {" "}
+            <FormattedMessage id="comment" />
+          </Label>{" "}
           <Input
             invalid={comment.length <= 0 && isCommentValid === ""}
             name="comment"
@@ -631,7 +748,10 @@ const CreditForm = () => {
             value={comment}
             onChange={(e) => commentChange(e)}
           />{" "}
-          <FormFeedback> <FormattedMessage id="commentIsRequired"/></FormFeedback>{" "}
+          <FormFeedback>
+            {" "}
+            <FormattedMessage id="commentIsRequired" />
+          </FormFeedback>{" "}
         </FormGroup>{" "}
         {type === "add" ? (
           <React.Fragment>

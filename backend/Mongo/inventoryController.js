@@ -1,20 +1,9 @@
 const { createDBConnection } = require("./mongoConnector");
-const Kisan = require("../Schema/kisanSchema");
-const InventoryController = require("../Mongo/inventoryController");
 const Inventory = require("../Schema/inventorySchema");
-const {
-  getTransactionsBetweenDates,
-  getTransaction,
-} = require("../Utilities/utility");
+const mongoose = require("mongoose");
 
-/* IMPORTANT
-    RDBMS       VS      MONGO
-    Database            Database
-    Table               Collections
-    Rows                Documents
-    Columns             Fields
-
-*/
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 const controller = async (type, data) => {
   //Creating MONGO Connection
   await createDBConnection();
@@ -23,44 +12,35 @@ const controller = async (type, data) => {
   switch (type) {
     case "Get": {
       // Find Request
-      const posts = await Kisan.find();
-      return posts;
+      const inventory = await Inventory.find();
+      return inventory;
     }
     case "Add": {
       //Adding data
       return await data.save();
     }
     case "FindByID": {
-      console.log("IS Here", data);
-      const kisan = await Kisan.findById(data);
-      return kisan;
+      const inventory = await Inventory.findById(data);
+      return inventory;
     }
     case "AddTransaction": {
       // Updating the data
-      let updatekisan = await Kisan.findById(data.id);
-      updatekisan.transactions.push(data.transaction);
-      if (
-        data.transaction.type === "DEBIT" ||
-        data.transaction.type === "ADVANCESETTLEMENT"
-      ) {
-        updatekisan.balance += data.transaction.transactionAmount;
-      } else {
-        await InventoryController.controller("AddTransaction", {
-          itemName: data.transaction.itemType,
-          kisanName: updatekisan.name,
-          kisanId: updatekisan._id,
-          numberofBags: data.transaction.numberofBags,
-          totalweight: data.transaction.totalweight,
-          rate: data.transaction.rate,
-        });
-        updatekisan.balance += parseInt(data.transaction.advanceSettlement);
-        updatekisan.carryForwardAmount =
-          data.transaction.carryForwardFromThisEntry;
-      }
-      const finalKisan = await updatekisan.save();
-      return finalKisan;
+      let fetchedInventory = await Inventory.findOne({
+        itemName: data.itemName,
+      });
+      fetchedInventory.transactions.push({
+        kisanName: data.kisanName,
+        kisanID: data.kisanId.toString(),
+        numberofBags: data.numberofBags,
+        totalweight: data.totalweight,
+        rate: data.rate,
+        date: new Date(),
+      });
+      console.log("Updated Inventory ", fetchedInventory);
+      const finalInventory = await fetchedInventory.save();
+      return finalInventory;
     }
-    case "editTransaction": {
+    /* case "editTransaction": {
       // Delete
       const kisanToUpdate = await Kisan.findById(data.id);
       const newKisanTransaction = kisanToUpdate.transactions.map((trans) => {
@@ -103,7 +83,7 @@ const controller = async (type, data) => {
         data.endDate
       );
       return transactions;
-    }
+    } */
   }
 };
 module.exports = { controller };

@@ -22,6 +22,7 @@ const hi = {
     kisan: "किसान",
     report: "रिपोर्ट",
     logout: "लॉगआउट",
+    inventory: "Inventory",
 
     /*Home Page*/
     welcomeMsg: "महाराज वेजिटेबल कंपनी के",
@@ -88,6 +89,9 @@ const hi = {
     settlementSectionTitle: "समायोजन",
     balanceTextWithoutCurrency: "कुल बक़ाया एडवांस",
     carryForwardAmountWithoutCurrency: "पिछले बिल तक का बक़ाया भुगतान",
+    Matar: "मटर",
+    Tamatar: "टमाटर",
+    Dhaniya: "धनिया",
 
     /*Credit Entry Form Errors*/
     numberOfBagsCNBLTZ: "बोरों की संख्या (नग) 0 से काम नहीं हो सकती है। ",
@@ -105,6 +109,17 @@ const hi = {
     cashPaidCBMTCB:
       'नगद भुगतान की राशि "समायोजित की जाने वाली राशि" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ',
     commentIsRequired: "एंट्री का विवरण देना अनिवार्य है। ",
+
+    /* Inventory Langing */
+    inventoryLandingTitle: "Inventory",
+    addfasalType: "Add Item",
+
+    /* Inventory Add Item Type */
+    inventoryAddHeading: "Add New Item Type",
+    inventory_itemName: "Item Name",
+    inventory_itemError: "Item name is required",
+    inventory_addButtonText: "Add Item Type",
+    inventory_addSuccessful: "Item Added Successfully",
   },
 };
 export default hi;

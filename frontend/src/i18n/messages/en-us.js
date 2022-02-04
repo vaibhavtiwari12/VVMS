@@ -22,6 +22,7 @@ const en = {
     kisan: "Kisan",
     report: "Report",
     logout: "Logout",
+    inventory: "Inventory",
 
     /*Home Page*/
     welcomeMsg: "Welcome to the Digital Platform of",
@@ -88,6 +89,9 @@ const en = {
     settlementSectionTitle: "Settlement",
     balanceTextWithoutCurrency: "Outstanding Advance",
     carryForwardAmountWithoutCurrency: "Carry forward payments up to last Bill",
+    Matar: "Matar",
+    Tamatar: "Tamatar",
+    Dhaniya: "Dhaniya",
 
     /*Credit Entry Form Errors*/
     numberOfBagsCNBLTZ: "Number of Bags cannot be less than 0.",
@@ -105,6 +109,17 @@ const en = {
     cashPaidCBMTCB:
       'Cash paid cannot be greater than the "Amount to Settle". Max allowed amount =  ₹  ',
     commentIsRequired: "Comment is required.",
+
+    /* Inventory Langing */
+    inventoryLandingTitle: "Inventory",
+    addfasalType: "Add Item",
+
+    /* Inventory Add Item Type */
+    inventoryAddHeading: "Add New Item Type",
+    inventory_itemName: "Item Name",
+    inventory_itemError: "Item name is required",
+    inventory_addButtonText: "Add Item Type",
+    inventory_addSuccessful: "Item Added Successfully",
   },
 };
 export default en;

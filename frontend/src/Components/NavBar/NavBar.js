@@ -68,6 +68,12 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
             >
               <FormattedMessage id="report" />
             </Link>
+            <Link
+              className="nav-item ps-3 link-no-decoration text-white"
+              to="/inventory"
+            >
+              <FormattedMessage id="inventory" />
+            </Link>
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
             {isAuthenticated === "TRUE" ? (

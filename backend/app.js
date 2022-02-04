@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 /* const { controller } = require('./Mongo/mongoController'); */
 const MongoRouter = require("./Router/mongoRouter");
 const KisanRouter = require("./Router/kisanRouter");
+const inventoryRouter = require("./Router/inventoryRouter");
 
 const session = require("express-session");
 const loginRouter = require("./Router/loginRouter");
@@ -54,6 +55,7 @@ const sessionMW = session({
 app.use("/mongo", sessionMW, middlewares.isAuthenticated, MongoRouter);
 app.use("/kisan", sessionMW, middlewares.isAuthenticated, KisanRouter);
 app.use("/login", sessionMW, middlewares.isAuthenticated, loginRouter);
+app.use("/inventory", sessionMW, middlewares.isAuthenticated, inventoryRouter);
 
 app.post("/getLogin", sessionMW, async (req, res) => {
   const logins = await controller("get", {
