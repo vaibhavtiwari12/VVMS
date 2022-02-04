@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Form,
   FormFeedback,
@@ -44,6 +47,7 @@ const Report = () => {
   }, []);
   useEffect(() => {
     console.log("transactions ", transactions);
+    document.title = "VVMS - Report ";
   }, [transactions]);
 
   const dateChange = async (e) => {
@@ -101,7 +105,15 @@ const Report = () => {
   },[startDate,endDate])
   return (
     <div>
-      <Form onSubmit={(e) => submit(e)} className="p-3">
+      <Breadcrumb className="ps-3 mt-2">
+        <BreadcrumbItem>
+          <Link className="link-no-decoration-black text-primary" to="/">
+            Home
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Report</BreadcrumbItem>
+      </Breadcrumb>
+      <Form onSubmit={(e) => submit(e)} className="ps-3 pe-3 pb-3">
         {/*  <h6>Please Change the date to generate report of different Date</h6> */}
         <FormGroup tag="fieldset">
           <legend className="col-form-label">

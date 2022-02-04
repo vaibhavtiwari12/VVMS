@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Link, useHistory } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import KisanSearch from "./KisanSearch/KisanSearch";
 import KisanTable from "./KisanSearch/KisanTable";
 import { getAllKisan } from "../../Utility/utility";
@@ -23,6 +23,7 @@ const KisanLanding = () => {
     setSearchType(type);
   };
   useEffect(() => {
+    document.title = "VVMS - Kisan";
     try {
       const fetchData = async () => {
         setKisans(await getAllKisan());
@@ -32,11 +33,16 @@ const KisanLanding = () => {
       throw new Error("Something Went Wrong ", e);
     }
   }, []);
-  useEffect(() => {
-    console.log("kisans", kisans);
-  }, [kisans]);
   return (
     <div className="mt-3">
+      <Breadcrumb className="ps-3 mt-2">
+        <BreadcrumbItem>
+          <Link className="link-no-decoration-black text-primary" to="/">
+            Home
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Kisan</BreadcrumbItem>
+      </Breadcrumb>
       <div className="d-flex">
         <h3 className="flex-fill d-flex justify-content-center">
           <FormattedMessage id="kisanLandingTitle" />

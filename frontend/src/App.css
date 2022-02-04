@@ -15,6 +15,15 @@
   text-decoration: none !important;
   color: white;
 }
+.link-no-decoration-black {
+  text-decoration: none !important;
+  color: black;
+}
+
+.link-no-decoration-black:hover {
+  text-decoration: none !important;
+  color: black;
+}
 
 .text-white {
   color: white !important;
@@ -75,7 +84,10 @@
   }
 }
 .switch-container {
-  margin-top: 0.5rem !important;
+  margin-top: 1rem !important;
+}
+.greeting-container {
+  margin-top: 1rem !important;
 }
 /* switch BUTTON CSS */
 /* .switch {

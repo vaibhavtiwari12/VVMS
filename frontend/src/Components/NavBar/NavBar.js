@@ -86,7 +86,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
             </div>
 
             {isAuthenticated === "TRUE" ? (
-              <div className="text-white">
+              <div className="text-white greeting-container">
                 <ButtonDropdown
                   color="primary"
                   isOpen={dropdownOpen}

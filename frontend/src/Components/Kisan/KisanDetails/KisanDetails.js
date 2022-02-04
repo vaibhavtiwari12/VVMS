@@ -1,20 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
 import Kisantransactionstable from "./kisanTransactionsTable";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
-
-
 const Kisandetails = () => {
   const { id } = useParams();
   const [kisan, setKisan] = useState({});
 
   useEffect(() => {
-      console.log(id)
+    console.log(id);
     try {
       const fetchData = async () => {
         setKisan(await getKisanByID(id));
@@ -25,12 +23,29 @@ const Kisandetails = () => {
     }
   }, []);
   useEffect(() => {
-      console.log("KISAN ", kisan)
-     
+    console.log("KISAN ", kisan);
+    if (kisan.name) {
+      document.title = "VVMS - Kisan - " + kisan.name;
+    }
   }, [kisan]);
   return (
     <div>
-      <h2 className="d-flex justify-content-center mt-2 capitalize"><FormattedMessage id="kisanDetailsTitle"/></h2>
+      <Breadcrumb className="ps-3 mt-2">
+        <BreadcrumbItem>
+          <Link className="link-no-decoration-black text-primary" to="/">
+            Home
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link className="link-no-decoration-black text-primary" to="/kisan">
+            Kisan
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Details</BreadcrumbItem>
+      </Breadcrumb>
+      <h2 className="d-flex justify-content-center mt-2 capitalize">
+        <FormattedMessage id="kisanDetailsTitle" />
+      </h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan}></Kisanmoneysummary>
@@ -38,12 +53,25 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-          <Button color="primary"><Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}><FormattedMessage id="debitEntryKisanButtonText"/></Link></Button>
-          <Button color="primary" className="ms-3"><Link className="link-no-decoration" to={`/kisanCreditForm/${id}/add`}><FormattedMessage id="creditEntryKisanButtonText"/></Link></Button>
+        <Button color="primary">
+          <Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}>
+            <FormattedMessage id="debitEntryKisanButtonText" />
+          </Link>
+        </Button>
+        <Button color="primary" className="ms-3">
+          <Link
+            className="link-no-decoration"
+            to={`/kisanCreditForm/${id}/add`}
+          >
+            <FormattedMessage id="creditEntryKisanButtonText" />
+          </Link>
+        </Button>
       </div>
-      <h3 className="text-center mt-4"><FormattedMessage id="transactionDetailsTitle"/></h3>
+      <h3 className="text-center mt-4">
+        <FormattedMessage id="transactionDetailsTitle" />
+      </h3>
       <div className="p-3">
-      <Kisantransactionstable kisan={kisan}/>
+        <Kisantransactionstable kisan={kisan} />
       </div>
     </div>
   );
