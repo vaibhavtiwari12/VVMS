@@ -104,17 +104,12 @@ const dateConverter = (date) => {
   return formattedDate;
 };
 
-
 const modifyTransactionGroupByDate = (purchaser) => {
   //console.log("Purchaser" ,purchaser)
   const groups = purchaser.transactions.reduce((groups, transaction) => {
-    console.log("transaction.date",transaction.date)
+    console.log("transaction.date", transaction.date);
     const D = new Date(transaction.date);
-    const date =  `${D.getDate()}/${
-      D.getMonth() + 1
-    }/${D.getFullYear()}`;
-    //const date = transaction.date.split(' ')[0];
-    console.log("date",date)
+    const date = `${D.getDate()}/${D.getMonth() + 1}/${D.getFullYear()}`;
     if (!groups[date]) {
       groups[date] = [];
     }
@@ -125,10 +120,14 @@ const modifyTransactionGroupByDate = (purchaser) => {
   const groupArrays = Object.keys(groups).map((date) => {
     return {
       date,
-      transactions: groups[date]
+      transactions: groups[date],
     };
   });
-  console.log("groups",groupArrays);
+  console.log("groups", groupArrays);
   return groupArrays;
-}
-module.exports = { getTransaction, getTransactionsBetweenDates, modifyTransactionGroupByDate };
+};
+module.exports = {
+  getTransaction,
+  getTransactionsBetweenDates,
+  modifyTransactionGroupByDate,
+};

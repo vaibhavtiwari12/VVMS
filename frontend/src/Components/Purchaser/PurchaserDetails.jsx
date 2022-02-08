@@ -64,7 +64,7 @@ const Purchaserdetails = () => {
         <FormattedMessage id="transactionDetailsTitle" />
       </h3>
       <div className="p-3">
-        <Purchasertransactiontable purchaser={customPurchaserTransaction} />
+        <Purchasertransactiontable purchaser={customPurchaserTransaction} purchaserDetails={purchaser}/>
       </div>
     </div>
   );
