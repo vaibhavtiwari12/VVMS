@@ -28,14 +28,19 @@ const controller = async (type, data) => {
       let fetchedInventory = await Inventory.findOne({
         itemName: data.itemName,
       });
+      console.log("DATE ---- Receiver ---", data)
       fetchedInventory.transactions.push({
         kisanName: data.kisanName,
         kisanID: data.kisanId.toString(),
         numberofBags: data.numberofBags,
         totalweight: data.totalweight,
+        purchaserId : data.purchaserId,
+        purchaserName: data.purchaserName,
         rate: data.rate,
         date: new Date(),
       });
+      fetchedInventory.totalWeight += data.totalweight;
+      fetchedInventory.totalBags += data.numberofBags;
       console.log("Updated Inventory ", fetchedInventory);
       const finalInventory = await fetchedInventory.save();
       return finalInventory;

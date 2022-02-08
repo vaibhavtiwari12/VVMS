@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const getAllKisan = async () => {
   const res = await fetch("/kisan/get");
   const allKisan = await res.json();
@@ -59,3 +60,20 @@ export const getTransactionsBetweenDates = async (startDate, endDate) => {
   console.log("ALL TRANSACTION -- Month", allTransactions);
   return allTransactions;
 };
+
+/* PUrchaser Module */
+export const getAllPurchasers = async () => {
+  const purchasers = await axios.get('/purchaser/get');
+  return purchasers;
+}
+
+export const getPurchaserById = async (id) => {
+  const allPurchaser = await axios.get(`/purchaser/getByID/${id}`);
+  return allPurchaser.data;
+};
+
+export const fetchCustomTransactionsForPurchaser = async  (id) => {
+  const allPurchaser = await axios.get(`/purchaser/getTransactionsById/${id}`);
+  console.log("Purchaser Fetched - CUSTOM", allPurchaser)
+  return allPurchaser.data;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { dateConverter } from "../../../Utility/utility";
 
 const Kisanreceipt = React.forwardRef((props, ref) => {
-  console.log("Props", props);
+  /* console.log("Props", props); */
   return (
     <div ref={ref} className="m-4">
         <h1 className="text-center mb-5 pt-4">|| महाराज वेजिटेबल कंपनी ||</h1> 

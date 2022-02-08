@@ -104,4 +104,31 @@ const dateConverter = (date) => {
   return formattedDate;
 };
 
-module.exports = { getTransaction, getTransactionsBetweenDates };
+
+const modifyTransactionGroupByDate = (purchaser) => {
+  //console.log("Purchaser" ,purchaser)
+  const groups = purchaser.transactions.reduce((groups, transaction) => {
+    console.log("transaction.date",transaction.date)
+    const D = new Date(transaction.date);
+    const date =  `${D.getDate()}/${
+      D.getMonth() + 1
+    }/${D.getFullYear()}`;
+    //const date = transaction.date.split(' ')[0];
+    console.log("date",date)
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+    groups[date].push(transaction);
+    return groups;
+  }, {});
+
+  const groupArrays = Object.keys(groups).map((date) => {
+    return {
+      date,
+      transactions: groups[date]
+    };
+  });
+  console.log("groups",groupArrays);
+  return groupArrays;
+}
+module.exports = { getTransaction, getTransactionsBetweenDates, modifyTransactionGroupByDate };

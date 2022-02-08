@@ -23,6 +23,5 @@ const isValidSession = async (req) => {
   document = await db
     .collection("mySessions")
     .findOne({ _id: req.session.id, "session.user": req.session.user });
-  console.log("DOCUMENT", document);
   return document;
 };

@@ -1,5 +1,6 @@
 const express = require("express");
 const { controller } = require("../Mongo/kisanController");
+const purchaserController = require("../Mongo/purchaserController.js")
 const Kisan = require("../Schema/kisanSchema");
 const mongoose = require("mongoose");
 
@@ -38,6 +39,14 @@ KisanRouter.post("/AddTransaction/:id", async (req, res) => {
     id: req.params.id,
     transaction: { ...req.body.transaction, date: new Date(), _id: id },
   });
+  if(req.body.transaction && req.body.transaction.purchaserId && req.body.transaction.purchaserId !== "") {
+    var id = mongoose.Types.ObjectId();
+    console.log("req.body.purchaserId",req.body.transaction.purchaserId)
+    await purchaserController.controller("AddTransaction", {
+      id: req.body.transaction.purchaserId,
+      transaction: { ...req.body.transaction, date: new Date(), _id: id },
+    });
+  }
   res.json(addedTransaction);
 });
 

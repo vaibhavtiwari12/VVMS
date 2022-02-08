@@ -18,6 +18,10 @@ import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
 import Advancesettlementform from "./Components/Kisan/KisanDetails/AdvanceSettlementForm";
 import InventoryLanding from "./Components/Inventory/InventoryLanding";
 import AddInventoryType from "./Components/Inventory/AddInventoryType";
+import Purchaserlanding from "./Components/Purchaser/PurchaserLanding";
+import AddPurchaser from "./Components/Purchaser/AddPurchaser";
+import Purchaserdetails from "./Components/Purchaser/PurchaserDetails";
+import Purchasercreditform from "./Components/Purchaser/PurchaserCreditForm";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
@@ -107,6 +111,7 @@ function App() {
                 component={Kisandetails}
                 appProps={{ isAuthenticated }}
               />
+              
               <AuthenticatedRoute
                 exact
                 path="/kisanDebitForm/:id/:type"
@@ -150,10 +155,41 @@ function App() {
                 appProps={{ isAuthenticated }}
               />
 
+              {/* Purchaser Module */}
+              <AuthenticatedRoute
+                exact
+                path="/purchaser"
+                component={Purchaserlanding}
+                appProps={{ isAuthenticated }}
+              /> 
+              <AuthenticatedRoute
+              exact
+              path="/addPurchaser"
+              component={AddPurchaser}
+              appProps={{ isAuthenticated }}
+            />
               <AuthenticatedRoute
                 exact
                 path="/Report"
                 component={Report}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/purchaserDetails/:id"
+                component={Purchaserdetails}
+                appProps={{ isAuthenticated }}
+              />
+               <AuthenticatedRoute
+                exact
+                path="/purchaserCreditForm/:id/:type"
+                component={Purchasercreditform}
+                appProps={{ isAuthenticated }}
+              />
+              <AuthenticatedRoute
+                exact
+                path="/purchaserCreditForm/:id/:type/:transactionNumber"
+                component={Purchasercreditform}
                 appProps={{ isAuthenticated }}
               />
             </Switch>

@@ -4,6 +4,8 @@ import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import { getAllKisan } from "../../Utility/utility";
 import { FormattedMessage } from "react-intl";
 import axios from "axios";
+import InventoryTable from "./InventoryTable";
+import InventoryTabs from "./InventoryTabs";
 
 const InventoryLanding = () => {
   const history = useHistory();
@@ -16,7 +18,7 @@ const InventoryLanding = () => {
     try {
       const fetchData = async () => {
         const inventoryData = await axios.get('/inventory/get');
-        setInventory(inventoryData);
+        setInventory(inventoryData.data);
       };
       fetchData();
     } catch (e) {
@@ -48,16 +50,9 @@ const InventoryLanding = () => {
           + <FormattedMessage id="addfasalType" />
         </Button>
       </div>
-      {/* <AddKisan></AddKisan> */}
-      {/* <KisanSearch
-        setSearchTermChange={handleSearchTermChange}
-        setSearchTermType={handleSearchTypeChange}
-      ></KisanSearch>
-      <KisanTable
-        kisans={kisans}
-        term={searchTerm}
-        type={searchType}
-      ></KisanTable> */}
+      <InventoryTabs inventory = {inventory}/>
+      
+     
     </div>
   );
 };

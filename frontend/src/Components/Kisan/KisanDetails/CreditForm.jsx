@@ -37,7 +37,9 @@ const CreditForm = () => {
   const [carryForwardFromThisEntry, setCarryForwardFromThisEntry] = useState(0);
   const [balanceAfterThisTransaction, setBalanceAfterThisTransaction] =
     useState(0);
-  const [itemType, setItemType] = useState("Matar");
+  const [itemType, setItemType] = useState("");
+  const [purchaser, setPurchaser] = useState("");
+  const [selectedPurchaser, setSelectedPurchaser] = useState({});
 
   // Validity States
   const [isCommentValid, setIsCommentValid] = useState("PRISTINE");
@@ -53,16 +55,18 @@ const CreditForm = () => {
   const [isBhadaValid, setIsBhadaValid] = useState("PRISTINE");
   const [isPaidToKisanValid, setIsPaidToKisanValid] = useState("PRISTINE");
   const [isAdvanceSettlementValid, setIsAdvanceSettlementValid] =
-  useState("PRISTINE");
+    useState("PRISTINE");
   const [
     isCarryForwardFromThisEntryValid,
     setIsCarryForwardFromThisEntryValid,
   ] = useState("PRISTINE");
-  
+  const [ispurchaserInvalid, setIsPurchaserinvalid] = useState("PRISTINE");
+  const [isItemTypeInvalid, setIsItemTypeInvalid] = useState("PRISTINE");
 
   //Misclaeneous
   const [kisan, setKisan] = useState({});
   const [inventory, setInventory] = useState([]);
+  const [purchaserData, setPurchaserData] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -72,8 +76,15 @@ const CreditForm = () => {
 
       const fetchData = async () => {
         setKisan(await getKisanByID(id));
-        const inventoryData = await axios.get('/inventory/get');
-        setInventory(inventoryData.data)
+        const inventoryData = await axios.get("/inventory/get");
+        if (inventoryData.data.length <= 0) {
+          history.push("/inventory");
+        } else {
+          setInventory(inventoryData.data);
+        }
+        const purchaserData = await axios.get("/purchaser/get");
+        console.log("Purchaser Data", purchaserData.data);
+        setPurchaserData(purchaserData.data);
       };
       fetchData();
     } catch (e) {
@@ -120,9 +131,17 @@ const CreditForm = () => {
       setPreviousBillSettlementAmount(kisan.carryForwardAmount);
     }
   }, [kisan]);
-  useEffect(() => {
-    console.log("INVENTORY ", inventory)
-  }, [inventory]);
+  /* useEffect(() => {
+    if(purchaserData.length>0){
+      setPurchaser(purchaserData[0])
+    }
+  }, [purchaserData]); */
+  /*  useEffect(() => {
+    if(inventory.length>0){
+      console.log("INVENTORY ", inventory)
+      setItemType(inventory[0].itemName)
+    }
+  }, [inventory]); */
 
   //EDIT
   useEffect(() => {
@@ -130,6 +149,18 @@ const CreditForm = () => {
       const transactionToedit = kisan.transactions.filter(
         (transac) => transac._id === transactionNumber.toString()
       )[0];
+      if(purchaserData.length>0){
+        let purchaserToPopulate = {}
+        purchaserData.find((purchaser,index)=>{
+          if (transactionToedit.purchaserId === purchaser._id) {
+            purchaserToPopulate = {...purchaser, index}
+          }
+            
+        })
+        console.log("aaaaaaaaaa",purchaserToPopulate)
+        setPurchaser(purchaserToPopulate.index);
+        setSelectedPurchaser(purchaserToPopulate);
+      }
 
       console.log("transactionToedit", transactionToedit);
       setPreviousBillSettlementAmount(
@@ -150,8 +181,11 @@ const CreditForm = () => {
       setBalanceAfterThisTransaction(
         transactionToedit.balanceAfterThisTransaction
       );
+      setItemType(transactionToedit.itemType)
+      setIsItemTypeInvalid("PRISTINE")
+      setIsPurchaserinvalid("PRISTINE")
     }
-  }, [kisan]);
+  }, [kisan,purchaserData]);
 
   const isFormValid = () => {
     let isInvalid = false;
@@ -203,7 +237,12 @@ const CreditForm = () => {
       setIsPaidToKisanValid("TOTALEXCEEDED");
       isInvalid = true;
     }
-    return isInvalid ? false : true;
+    if((purchaser === "" && itemType !== "") || (purchaser !== "" && itemType === "")){
+      setIsPurchaserinvalid("TRUE")
+      setIsItemTypeInvalid("TRUE")
+      isInvalid=true;
+    }
+    return isInvalid? false : true;
   };
 
   const validateAdvanceSettlement = () => {
@@ -300,6 +339,9 @@ const CreditForm = () => {
     setPaidToKisan(previousBillSettlementAmount);
     setAdvanceSettlement(0);
     setCarryForwardFromThisEntry(0);
+    setPurchaser("");
+    setItemType("")
+    setSelectedPurchaser({})
     setHasError(false);
     setIsCommentValid("PRISTINE");
     setIsPreviousBillSettlementAmountValid("PRISTINE");
@@ -312,6 +354,8 @@ const CreditForm = () => {
     setIsPaidToKisanValid("PRISTINE");
     setIsAdvanceSettlementValid("PRISTINE");
     setIsCarryForwardFromThisEntryValid("PRISTINE");
+    setIsPurchaserinvalid("PRISTINE")
+    setIsItemTypeInvalid("PRISTINE")
   };
 
   const submit = (e) => {
@@ -335,6 +379,11 @@ const CreditForm = () => {
           comment,
           itemType,
           balanceAfterThisTransaction: kisan.balance + advanceSettlement,
+          purchaserId: selectedPurchaser._id,
+          purchaserName: selectedPurchaser.name,
+          purchaserTxnType: "DEBIT",
+          purchaserkisanId: kisan._id,
+          purchaserkisanName: kisan.name,
         },
       };
       console.log("FORM DATA", formData);
@@ -397,9 +446,37 @@ const CreditForm = () => {
     }
   };
 
-  const handleSelectChange = (e) => {
+  const handleItemChange = (e) => {
+    setItemType(e.target.value);
+  };
+  const handlePurchaserChange = (e) => {
+    setPurchaser(e.target.value);
+    
+    setSelectedPurchaser(purchaserData[parseInt(e.target.value)])
+  };
+  
+  useEffect(() => {
+    if(ispurchaserInvalid !== "PRISTINE" || isItemTypeInvalid !=="PRISTINE"){
+      validatePurchaserAndVegetable();
+    }else {
+      setIsPurchaserinvalid("");
+      setIsItemTypeInvalid("");
+    }
+  },[purchaser,itemType])
 
-  }
+  const validatePurchaserAndVegetable = () => {
+    console.log(purchaser, itemType)
+    if (purchaser === "" && itemType !== "") {
+      setIsPurchaserinvalid("TRUE");
+    } else {
+      setIsPurchaserinvalid("FALSE");
+    }
+    if (itemType === "" && purchaser !== "") {
+      setIsItemTypeInvalid("TRUE");
+    } else {
+      setIsItemTypeInvalid("FALSE");
+    }
+  };
 
   /*------------------------------------------HTML-------------------------------------*/
 
@@ -461,27 +538,29 @@ const CreditForm = () => {
             <FormattedMessage id="purchaseSectionTitle" />
           </h4>
           <FormGroup>
-            <Label for="itemType">
-              <FormattedMessage id="searchBy" />:
-            </Label>
+            <Label for="itemType">What are you buying?</Label>
             <Input
               type="select"
+              disabled={type === "edit" ? true : false}
               name="select"
+              invalid={ispurchaserInvalid==="TRUE" || isItemTypeInvalid==="TRUE"}
               id="itemType"
               value={itemType}
-              onChange={(e) => handleSelectChange(e)}
+              onChange={(e) => handleItemChange(e)}
             >
+              <option value="">Select the Vegetable</option>
               {inventory.map((item) => {
-                return <option key={item._id} value={item.itemName}>{item.itemName}</option>
+                return (
+                  <option key={item._id} value={item.itemName}>
+                    {item.itemName}
+                  </option>
+                );
               })}
-             {/*  <option value="Matar">{intl.formatMessage({ id: "Matar" })}</option>
-              <option value="Tamatar">
-                {intl.formatMessage({ id: "Tamatar" })}
-              </option>
-              <option value="Dhaniya">
-                {intl.formatMessage({ id: "Dhaniya" })}
-              </option> */}
             </Input>
+            <FormFeedback>
+              Select vegetable and purchaser both or remove both by selecting
+              "select" entry
+            </FormFeedback>
           </FormGroup>
 
           <FormGroup className="mt-2">
@@ -489,7 +568,7 @@ const CreditForm = () => {
               <FormattedMessage id="numberOfBags" />
             </Label>{" "}
             <Input
-              disabled={type === "edit" ? true : false}
+              disabled={type === "edit" || itemType === "" ? true : false}
               invalid={
                 numberofBags && numberofBags < 0 && isNumberofBagsValid === ""
               }
@@ -508,9 +587,9 @@ const CreditForm = () => {
               <FormattedMessage id="totalWeight" />
             </Label>{" "}
             <Input
-              disabled={type === "edit" ? true : false}
+              disabled={type === "edit" || itemType === "" ? true : false}
               invalid={
-                totalweight && totalweight < 0 && isTotalWeigthValid === ""
+                (totalweight && totalweight < 0 && isTotalWeigthValid === "")
               }
               onWheel={(e) => e.target.blur()}
               name="totalweight"
@@ -527,7 +606,7 @@ const CreditForm = () => {
               <FormattedMessage id="ratePerKg" />
             </Label>
             <Input
-              disabled={type === "edit" ? true : false}
+              disabled={type === "edit" || itemType === "" ? true : false}
               invalid={rate && rate < 0 && isRateValid === ""}
               name="rate"
               type="number"
@@ -543,6 +622,34 @@ const CreditForm = () => {
                 <FormattedMessage id="grossTotal" /> {grossTotal}
               </h5>
             </div>
+          </FormGroup>
+        </div>
+        <div className="shadow p-3 mt-3">
+          <h4 className="text-secondary">Purchaser Details</h4>
+          <FormGroup>
+            <Label for="purchaserName">Purchaser:</Label>
+            <Input
+              type="select"
+              disabled={type === "edit" || itemType === "" ? true : false}
+              invalid={ispurchaserInvalid==="TRUE" || isItemTypeInvalid==="TRUE"}
+              name="select"
+              id="purchaserName"
+              value={purchaser}
+              onChange={(e) => handlePurchaserChange(e)}
+            >
+              <option value="">Select the Purchaser</option>
+              {purchaserData.map((phr,index) => {
+                return (
+                  <option key={phr._id} value={index}>
+                    {phr.name}-{phr.companyName}
+                  </option>
+                );
+              })}
+            </Input>
+            <FormFeedback>
+              Select vegetable and purchaser both or remove both by selecting
+              "select" entry
+            </FormFeedback>
           </FormGroup>
         </div>
         <div className="shadow p-3 mt-3">

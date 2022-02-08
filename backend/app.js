@@ -10,6 +10,7 @@ const session = require("express-session");
 const loginRouter = require("./Router/loginRouter");
 const middlewares = require("./Middleware/middleware");
 const { controller } = require("./Mongo/loginController");
+const purchaserRouter = require("./Router/purchaserRouter");
 
 var MongoDBStore = require("connect-mongodb-session")(session);
 
@@ -56,6 +57,7 @@ app.use("/mongo", sessionMW, middlewares.isAuthenticated, MongoRouter);
 app.use("/kisan", sessionMW, middlewares.isAuthenticated, KisanRouter);
 app.use("/login", sessionMW, middlewares.isAuthenticated, loginRouter);
 app.use("/inventory", sessionMW, middlewares.isAuthenticated, inventoryRouter);
+app.use("/purchaser", sessionMW, middlewares.isAuthenticated, purchaserRouter);
 
 app.post("/getLogin", sessionMW, async (req, res) => {
   const logins = await controller("get", {
@@ -95,7 +97,6 @@ app.get(
   sessionMW,
   middlewares.isAuthenticated,
   (req, res) => {
-    console.log("Has valid Session", req.session);
     res.json({ validSession: true, User: req.session.user });
   }
 );

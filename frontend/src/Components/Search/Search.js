@@ -1,7 +1,7 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { FormattedMessage,useIntl } from "react-intl";
 import useSearch from "./useSearch";
-const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
+const Search = ({ setSearchTermChange, setSearchTermType }) => {
   const intl = useIntl();
   const {
     handleChange,
@@ -59,4 +59,4 @@ const KisanSearch = ({ setSearchTermChange, setSearchTermType }) => {
     </div>
   );
 };
-export default KisanSearch;
+export default Search;

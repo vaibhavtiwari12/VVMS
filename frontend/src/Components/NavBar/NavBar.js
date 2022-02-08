@@ -52,7 +52,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
           <Nav className="" navbar>
             <Link
               className="nav-item ps-3 link-no-decoration text-white"
-              to="/"
+              to="/purchaser"
             >
               <FormattedMessage id="purchaser" />
             </Link>

@@ -45,14 +45,18 @@ const controller = async (type, data) => {
       ) {
         updatekisan.balance += data.transaction.transactionAmount;
       } else {
-        await InventoryController.controller("AddTransaction", {
-          itemName: data.transaction.itemType,
-          kisanName: updatekisan.name,
-          kisanId: updatekisan._id,
-          numberofBags: data.transaction.numberofBags,
-          totalweight: data.transaction.totalweight,
-          rate: data.transaction.rate,
-        });
+        if(data.transaction.purchaserId && data.transaction.itemType!==""){
+          await InventoryController.controller("AddTransaction", {
+            itemName: data.transaction.itemType,
+            kisanName: updatekisan.name,
+            kisanId: updatekisan._id,
+            numberofBags: data.transaction.numberofBags,
+            totalweight: data.transaction.totalweight,
+            rate: data.transaction.rate,
+            purchaserId : data.transaction.purchaserId,
+            purchaserName: data.transaction.purchaserName
+          });
+        }
         updatekisan.balance += parseInt(data.transaction.advanceSettlement);
         updatekisan.carryForwardAmount =
           data.transaction.carryForwardFromThisEntry;

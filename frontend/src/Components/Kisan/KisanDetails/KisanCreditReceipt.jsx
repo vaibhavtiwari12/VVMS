@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "reactstrap";
 import { dateConverter } from "../../../Utility/utility";
 const Kisancreditreceipt = React.forwardRef((props, ref) => {
-  console.log("props", props);
+  /* console.log("props", props); */
   return (
     <div ref={ref} className="mt-3 ms-5 me-5 mb-3" >
       <h6 className="text-center text-success">|| श्री गुरु कृपा ||</h6>

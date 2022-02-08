@@ -1,0 +1,137 @@
+const { createDBConnection } = require("./mongoConnector");
+const Purchaser = require("../Schema/purchaserSchema");
+const InventoryController = require("./inventoryController");
+const {
+  getTransactionsBetweenDates,
+  getTransaction,
+  modifyTransactionGroupByDate,
+} = require("../Utilities/utility");
+
+/* IMPORTANT
+    RDBMS       VS      MONGO
+    Database            Database
+    Table               Collections
+    Rows                Documents
+    Columns             Fields
+
+*/
+const controller = async (type, data) => {
+  //Creating MONGO Connection
+  await createDBConnection();
+
+  //All Operation in Mongo
+  switch (type) {
+    case "Get": {
+      // Find Request
+      const purchaseDetails = await Purchaser.find();
+      return purchaseDetails;
+    }
+    case "Add": {
+      //Adding data
+      const newPurchaser = new Purchaser({
+        name: data.name,
+        companyName: data.companyName,
+        phone: data.phone,
+        address: data.address,
+        date: new Date().toString(),
+        balance: 0,
+        transactions: [],
+      });
+      return await newPurchaser.save();
+    }
+    case "FindByID": {
+      console.log("IS Here", data);
+      const purchasers = await Purchaser.findById(data);
+      return purchasers;
+    }
+    case "findByCustomTransactions": {
+      console.log("IS Here", data);
+      const purchaser = await Purchaser.findById(data);
+      const modifiedTransactions = modifyTransactionGroupByDate(purchaser)
+      return modifiedTransactions;
+    }
+    case "AddTransaction": {
+      // Updating the data
+      console.log("Add Transaction to Purchaser----- ",data)
+      let fetchedPurchaser = await Purchaser.findById(data.id);
+      if (data.transaction.purchaserTxnType === "DEBIT") {
+        fetchedPurchaser.balance -= data.transaction.grossTotal;
+        fetchedPurchaser.transactions.push({
+          numberofBags: data.transaction.numberofBags,
+          totalweight: data.transaction.totalweight,
+          rate: data.transaction.rate,
+          type: data.transaction.purchaserTxnType,
+          kisan: data.transaction.purchaserkisanId,
+          kisanName: data.transaction.purchaserkisanName,
+          transactionAmount: data.transaction.grossTotal,
+          date: new Date(),
+          balanceAfterThisTransaction: fetchedPurchaser.balance  
+        });
+      }
+      console.log("PURCHASER Data to be update ------- ", fetchedPurchaser)
+      const finalKisan = await fetchedPurchaser.save();
+      return finalKisan;
+    } 
+    case "AddCreditTransaction": {
+      // Updating the data
+      console.log("Add credit transaction to Purchaser----- ",data)
+      let fetchedPurchaser = await Purchaser.findById(data.id);
+        fetchedPurchaser.balance += data.transaction.transactionAmount;
+        fetchedPurchaser.transactions.push({
+          transactionAmount: data.transaction.transactionAmount,
+          date: new Date(),
+          balanceAfterThisTransaction: fetchedPurchaser.balance,
+          type: data.transaction.type
+        });
+      console.log("PURCHASER CREDIT ENTRY ------- ", fetchedPurchaser)
+      const finalKisan = await fetchedPurchaser.save();
+      return finalKisan;
+    }
+    /* 
+    case "editTransaction": {
+      // Delete
+      const kisanToUpdate = await Kisan.findById(data.id);
+      const newKisanTransaction = kisanToUpdate.transactions.map((trans) => {
+        if (trans._id == data.transactionNumber) {
+          return { ...trans, comment: data.comment };
+        } else return trans;
+      });
+      console.log("newKisanTransaction", newKisanTransaction);
+      kisanToUpdate.transactions = newKisanTransaction;
+      console.log("kisanToUpdate", kisanToUpdate);
+      const finalKisan = await kisanToUpdate.save();
+      return finalKisan;
+    }
+    case "todaystransactions": {
+      // Delete
+      const allKisans = await Kisan.find();
+      const transactions = getTransaction(
+        allKisans,
+        data.dateToSearch,
+        "byDate"
+      );
+      return transactions;
+    }
+    case "monthTransaction": {
+      // Delete
+      const allKisans = await Kisan.find();
+      const transactions = getTransaction(
+        allKisans,
+        data.monthToSearch,
+        "byMonth"
+      );
+      return transactions;
+    }
+    case "transactionBetweenDates": {
+      // Delete
+      const allKisans = await Kisan.find();
+      const transactions = getTransactionsBetweenDates(
+        allKisans,
+        data.startDate,
+        data.endDate
+      );
+      return transactions;
+    } */
+  }
+};
+module.exports = { controller };

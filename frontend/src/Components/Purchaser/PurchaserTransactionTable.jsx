@@ -1,23 +1,22 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
-import Kisanreceipt from "./KisanReceipt";
-import { useRef } from "react";
-import { dateConverter } from "../../../Utility/utility";
-import Kisancreditreceipt from "./KisanCreditReceipt";
 import { FormattedMessage } from "react-intl";
+import { dateConverter } from "../../Utility/utility";
+import Kisanreceipt from "../Kisan/KisanDetails/KisanReceipt";
+import Kisancreditreceipt from "../Kisan/KisanDetails/KisanCreditReceipt";
 
-const Kisantransactionstable = ({ kisan }) => {
+const Purchasertransactiontable = ({ purchaser }) => {
   /* const [balances, setBalances] = useState([]); */
   const [transaction, setTransaction] = useState({});
 
   const componentRef = useRef();
   const creditPrintRef = useRef();
   const print = (currentTransaction) => {
-    setTransaction({
+    /* setTransaction({
       address: kisan.address,
       balance: kisan.balance,
       fatherName: kisan.fatherName,
@@ -26,11 +25,11 @@ const Kisantransactionstable = ({ kisan }) => {
       date: dateConverter(currentTransaction.date),
       transactionAmount: currentTransaction.transactionAmount,
       type: "DEBIT",
-    });
+    }); */
   };
   const printCreditEntry = (currentTransaction) => {
     console.log("Idhar");
-    setTransaction({
+    /*   setTransaction({
       address: kisan.address,
       balance: kisan.balance,
       fatherName: kisan.fatherName,
@@ -52,7 +51,7 @@ const Kisantransactionstable = ({ kisan }) => {
       txn_carryForwardFromThisEntry:
         currentTransaction.carryForwardFromThisEntry,
       txn_paidToKisan: currentTransaction.paidToKisan,
-    });
+    }); */
   };
   useEffect(() => {
     if (Object.keys(transaction).length > 0) {
@@ -92,77 +91,72 @@ const Kisantransactionstable = ({ kisan }) => {
             <th>
               <FormattedMessage id="date" />
             </th>
-            <th>
-              <FormattedMessage id="comment" />
-            </th>
-            <th>
-              <FormattedMessage id="advanceDebited" />
-            </th>
-            <th>
-              Gross Total
-            </th>
-            <th>
-              <FormattedMessage id="billTotal" />
-            </th>
-            <th>
-              <FormattedMessage id="advanceCredited" />
-            </th>
-            <th>
-              <FormattedMessage id="cashPaid" />
-            </th>
-            <th>
-              <FormattedMessage id="carryForward" />
-            </th>
-            <th>
+            <th>Kisan</th>
+            <th>Weight</th>
+            <th>Number Of Bags</th>
+            <th>Rate</th>
+            <th>Transaction Amount</th>
+            <th>Type</th>
+            <th>Balance After This Transaction</th>
+            {/* <th>
               <FormattedMessage id="balance" />
             </th>
             <th>
               <FormattedMessage id="actions" />
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody>
-          {kisan &&
-            kisan.transactions &&
-            kisan.transactions
-              .sort((a, b) => new Date(b.date) - new Date(a.date))
-              .map((transaction, index) => {
-                return (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{dateConverter(transaction.date)}</td>
-                    <td>{transaction.comment}</td>
-                    <td>
-                      {transaction.type === "DEBIT"
-                        ? transaction.transactionAmount
-                        : ""}
-                    </td>
-                    <td>{transaction.grossTotal}</td>
-                    <td>{transaction.netTotal}</td>
-                    
-                    <td>
-                     {transaction.type === "CREDIT"
-                        ? transaction.advanceSettlement
-                        : transaction.type === "ADVANCESETTLEMENT"
-                        ? transaction.transactionAmount
-                        : ""}
-                    </td>
-                    
-                    <td>{transaction.paidToKisan}</td>
-                    <td>{transaction.carryForwardFromThisEntry}</td>
-                    {/*  <td>{balances[index] <0 ? <span className="text-danger">{balances[index]}</span> : <span className="text-success">{balances[index]}</span> }</td> */}
-                    <td>
-                      <span
-                        className={
-                          transaction.balanceAfterThisTransaction < 0
-                            ? "text-danger"
-                            : "text-primary"
-                        }
-                      >
-                        {transaction.balanceAfterThisTransaction}
-                      </span>
-                    </td>
-                    <td>
+          {purchaser.length > 0 && purchaser.sort((a, b) => new Date(b.date) - new Date(a.date)).map(purchaser => {
+            return (
+            <Fragment>
+              <tr className="border  m-2">
+                <td colspan="9" >
+                  <div className="d-flex align-items-center">
+                  <b>Date : {purchaser.date} </b>
+                  <div className="flex-fill d-flex justify-content-end">
+                  <Button className="m-2" color="primary">
+                    Print
+                  </Button>
+
+                  </div>
+                </div>
+                  </td>
+              </tr>
+              {purchaser &&
+                purchaser.transactions &&
+                purchaser.transactions
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  .map((transaction, index) => {
+                    return (
+                      <tr key={index} className={transaction.type==="CREDIT" ? "bg-light" : ""}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{dateConverter(transaction.date)}</td>
+                        <td>
+                          <Link to={"/kisanDetails/" + transaction.kisan}>
+                            {transaction.kisanName}
+                          </Link>
+                        </td>
+                        <td>{transaction.totalweight}</td>
+                        <td>{transaction.numberofBags}</td>
+                        <td>{transaction.rate}</td>
+                        <td>{transaction.transactionAmount}</td>
+
+                        <td>{transaction.type}</td>
+
+                        {/*  <td>{balances[index] <0 ? <span className="text-danger">{balances[index]}</span> : <span className="text-success">{balances[index]}</span> }</td> */}
+                        <td>
+                          <span
+                            className={
+                              transaction.balanceAfterThisTransaction < 0
+                                ? "text-danger"
+                                : "text-primary"
+                            }
+                          >
+                            {transaction.balanceAfterThisTransaction}
+                          </span>
+                        </td>
+                        {/* <td>
                       {transaction.type === "DEBIT" ? (
                         <div>
                           <Button color="success">
@@ -218,10 +212,12 @@ const Kisantransactionstable = ({ kisan }) => {
                           </Button>
                         </div>
                       )}
-                    </td>
-                  </tr>
-                );
-              })}
+                    </td> */}
+                      </tr>
+                    );
+                  })}
+            </Fragment>
+          )})}
         </tbody>
       </Table>
       <div className="hide-till-print">
@@ -234,4 +230,4 @@ const Kisantransactionstable = ({ kisan }) => {
   );
 };
 
-export default Kisantransactionstable;
+export default Purchasertransactiontable;

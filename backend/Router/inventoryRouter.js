@@ -19,7 +19,8 @@ InventoryRouter.post("/add", async (req, res) => {
   const newItem = new Inventory({
     itemName: req.body.name,
     date: new Date(),
-    totalQuantity: 0,
+    totalWeight: 0,
+    totalBags: 0,
     transactions: [],
   });
   const addedInventory = await controller("Add", newItem);

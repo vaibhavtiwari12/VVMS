@@ -2,25 +2,27 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
-
 const transactions = new Schema({
-  kisanName: String,
-  kisanID: String,
   numberofBags: Number,
   totalweight: Number,
   rate: Number,
+  type: String,
+  kisan: String,
+  kisanName: String,
+  transactionAmount: Number,
   date: Date,
-  purchaserId : String,
-  purchaserName: String
+  balanceAfterThisTransaction: Number
 });
 //This schema is for the one Row or document
-const InventorySchema = new Schema({
+const purchaserSchema = new Schema({
   serial: ObjectId,
-  itemName: String,
+  name: String,
+  companyName: String,
+  phone: Number,
+  address: String,
   date: Date,
-  totalWeight: Number,
-  totalBags: Number,
+  balance: Number,
   transactions: [transactions],
 });
 
-module.exports = mongoose.model("Inventory", InventorySchema);
+module.exports = mongoose.model("Purchaser", purchaserSchema);

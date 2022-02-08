@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
+import { getAllPurchasers } from "../../Utility/utility";
 import Search from "../Search/Search";
-import KisanTable from "./KisanSearch/KisanTable";
-import { getAllKisan } from "../../Utility/utility";
-import { FormattedMessage } from "react-intl";
+import Purchasertable from "./PurchaserTable";
 
-const KisanLanding = () => {
+const Purchaserlanding = () => {
   const history = useHistory();
-  const handleAddKisanClick = () => {
-    history.push("/addKisan");
+  const handleAddPurchaserClick = () => {
+    history.push("/addPurchaser");
   };
-  const [kisans, setKisans] = useState([]);
+  const [purchasers, setPurchasers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("Name");
   const handleSearchTermChange = (term) => {
@@ -23,10 +22,12 @@ const KisanLanding = () => {
     setSearchType(type);
   };
   useEffect(() => {
-    document.title = "VVMS - Kisan";
+    document.title = "VVMS - Purchaser";
     try {
       const fetchData = async () => {
-        setKisans(await getAllKisan());
+        const fetchedPurchasers = await getAllPurchasers();
+        console.log("Fetched purchases", fetchedPurchasers);
+        setPurchasers(fetchedPurchasers.data);
       };
       fetchData();
     } catch (e) {
@@ -41,31 +42,29 @@ const KisanLanding = () => {
             Home
           </Link>
         </BreadcrumbItem>
-        <BreadcrumbItem active>Kisan</BreadcrumbItem>
+        <BreadcrumbItem active>Purchaser</BreadcrumbItem>
       </Breadcrumb>
       <div className="d-flex">
-        <h3 className="flex-fill d-flex justify-content-center">
-          <FormattedMessage id="kisanLandingTitle" />
-        </h3>
+        <h3 className="flex-fill d-flex justify-content-center">Purchaser</h3>
         <Button
           className="justify-content-end me-3"
           color="primary"
-          onClick={handleAddKisanClick}
+          onClick={handleAddPurchaserClick}
         >
-          + <FormattedMessage id="addKisanButtonText" />
+          + Add Purchaser
         </Button>
       </div>
-      {/* <AddKisan></AddKisan> */}
       <Search
         setSearchTermChange={handleSearchTermChange}
         setSearchTermType={handleSearchTypeChange}
       ></Search>
-      <KisanTable
-        kisans={kisans}
+      <Purchasertable
+        purchasers={purchasers}
         term={searchTerm}
         type={searchType}
-      ></KisanTable>
+      ></Purchasertable>
     </div>
   );
 };
-export default KisanLanding;
+
+export default Purchaserlanding;
