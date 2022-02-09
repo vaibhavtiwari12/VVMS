@@ -53,9 +53,9 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-        <Button color="primary">
+        <Button color="danger">
           <Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}>
-            <FormattedMessage id="debitEntryKisanButtonText" />
+            <FormattedMessage id="giveAdvanceKisanButtonText" />
           </Link>
         </Button>
         <Button color="primary" className="ms-3">
@@ -63,15 +63,14 @@ const Kisandetails = () => {
             className="link-no-decoration"
             to={`/kisanCreditForm/${id}/add`}
           >
-            <FormattedMessage id="creditEntryKisanButtonText" />
+            <FormattedMessage id="createBillKisanButtonText" />
           </Link>
         </Button>
-        <Button color="primary" className="ms-3">
+        <Button color="success" className="ms-3">
           <Link
             className="link-no-decoration"
-            to={`/kisanAdvanceSettlement/${id}/add`}
-          >
-            <FormattedMessage id="advanceSettlementKisanButtonText" />
+            to={`/kisanAdvanceSettlement/${id}/add`}>
+            <FormattedMessage id="depositAdvanceKisanButtonText" />
           </Link>
         </Button>
       </div>

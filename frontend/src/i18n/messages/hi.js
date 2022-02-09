@@ -22,7 +22,7 @@ const hi = {
     kisan: "किसान",
     report: "रिपोर्ट",
     logout: "लॉगआउट",
-    inventory: "Inventory",
+    inventory: "इनवेंटरी",
 
     /*Home Page*/
     welcomeMsg: "महाराज वेजिटेबल कंपनी के",
@@ -46,10 +46,10 @@ const hi = {
 
     /*Kisan Detail Page*/
     kisanDetailsTitle: "किसान का विवरण",
-    carryForwardAmount: "पिछले बिल तक का बक़ाया भुगतान (₹)",
-    debitEntryKisanButtonText: "एडवांस की एंट्री",
-    creditEntryKisanButtonText: "बिल की एंट्री",
-    advanceSettlementKisanButtonText: "एडवांस समायोजन की एंट्री",
+    carryForwardAmount: "पिछले बिलों का कोई बक़ाया भुगतान (₹)",
+    giveAdvanceKisanButtonText: "एडवांस दें",
+    createBillKisanButtonText: "बिल बनायें",
+    depositAdvanceKisanButtonText: "एडवांस जमा करें",
     transactionDetailsTitle: "लेन-देन का विवरण",
 
     /*Table columns Kisan Detail Page*/
@@ -57,6 +57,7 @@ const hi = {
     date: "दिनांक",
     comment: "एंट्री का विवरण",
     advanceDebited: "एडवांस लिया (₹)",
+    grossTotalWithCurrency: "ट्रेडिंग टोटल (₹)",
     billTotal: "बिल टोटल (₹)",
     advanceCredited: "एडवांस चुकाया (₹)",
     cashPaid: "नगद भुगतान किया (₹)",
@@ -67,18 +68,29 @@ const hi = {
     viewButtonText: "देखें",
 
     /*Debit Entry Form*/
-    advanceDetails: "एडवांस का विवरण",
-    amount: "एडवांस की राशि",
+    advanceDetails: "दिए जाने वाले एडवांस का विवरण",
+    amount: "दिए जाने वाले एडवांस की राशि",
     createCreditEntryButtonText: "एडवांस की एंट्री करें",
     amountSBGTZ: "एडवांस की राशि 0 से अधिक होनी चाहिये। ",
 
+    /*Advance Deposit Form*/
+    advanceDepositDetails: "जमा किये जाने वाले एडवांस का विवरण",
+    advanceDepositAmount: "जमा किये जाने वाले एडवांस की राशि",
+    balanceTextTillThisWithoutCurrency: "इस एंट्री के पहले कुल बक़ाया एडवांस",
+
     /*Credit Entry Form*/
     billDetails: "बिल का विवरण",
-    purchaseSectionTitle: "खरीददारी का विवरण",
+    tradingSectionTitle: "ट्रेडिंग का विवरण",
+    carryForwardSectionTitle: "पिछले बक़ाये का विवरण",
+    carryForwardTotal: "टोटल बक़ाया भुगतान",
+    selectTradingType: "-- कमोडिटी का नाम  चुनें --",
     numberOfBags: "बोरों की संख्या (नग) :",
     totalWeight: "कुल वजन (कि.ग्रा.में) :",
     ratePerKg: "प्रति किलोग्राम भाव (₹) :",
-    grossTotal: "कुल खरीददारी : ₹ ",
+    grossTotal: "ट्रेडिंग टोटल (कमोडिटी का कुल मूल्य) : ₹ ",
+    purchaserSectionTitle: "ख़रीददार का विवरण",
+    purchaserName: "ख़रीददार का नाम :",
+    selectPurchaser: "-- ख़रीददार का नाम चुनें --",
     deductionsSectionTitle: "कटौती",
     commission: "कमीशन (% में) :",
     totalCommission: "कुल कमीशन : ",
@@ -88,7 +100,8 @@ const hi = {
     amountToSettle: "समायोजित की जाने वाली राशि : ",
     settlementSectionTitle: "समायोजन",
     balanceTextWithoutCurrency: "कुल बक़ाया एडवांस",
-    carryForwardAmountWithoutCurrency: "पिछले बिल तक का बक़ाया भुगतान",
+    carryForwardAmountWithoutCurrency: "पिछले बिलों का कोई बक़ाया भुगतान",
+    whatAreYouBuyingText: "कमोडिटी (सामग्री) का नाम :",
     Matar: "मटर",
     Tamatar: "टमाटर",
     Dhaniya: "धनिया",
@@ -109,6 +122,8 @@ const hi = {
     cashPaidCBMTCB:
       'नगद भुगतान की राशि "समायोजित की जाने वाली राशि" से अधिक नहीं हो सकती है। अधिकतम मान्य राशि = ₹ ',
     commentIsRequired: "एंट्री का विवरण देना अनिवार्य है। ",
+    selectTradingAndPurchaserIsRequired: "यदि आप किसी कमोडिटी का चयन कर रहे हैं, तो ख़रीददार का चयन करना भी अनिवार्य है। ",
+    selectingPurchaserIsRequired: "ख़रीददार का चयन करना अनिवार्य है। ",
 
     /* Inventory Langing */
     inventoryLandingTitle: "Inventory",

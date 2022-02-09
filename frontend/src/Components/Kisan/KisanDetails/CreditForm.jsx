@@ -19,7 +19,7 @@ import axios from "axios";
 
 const CreditForm = () => {
   const { id, type, transactionNumber } = useParams();
-  const intl = useIntl();
+  const intlA = useIntl();
   //Form States
   const [comment, setComment] = useState("");
   const [previousBillSettlementAmount, setPreviousBillSettlementAmount] =
@@ -107,6 +107,24 @@ const CreditForm = () => {
     }
   }, [grossTotal, commission, hammali, bhada]);
 
+  useEffect(() => {
+      if (type === "add") {
+        setHammali(
+           numberofBags * 7
+        );
+      }
+    }, [numberofBags]);
+
+    useEffect(() => {
+          if (type === "add" & itemType === "") {
+            setNumberOfBags(0);
+            setRate(0);
+            setTotalweight(0);
+            setHammali(0);
+            setPurchaser("");
+          }
+        }, [itemType]);
+//itemType
   useEffect(() => {
     if (type === "add") {
       setPaidToKisan(
@@ -503,8 +521,10 @@ const CreditForm = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Credit Form</BreadcrumbItem>
       </Breadcrumb>
+
+
       <h2 className="text-center text-secondary mt-3">
-        <FormattedMessage id="creditEntryKisanButtonText" />
+        <FormattedMessage id="createBillKisanButtonText" />
       </h2>
       <div>
         <div>
@@ -512,33 +532,52 @@ const CreditForm = () => {
         </div>
         <div></div>
       </div>
+
+
       <Form onSubmit={(e) => submit(e)} className="p-3">
         <h2 className="text-center text-secondary mt-3">
           <FormattedMessage id="billDetails" />
         </h2>
-        <FormGroup className="mt-2">
-          <Label for="previousBillSettlementAmount">
-            <FormattedMessage id="carryForwardAmount" />
-          </Label>{" "}
-          <Input
-            disabled
-            name="previousBillSettlementAmount"
-            type="number"
-            value={previousBillSettlementAmount}
-            onWheel={(e) => e.target.blur()}
-            onChange={(e) => previousBillSettlementAmountChange(e)}
-          />
-          <FormFeedback>
-            {" "}
-            Previous Bill Settlement Amount is required.{" "}
-          </FormFeedback>{" "}
-        </FormGroup>{" "}
-        <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary">
-            <FormattedMessage id="purchaseSectionTitle" />
-          </h4>
+
+        {/* ------------------ Previous Bill Section ------------------ */}
+        <div className="shadow p-3 m-3">
+          <FormGroup className="mt-2">
+            {/* <h4 className="text-secondary">
+             <FormattedMessage id="carryForwardSectionTitle" />
+            </h4> */}
+            <Label for="previousBillSettlementAmount" className="mt-2">
+              <FormattedMessage id="carryForwardAmount" />
+            </Label>{" "}
+            <Input
+             disabled
+             name="previousBillSettlementAmount"
+             type="number"
+             value={previousBillSettlementAmount}
+             onWheel={(e) => e.target.blur()}
+             onChange={(e) => previousBillSettlementAmountChange(e)}
+            />
+              <FormFeedback>
+                {" "}
+                Previous Bill Settlement Amount is required.{" "}
+              </FormFeedback>{" "}
+              {/* {<div className="text-end mt-3">
+                <h5>
+                  <FormattedMessage id="carryForwardTotal" /> :{" "}
+                  <FormattedMessage id="currency" />{" "}
+                  {previousBillSettlementAmount}
+                </h5>
+              </div> } */}
+          </FormGroup>
+        </div>
+
+
+        {/* ------------------ Trading Details Section ------------------ */}
+        <div className="shadow p-3 m-3">
+          <h3 className="text-secondary">
+                <FormattedMessage id="tradingSectionTitle" />
+          </h3>
           <FormGroup>
-            <Label for="itemType">What are you buying?</Label>
+            <Label for="itemType" className="mt-2"><FormattedMessage id="whatAreYouBuyingText" /></Label>
             <Input
               type="select"
               disabled={type === "edit" ? true : false}
@@ -548,7 +587,7 @@ const CreditForm = () => {
               value={itemType}
               onChange={(e) => handleItemChange(e)}
             >
-              <option value="">Select the Vegetable</option>
+              <option value="">{intlA.formatMessage({id:"selectTradingType"})}</option>
               {inventory.map((item) => {
                 return (
                   <option key={item._id} value={item.itemName}>
@@ -558,8 +597,7 @@ const CreditForm = () => {
               })}
             </Input>
             <FormFeedback>
-              Select vegetable and purchaser both or remove both by selecting
-              "select" entry
+              <FormattedMessage id="selectTradingAndPurchaserIsRequired" />
             </FormFeedback>
           </FormGroup>
 
@@ -624,10 +662,13 @@ const CreditForm = () => {
             </div>
           </FormGroup>
         </div>
-        <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary">Purchaser Details</h4>
+
+
+        {/* ------------------ Purchaser Details Section ------------------ */}
+        <div className="shadow p-3 m-3">
+          <h3 className="text-secondary"><FormattedMessage id="purchaserSectionTitle" /></h3>
           <FormGroup>
-            <Label for="purchaserName">Purchaser:</Label>
+            <Label for="purchaserName" className="mt-2"><FormattedMessage id="purchaserName" /></Label>
             <Input
               type="select"
               disabled={type === "edit" || itemType === "" ? true : false}
@@ -637,7 +678,7 @@ const CreditForm = () => {
               value={purchaser}
               onChange={(e) => handlePurchaserChange(e)}
             >
-              <option value="">Select the Purchaser</option>
+              <option value="">{intlA.formatMessage({id:"selectPurchaser"})}</option>
               {purchaserData.map((phr,index) => {
                 return (
                   <option key={phr._id} value={index}>
@@ -647,17 +688,19 @@ const CreditForm = () => {
               })}
             </Input>
             <FormFeedback>
-              Select vegetable and purchaser both or remove both by selecting
-              "select" entry
+              <FormattedMessage id="selectingPurchaserIsRequired" />
             </FormFeedback>
           </FormGroup>
         </div>
-        <div className="shadow p-3 mt-3">
-          <h4 className="text-secondary">
+
+
+        {/* ------------------ Deductions Section ------------------ */}
+        <div className="shadow p-3 m-3">
+          <h3 className="text-secondary">
             <FormattedMessage id="deductionsSectionTitle" />
-          </h4>
+          </h3>
           <FormGroup className="mt-2">
-            <Label for="commission">
+            <Label for="commission" className="mt-2">
               {" "}
               <FormattedMessage id="commission" /> -{" "}
               <b>
@@ -742,12 +785,16 @@ const CreditForm = () => {
             </div>
           </FormGroup>
         </div>
-        <div className="shadow p-3 mt-3">
+
+
+
+        {/* ------------------ Settlement Section ------------------ */}
+        <div className="shadow p-3 m-3">
           <div>
-            <h4 className="text-secondary">
+            <h3 className="text-secondary">
               <FormattedMessage id="settlementSectionTitle" />
-            </h4>
-            <h5>
+            </h3>
+            <h5 className="mt-3">
               <FormattedMessage id="amountToSettle" />
               <span className="text-primary">
                 <FormattedMessage id="currency" />{" "}
@@ -756,7 +803,7 @@ const CreditForm = () => {
             </h5>
           </div>
           <FormGroup className="mt-2">
-            <Label for="advanceSettlement">
+            <Label for="advanceSettlement" className="mt-2">
               {" "}
               <FormattedMessage id="advanceCredited" /> -{" "}
               <b>
@@ -843,23 +890,27 @@ const CreditForm = () => {
             <FormFeedback> Paid To Kisan is required. </FormFeedback>{" "}
           </FormGroup>
         </div>
-        <FormGroup className="mt-2">
-          <Label for="comment">
-            {" "}
-            <FormattedMessage id="comment" />
-          </Label>{" "}
-          <Input
-            invalid={comment.length <= 0 && isCommentValid === ""}
-            name="comment"
-            type="text"
-            value={comment}
-            onChange={(e) => commentChange(e)}
-          />{" "}
-          <FormFeedback>
-            {" "}
-            <FormattedMessage id="commentIsRequired" />
-          </FormFeedback>{" "}
-        </FormGroup>{" "}
+
+
+        <div className="shadow p-3 m-3">
+          <FormGroup className="mt-2">
+              <Label for="comment">
+                {" "}
+                <FormattedMessage id="comment" />
+              </Label>{" "}
+              <Input
+                invalid={comment.length <= 0 && isCommentValid === ""}
+                name="comment"
+                type="text"
+                value={comment}
+                onChange={(e) => commentChange(e)}
+              />{" "}
+              <FormFeedback>
+                {" "}
+                <FormattedMessage id="commentIsRequired" />
+              </FormFeedback>{" "}
+              </FormGroup>{" "}
+        </div>
         {type === "add" ? (
           <React.Fragment>
             <Button type="submit" color="primary" className="mt-3">

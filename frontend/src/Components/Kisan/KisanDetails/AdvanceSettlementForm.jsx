@@ -179,7 +179,7 @@ const Advancesettlementform = () => {
         <BreadcrumbItem active>Advance Settlement Form</BreadcrumbItem>
       </Breadcrumb>
       <h2 className="text-center text-secondary mt-3">
-        Advance Settlement Entry
+        <FormattedMessage id="depositAdvanceKisanButtonText" />
       </h2>
       <div>
         <div>
@@ -189,16 +189,28 @@ const Advancesettlementform = () => {
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
-        <h2 className="text-center text-secondary mt-3">Advance Settlement</h2>
+        <h2 className="text-center text-secondary mt-3"><FormattedMessage id="advanceDepositDetails" /></h2>
         {type === "edit" ? (
           <h6>
-            Total Outstanding Advance till this transaction : {outstanding}
+             <b>
+               <FormattedMessage id="balanceTextTillThisWithoutCurrency" /> :{" "}
+               <span className="text-primary">
+                 <FormattedMessage id="currency" />{" "}
+                {outstanding-amount}
+               </span>
+            </b>
           </h6>
         ) : (
-          <h6>Total Outstanding Advance : {kisan.balance}</h6>
+           <b>
+              <FormattedMessage id="balanceTextWithoutCurrency" /> :{" "}
+              <span className="text-primary">
+                <FormattedMessage id="currency" />{" "}
+                {kisan.balance}
+              </span>
+            </b>
         )}
         <FormGroup className="mt-2">
-          <Label for="amount"> Settling Amount </Label>
+          <Label for="amount"> <FormattedMessage id="advanceDepositAmount" /> </Label>
           <Input
             disabled={type === "edit" ? true : false}
             invalid={amount <= 0 && isAmountValid === ""}

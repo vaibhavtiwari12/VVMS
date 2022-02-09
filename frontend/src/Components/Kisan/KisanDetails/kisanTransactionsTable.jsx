@@ -99,7 +99,7 @@ const Kisantransactionstable = ({ kisan }) => {
               <FormattedMessage id="advanceDebited" />
             </th>
             <th>
-              Gross Total
+               <FormattedMessage id="grossTotalWithCurrency" />
             </th>
             <th>
               <FormattedMessage id="billTotal" />
@@ -201,7 +201,7 @@ const Kisantransactionstable = ({ kisan }) => {
                         </div>
                       ) : (
                         <div>
-                          <Button color="danger">
+                          <Button color="secondary">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanCreditForm/${kisan._id}/edit/${transaction._id}`}

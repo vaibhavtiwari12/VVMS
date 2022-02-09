@@ -47,9 +47,9 @@ const en = {
     /*Kisan Detail Page*/
     kisanDetailsTitle: "Kisan Details",
     carryForwardAmount: "Carry forward payments up to last Bill (₹)",
-    debitEntryKisanButtonText: "Debit/Advance Entry",
-    creditEntryKisanButtonText: "Credit/Bill Entry",
-    advanceSettlementKisanButtonText: "Advance Settlement Entry",
+    giveAdvanceKisanButtonText: "Give Advance",
+    createBillKisanButtonText: "Create Bill",
+    depositAdvanceKisanButtonText: "Advance Deposit",
     transactionDetailsTitle: "Transaction Details",
 
     /*Table columns Kisan Detail Page*/
@@ -57,6 +57,7 @@ const en = {
     date: "Date",
     comment: "Comment",
     advanceDebited: "Advance Taken (₹)",
+    grossTotalWithCurrency: "Trading Total (₹)",
     billTotal: "Bill Total (₹)",
     advanceCredited: "Advance Settled (₹)",
     cashPaid: "Cash Paid (₹)",
@@ -67,28 +68,40 @@ const en = {
     viewButtonText: "View",
 
     /*Debit Entry Form*/
-    advanceDetails: "Debit/Advance Details",
+    advanceDetails: "Details of given advance",
     amount: "Advance Amount",
     createCreditEntryButtonText: "Create Advance Entry",
     amountSBGTZ: "Amount should be greater than 0.",
 
+    /*Advance Deposit Form*/
+    advanceDepositDetails: "Details of advance deposit",
+    advanceDepositAmount: "Advance Deposit Amount",
+    balanceTextTillThisWithoutCurrency: "Outstanding advance before this transaction",
+
     /*Credit Entry Form*/
-    billDetails: "Credit/Bill Details",
-    purchaseSectionTitle: "Purchase",
-    numberOfBags: "Number Of Bags :",
+    billDetails: "Bill Details",
+    carryForwardSectionTitle: "Carry Forward Details",
+    carryForwardTotal: "Carry Forward Total",
+    tradingSectionTitle: "Trading Details",
+    selectTradingType: "-- Select a Commodity  --",
+    numberOfBags: "Number of Bags :",
     totalWeight: "Total Weight (In KGs) :",
     ratePerKg: "Rate per KG (₹) :",
-    grossTotal: "Gross Total of Purchase : ₹ ",
+    grossTotal: "Trading Total (Cost of Commodity) : ₹ ",
+    purchaserSectionTitle: "Purchaser Details",
+    purchaserName: "Purchaser Name :",
+    selectPurchaser: "-- Select a Purchaser --",
     deductionsSectionTitle: "Deductions",
     commission: "Commission (In %) :",
     totalCommission: "Total Commission :",
-    hammali: "Hammali (₹) :",
-    bhada: "Bhada (₹):",
+    hammali: "Handling Charges/Hammali (₹) :",
+    bhada: "Transportation Charges/Bhada (₹):",
     netTotal: "Bill Total (After Deductions) : ₹ ",
     amountToSettle: "Amount to Settle : ",
     settlementSectionTitle: "Settlement",
     balanceTextWithoutCurrency: "Outstanding Advance",
     carryForwardAmountWithoutCurrency: "Carry forward payments up to last Bill",
+    whatAreYouBuyingText: "Name of the Commodity  :",
     Matar: "Matar",
     Tamatar: "Tamatar",
     Dhaniya: "Dhaniya",
@@ -98,8 +111,8 @@ const en = {
     totalWeightCNBLTZ: "Total Weight cannot be less than 0.",
     ratePerKgCNBLTZ: "Rate cannot be less than 0.",
     totalCommissionCNBLTZ: "Commission cannot be less than 0.",
-    hammaliCNBLTZ: "Hammali cannot be less than 0.",
-    bhadaCNBLTZ: "Bhada cannot be less than 0.",
+    hammaliCNBLTZ: "Handling Charges (Hammali) cannot be less than 0.",
+    bhadaCNBLTZ: "Transportation Charges (Bhada) cannot be less than 0.",
     balanceCNBLTZ: "Advance Settled cannot be less than 0.",
     cashPaidCNBLTZ: "Cash Paid cannot be less than 0.",
     balanceCBMTCB:
@@ -109,6 +122,8 @@ const en = {
     cashPaidCBMTCB:
       'Cash paid cannot be greater than the "Amount to Settle". Max allowed amount =  ₹  ',
     commentIsRequired: "Comment is required.",
+    selectTradingAndPurchaserIsRequired: "If you are selecting any Commodity, It is essential to select a Purchaser.",
+    selectingPurchaserIsRequired: "Selecting a Purchaser is required.",
 
     /* Inventory Langing */
     inventoryLandingTitle: "Inventory",

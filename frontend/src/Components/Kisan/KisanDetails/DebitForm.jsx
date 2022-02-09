@@ -175,7 +175,7 @@ const Debitform = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Debit Form</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="debitEntryKisanButtonText"/></h2>
+      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="giveAdvanceKisanButtonText"/></h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan} />
