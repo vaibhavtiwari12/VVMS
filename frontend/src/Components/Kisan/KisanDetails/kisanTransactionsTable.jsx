@@ -85,7 +85,7 @@ const Kisantransactionstable = ({ kisan }) => {
   }, [kisan]); */
   return (
     <div>
-      <Table  striped  bordered responsive size="sm" className="shadow">
+      <Table striped bordered responsive size="sm" className="shadow">
         <thead>
           <tr>
             <th>#</th>
@@ -99,7 +99,7 @@ const Kisantransactionstable = ({ kisan }) => {
               <FormattedMessage id="advanceDebited" />
             </th>
             <th>
-               <FormattedMessage id="grossTotalWithCurrency" />
+              <FormattedMessage id="grossTotalWithCurrency" />
             </th>
             <th>
               <FormattedMessage id="billTotal" />
@@ -139,15 +139,15 @@ const Kisantransactionstable = ({ kisan }) => {
                     </td>
                     <td>{transaction.grossTotal}</td>
                     <td>{transaction.netTotal}</td>
-                    
+
                     <td>
-                     {transaction.type === "CREDIT"
+                      {transaction.type === "CREDIT"
                         ? transaction.advanceSettlement
                         : transaction.type === "ADVANCESETTLEMENT"
                         ? transaction.transactionAmount
                         : ""}
                     </td>
-                    
+
                     <td>{transaction.paidToKisan}</td>
                     <td>{transaction.carryForwardFromThisEntry}</td>
                     {/*  <td>{balances[index] <0 ? <span className="text-danger">{balances[index]}</span> : <span className="text-success">{balances[index]}</span> }</td> */}
