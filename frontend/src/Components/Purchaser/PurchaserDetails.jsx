@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -11,6 +11,7 @@ const Purchaserdetails = () => {
   const { id } = useParams();
   const [purchaser, setPurchaser] = useState({});
   const [customPurchaserTransaction, setCustomPurchaserTransaction] = useState([])
+  const history = useHistory();
   useEffect(() => {
     console.log(id);
     try {
@@ -29,6 +30,9 @@ const Purchaserdetails = () => {
       document.title = "VVMS - Purchaser - " + purchaser.name;
     }
   }, [purchaser]);
+  const handleButtonclick = (link) => {
+    history.push(link)
+}
   return (
     <div>
       <Breadcrumb className="ps-3 mt-2">
@@ -54,10 +58,8 @@ const Purchaserdetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-        <Button color="primary">
-          <Link className="link-no-decoration" to={`/purchaserCreditForm/${id}/add`}>
+        <Button color="primary" onClick={e => handleButtonclick(`/purchaserCreditForm/${id}/add`)}>
             Credit Entry for Purchaser
-          </Link>
         </Button>
       </div>
       <h3 className="text-center mt-4">

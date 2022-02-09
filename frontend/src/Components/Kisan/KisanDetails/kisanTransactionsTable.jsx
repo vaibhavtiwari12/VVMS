@@ -85,7 +85,7 @@ const Kisantransactionstable = ({ kisan }) => {
   }, [kisan]); */
   return (
     <div>
-      <Table bordered hover responsive>
+      <Table  striped  bordered responsive size="sm" className="shadow">
         <thead>
           <tr>
             <th>#</th>

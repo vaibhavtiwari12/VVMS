@@ -114,11 +114,14 @@ const Report = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Report</BreadcrumbItem>
       </Breadcrumb>
-      <Form onSubmit={(e) => submit(e)} className="ps-3 pe-3 pb-3">
+      <h2 className="d-flex justify-content-center mt-2 capitalize">
+        Report
+      </h2>
+      <Form onSubmit={(e) => submit(e)} className="m-3 p-3 shadow">
         {/*  <h6>Please Change the date to generate report of different Date</h6> */}
         <FormGroup tag="fieldset">
           <legend className="col-form-label">
-            <h5>Select the report search option</h5>
+            <h5><u>Select the report search option</u> </h5>
           </legend>
           <FormGroup check>
             <Label check>
@@ -233,7 +236,7 @@ const Report = () => {
       {transactions && transactions.length > 0 ? (
         <div>
           <div className="d-flex justify-content-center">
-            <Button onClick={handlePrint}>Print</Button>
+            <Button onClick={handlePrint} color="primary" className="ps-4 pe-4">Print</Button>
           </div>
 
           <Transactionperiodsummary

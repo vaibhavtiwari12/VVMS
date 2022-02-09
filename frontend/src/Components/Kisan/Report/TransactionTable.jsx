@@ -8,7 +8,7 @@ const Transactiontable = ({ transactionSummary }) => {
       <h3 className="text-center">Transactions in the Date</h3>
 
       <div className="pt-4">
-        <Table bordered={true} hover responsive size="sm">
+        <Table bordered={true} striped responsive size="lg">
           <thead>
             <tr>
               <th>Name</th>
@@ -40,28 +40,28 @@ const Transactiontable = ({ transactionSummary }) => {
                             <table>
                               <tbody>
                                 <tr>
-                                  <td>Bags</td>
-                                  <td>{transaction.numberofBags}</td>
+                                  <td >Bags</td>
+                                  <td className="ps-2">{transaction.numberofBags}</td>
                                 </tr>
                                 <tr>
-                                  <td>Weigth</td>
-                                  <td>{transaction.totalweight}</td>
+                                  <td >Weigth</td>
+                                  <td className="ps-2">{transaction.totalweight}</td>
                                 </tr>
                                 <tr>
-                                  <td>Rate</td>
-                                  <td>{transaction.rate}</td>
+                                  <td >Rate</td>
+                                  <td className="ps-2">{transaction.rate}</td>
                                 </tr>
                                 <tr>
-                                  <td>Hammali</td>
-                                  <td>{transaction.hammali}</td>
+                                  <td >Hammali</td>
+                                  <td className="ps-2">{transaction.hammali}</td>
                                 </tr>
                                 <tr>
-                                  <td>Bhada</td>
-                                  <td>{transaction.bhada}</td>
+                                  <td >Bhada</td>
+                                  <td className="ps-2">{transaction.bhada}</td>
                                 </tr>
                                 <tr>
-                                  <td>Commission</td>
-                                  <td>{transaction.commission}</td>
+                                  <td >Commission</td>
+                                  <td className="ps-2">{transaction.commission}</td>
                                 </tr>
                               </tbody>
                             </table>

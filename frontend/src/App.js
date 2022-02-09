@@ -22,6 +22,7 @@ import Purchaserlanding from "./Components/Purchaser/PurchaserLanding";
 import AddPurchaser from "./Components/Purchaser/AddPurchaser";
 import Purchaserdetails from "./Components/Purchaser/PurchaserDetails";
 import Purchasercreditform from "./Components/Purchaser/PurchaserCreditForm";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
@@ -194,6 +195,7 @@ function App() {
               />
             </Switch>
           </div>
+          <Footer/>
         </I18nProvider>
       </ErrorBoundary>
     </React.Fragment>

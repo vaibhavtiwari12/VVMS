@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import { getKisanByID } from "../../../Utility/utility";
 import Kisanmoneysummary from "./KisanMoneySummary";
@@ -10,7 +10,7 @@ import { FormattedMessage } from "react-intl";
 const Kisandetails = () => {
   const { id } = useParams();
   const [kisan, setKisan] = useState({});
-
+  const history = useHistory();
   useEffect(() => {
     console.log(id);
     try {
@@ -28,6 +28,10 @@ const Kisandetails = () => {
       document.title = "VVMS - Kisan - " + kisan.name;
     }
   }, [kisan]);
+
+  const handleButtonclick = (link) => {
+      history.push(link)
+  }
   return (
     <div>
       <Breadcrumb className="ps-3 mt-2">
@@ -53,25 +57,14 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-        <Button color="danger">
-          <Link className="link-no-decoration" to={`/kisanDebitForm/${id}/add`}>
+        <Button color="danger" onClick={e => handleButtonclick(`/kisanDebitForm/${id}/add`)}>
             <FormattedMessage id="giveAdvanceKisanButtonText" />
-          </Link>
         </Button>
-        <Button color="primary" className="ms-3">
-          <Link
-            className="link-no-decoration"
-            to={`/kisanCreditForm/${id}/add`}
-          >
+        <Button color="primary" className="ms-3" onClick={e => handleButtonclick(`/kisanCreditForm/${id}/add`)}>
             <FormattedMessage id="createBillKisanButtonText" />
-          </Link>
         </Button>
-        <Button color="success" className="ms-3">
-          <Link
-            className="link-no-decoration"
-            to={`/kisanAdvanceSettlement/${id}/add`}>
+        <Button color="success" className="ms-3" onClick={e => handleButtonclick(`/kisanAdvanceSettlement/${id}/add`)}>
             <FormattedMessage id="depositAdvanceKisanButtonText" />
-          </Link>
         </Button>
       </div>
       <h3 className="text-center mt-4">
