@@ -34,7 +34,7 @@ const hi = {
     searchBy: "खोजें (द्वारा)",
     searchValue: "खोज का विवरण",
     searchButtonText: "खोजें",
-    resetButtonText: "मिटायें",
+    resetButtonText: "रीसेट",
 
     /*Add Kisan Page*/
     newKisanDeatils: "नये किसान का विवरण",
@@ -47,9 +47,9 @@ const hi = {
     /*Kisan Detail Page*/
     kisanDetailsTitle: "किसान का विवरण",
     carryForwardAmount: "पिछले बिलों का कोई बक़ाया भुगतान (₹)",
-    giveAdvanceKisanButtonText: "एडवांस दें",
+    giveAdvanceKisanButtonText: "एडवांस एंट्री",
     createBillKisanButtonText: "बिल बनायें",
-    depositAdvanceKisanButtonText: "एडवांस जमा करें",
+    depositAdvanceKisanButtonText: "डिपॉज़िट एंट्री",
     transactionDetailsTitle: "लेन-देन का विवरण",
 
     /*Table columns Kisan Detail Page*/
@@ -68,14 +68,14 @@ const hi = {
     viewButtonText: "देखें",
 
     /*Debit Entry Form*/
-    advanceDetails: "दिए जाने वाले एडवांस का विवरण",
-    amount: "दिए जाने वाले एडवांस की राशि",
-    createCreditEntryButtonText: "एडवांस की एंट्री करें",
+    advanceDetails: "एडवांस का विवरण",
+    amount: "एडवांस की राशि",
+    createCreditEntryButtonText: "एंट्री करें",
     amountSBGTZ: "एडवांस की राशि 0 से अधिक होनी चाहिये। ",
 
     /*Advance Deposit Form*/
-    advanceDepositDetails: "जमा किये जाने वाले एडवांस का विवरण",
-    advanceDepositAmount: "जमा किये जाने वाले एडवांस की राशि",
+    advanceDepositDetails: "डिपॉज़िट (जमा की जाने वाली राशि) का विवरण",
+    advanceDepositAmount: "डिपॉज़िट राशि",
     balanceTextTillThisWithoutCurrency: "इस एंट्री के पहले कुल बक़ाया एडवांस",
 
     /*Credit Entry Form*/

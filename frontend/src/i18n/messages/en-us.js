@@ -47,9 +47,9 @@ const en = {
     /*Kisan Detail Page*/
     kisanDetailsTitle: "Kisan Details",
     carryForwardAmount: "Carry forward payments up to last Bill (₹)",
-    giveAdvanceKisanButtonText: "Give Advance",
+    giveAdvanceKisanButtonText: "Advance Entry",
     createBillKisanButtonText: "Create Bill",
-    depositAdvanceKisanButtonText: "Advance Deposit",
+    depositAdvanceKisanButtonText: "Deposit Entry",
     transactionDetailsTitle: "Transaction Details",
 
     /*Table columns Kisan Detail Page*/
@@ -68,14 +68,14 @@ const en = {
     viewButtonText: "View",
 
     /*Debit Entry Form*/
-    advanceDetails: "Details of given advance",
+    advanceDetails: "Advance Details",
     amount: "Advance Amount",
-    createCreditEntryButtonText: "Create Advance Entry",
-    amountSBGTZ: "Amount should be greater than 0.",
+    createCreditEntryButtonText: "Create Entry",
+    amountSBGTZ: "The amount should be greater than 0.",
 
     /*Advance Deposit Form*/
-    advanceDepositDetails: "Details of advance deposit",
-    advanceDepositAmount: "Advance Deposit Amount",
+    advanceDepositDetails: "Deposit Details",
+    advanceDepositAmount: "Deposit Amount",
     balanceTextTillThisWithoutCurrency: "Outstanding advance before this transaction",
 
     /*Credit Entry Form*/
