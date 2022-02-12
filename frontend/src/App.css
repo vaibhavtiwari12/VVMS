@@ -1,82 +1,98 @@
 .AppContent {
-  margin: 5px;
+   margin: 5px;
+}
+
+.flex-even {
+   flex: 1;
 }
 
 .kisan-detail th {
-  width: 50% !important;
+   width: 50% !important;
 }
 
 .link-no-decoration {
-  text-decoration: none !important;
-  color: white;
+   text-decoration: none !important;
+   color: white;
 }
 
 .link-no-decoration:hover {
-  text-decoration: none !important;
-  color: white;
+   text-decoration: none !important;
+   color: white;
 }
 .link-no-decoration-black {
-  text-decoration: none !important;
-  color: black;
+   text-decoration: none !important;
+   color: black;
 }
 
 .link-no-decoration-black:hover {
-  text-decoration: none !important;
-  color: black;
+   text-decoration: none !important;
+   color: black;
 }
 
 .text-white {
-  color: white !important;
+   color: white !important;
 }
 .text-white:hover {
-  color: gainsboro !important;
+   color: gainsboro !important;
+}
+
+.text-gray {
+  color : #41464b!important;
+}
+.tile-gradient {
+   background: rgb(215, 236, 251);
+   background: linear-gradient(
+      90deg,
+      rgba(215, 236, 251, 1) 0%,
+      rgba(255, 224, 230, 1) 100%
+   );
 }
 
 @media print {
-  .no-print,
-  .no-print * {
-    display: none !important;
-  }
+   .no-print,
+   .no-print * {
+      display: none !important;
+   }
 }
 
 .hide-till-print {
-  display: none !important;
+   display: none !important;
 }
 
 .receipt-font-size {
-  font-size: 1.9vh;
+   font-size: 1.9vh;
 }
 
 .capitalize {
-  text-transform: capitalize;
+   text-transform: capitalize;
 }
 
 .text-shadow-im {
-  text-shadow: 2px 1px #ff0000;
+   text-shadow: 2px 1px #ff0000;
 }
 .fill-row {
-  width: 80%;
+   width: 80%;
 }
 .company-heading {
-  font-size: 4vh;
+   font-size: 4vh;
 }
 .no-border {
-  border-style: hidden !important;
+   border-style: hidden !important;
 }
 
 .logo {
-  height: 5vh;
+   height: 5vh;
 }
 .form-width {
-  width: 50%;
+   width: 50%;
 }
 .signin-nav {
-  margin-top: 0.3rem !important;
-  padding-right: 0.3rem !important;
+   margin-top: 0.3rem !important;
+   padding-right: 0.3rem !important;
 }
 .switch-container {
-  margin-top: 0.3rem !important;
-  padding-left: 0.5rem !important;
+   margin-top: 0.3rem !important;
+   padding-left: 0.5rem !important;
 }
 /* .greeting-container {
 } */
@@ -122,116 +138,139 @@
 }
  */
 .toggle-switch {
-  position: relative;
-  display: block;
-  width: 60px;
-  height: 28px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+   position: relative;
+   display: block;
+   width: 60px;
+   height: 28px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
 }
 
 .toggle-switch__checkbox {
-  display: none;
+   display: none;
 }
 
 .toggle-switch__label {
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-  height: 30px;
-  padding: 0;
-  line-height: 30px;
-  border: 0;
-  border-radius: 30px;
-  background-color: #0d6efd;
-  border: 2px solid white !important;
-  transition: all 1s ease-in;
+   display: block;
+   overflow: hidden;
+   cursor: pointer;
+   height: 30px;
+   padding: 0;
+   line-height: 30px;
+   border: 0;
+   border-radius: 30px;
+   background-color: #0d6efd;
+   border: 2px solid white !important;
+   transition: all 1s ease-in;
 }
 
 .toggle-switch__label:before {
-  content: "";
-  display: block;
-  width: 26px;
-  height: 26px;
-  margin: 0px;
-  background: #ffffff;
-  position: absolute;
-  top: 2px;
-  bottom: 2px;
-  left: 2px;
-  border: 0;
-  border-radius: 100%;
-  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25), 0 3px 3px 0 rgba(0, 0, 0, 0.15);
-  transition: all 1s ease-in 0s;
+   content: "";
+   display: block;
+   width: 26px;
+   height: 26px;
+   margin: 0px;
+   background: #ffffff;
+   position: absolute;
+   top: 2px;
+   bottom: 2px;
+   left: 2px;
+   border: 0;
+   border-radius: 100%;
+   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25), 0 3px 3px 0 rgba(0, 0, 0, 0.15);
+   transition: all 1s ease-in 0s;
 }
 
 .toggle-switch__checkbox:checked + .toggle-switch__label {
-  background-color: #0d6efd;
+   background-color: #0d6efd;
 }
 
 .toggle-switch__checkbox:checked + .toggle-switch__label {
-  border-color: #0d6efd;
+   border-color: #0d6efd;
 }
 
 .toggle-switch__checkbox:checked + .toggle-switch__label:before {
-  left: auto;
-  right: 2px;
+   left: auto;
+   right: 2px;
 }
 
 .toggle-switch__inner {
-  display: block;
-  position: relative;
+   display: block;
+   position: relative;
 }
 
 .toggle-switch__inner:before,
 .toggle-switch__inner:after {
-  position: absolute;
-  top: -2px;
-  bottom: 0;
-  z-index: 1;
-  font-size: 1.5vh;
-  color: #fff;
-  opacity: 1;
-  transition: all 0s ease-in-out;
+   position: absolute;
+   top: -2px;
+   bottom: 0;
+   z-index: 1;
+   font-size: 1.5vh;
+   color: #fff;
+   opacity: 1;
+   transition: all 0s ease-in-out;
 }
 
 .toggle-switch__inner:before {
-  content: "En";
-  left: -100%;
+   content: "En";
+   left: -100%;
 }
 
 .toggle-switch__inner:after {
-  content: "हिं";
-  right: 10px;
+   content: "हिं";
+   right: 10px;
 }
 
 .toggle-switch__checkbox:checked
-  + .toggle-switch__label
-  .toggle-switch__inner:after {
-  opacity: 0;
-  right: -100%;
+   + .toggle-switch__label
+   .toggle-switch__inner:after {
+   opacity: 0;
+   right: -100%;
 }
 
 .toggle-switch__checkbox:checked
-  + .toggle-switch__label
-  .toggle-switch__inner:before {
-  left: 8px;
+   + .toggle-switch__label
+   .toggle-switch__inner:before {
+   left: 8px;
 }
 
 @media (max-width: 770px) {
-  .form-width {
-    width: 100%;
+   .form-width {
+      width: 100%;
+   }
+   .nav-item {
+      padding-top: 1vh;
+   }
+   .switch-container {
+      padding-left: 0.8rem !important;
+      margin-top: 1rem !important;
+   }
+   .greeting-container {
+      padding-left: 0.5rem !important;
+      margin-top: 0.5rem !important;
+   }
+}
+.details-card-container {
+   margin-right: 1.5rem!important;
+   margin-left: 1.5rem!important;
+   text-transform: capitalize;
+}
+.details-card{
+    margin-left: 1.5rem!important;
+}
+
+@media (max-width: 1098px) {
+  .details-card-container {
+    flex-direction: column;
+    margin-right: 0.5rem!important;
+   margin-left: 0.5rem!important;
   }
-  .nav-item {
-    padding-top: 1vh;
+  .details-card{
+      margin-top: 1.5rem!important;
+      margin-left: 0rem!important;
   }
-  .switch-container {
-    padding-left: 0.8rem !important;
-    margin-top: 1rem !important;
-  }
-  .greeting-container {
-    padding-left: 0.5rem !important;
-    margin-top: 0.5rem !important;
+  .card-title>h6 {
+    font-size: 1.2rem!important;
   }
 }

@@ -11,9 +11,15 @@ import Kisancreditreceipt from "./KisanCreditReceipt";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Tooltip } from 'reactstrap';
 
 const Kisantransactionstable = ({ kisan }) => {
   /* const [balances, setBalances] = useState([]); */
+  /* FOR TOOL TIP */
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => {
+    setTooltipOpen(!tooltipOpen);
+  }  
   const [transaction, setTransaction] = useState({});
 
   const componentRef = useRef();
@@ -166,7 +172,7 @@ const Kisantransactionstable = ({ kisan }) => {
                     </td>
                     <td>
                       {transaction.type === "DEBIT" ? (
-                        <div>
+                        <div className="d-flex">
                           <Button color="success">
                             <Link
                               className="link-no-decoration"
@@ -186,7 +192,7 @@ const Kisantransactionstable = ({ kisan }) => {
                           </Button>
                         </div>
                       ) : transaction.type === "ADVANCESETTLEMENT" ? (
-                        <div>
+                        <div className="d-flex">
                           <Button color="success">
                             <Link
                               className="link-no-decoration"
@@ -199,14 +205,18 @@ const Kisantransactionstable = ({ kisan }) => {
                           <Button
                             className="ms-2"
                             color="primary"
+                            id="printAdvance"
                             onClick={(e) => print(transaction)}
                           >
+                             <Tooltip placement="right" isOpen={tooltipOpen} target="printAdvance" toggle={toggle}>
+                              Print
+                            </Tooltip>
                             {/* <FormattedMessage id="printButtonText" /> */}
                              <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
                         </div>
                       ) : (
-                        <div>
+                        <div className="d-flex">
                           <Button color="secondary">
                             <Link
                               className="link-no-decoration"
