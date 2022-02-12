@@ -9,6 +9,8 @@ import { useRef } from "react";
 import { dateConverter } from "../../../Utility/utility";
 import Kisancreditreceipt from "./KisanCreditReceipt";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 const Kisantransactionstable = ({ kisan }) => {
   /* const [balances, setBalances] = useState([]); */
@@ -170,7 +172,8 @@ const Kisantransactionstable = ({ kisan }) => {
                               className="link-no-decoration"
                               to={`/kisanDebitForm/${kisan._id}/edit/${transaction._id}`}
                             >
-                              <FormattedMessage id="editButtonText" />
+                              {/* <FormattedMessage id="editButtonText" /> */}
+                              <FontAwesomeIcon  icon={solid('pen-to-square')} className="text-white"/>
                             </Link>
                           </Button>
                           <Button
@@ -178,7 +181,8 @@ const Kisantransactionstable = ({ kisan }) => {
                             color="primary"
                             onClick={(e) => print(transaction)}
                           >
-                            <FormattedMessage id="printButtonText" />
+                            {/* <FormattedMessage id="printButtonText" /> */}
+                            <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
                         </div>
                       ) : transaction.type === "ADVANCESETTLEMENT" ? (
@@ -188,7 +192,8 @@ const Kisantransactionstable = ({ kisan }) => {
                               className="link-no-decoration"
                               to={`/kisanAdvanceSettlement/${kisan._id}/edit/${transaction._id}`}
                             >
-                              <FormattedMessage id="editButtonText" />
+                              {/* <FormattedMessage id="editButtonText" /> */}
+                              <FontAwesomeIcon  icon={solid('pen-to-square')} className="text-white"/>
                             </Link>
                           </Button>
                           <Button
@@ -196,7 +201,8 @@ const Kisantransactionstable = ({ kisan }) => {
                             color="primary"
                             onClick={(e) => print(transaction)}
                           >
-                            <FormattedMessage id="printButtonText" />
+                            {/* <FormattedMessage id="printButtonText" /> */}
+                             <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
                         </div>
                       ) : (
@@ -206,7 +212,8 @@ const Kisantransactionstable = ({ kisan }) => {
                               className="link-no-decoration"
                               to={`/kisanCreditForm/${kisan._id}/edit/${transaction._id}`}
                             >
-                              <FormattedMessage id="viewButtonText" />
+                               {/* <FormattedMessage id="viewButtonText" /> */}
+                               <FontAwesomeIcon  icon={solid('list-ul')} className="text-white"/>
                             </Link>
                           </Button>
                           <Button
@@ -214,7 +221,8 @@ const Kisantransactionstable = ({ kisan }) => {
                             color="primary"
                             onClick={(e) => printCreditEntry(transaction)}
                           >
-                            <FormattedMessage id="printButtonText" />
+                            {/* <FormattedMessage id="printButtonText" /> */}
+                            <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
                         </div>
                       )}
