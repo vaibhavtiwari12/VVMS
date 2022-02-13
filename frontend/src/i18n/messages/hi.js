@@ -7,6 +7,7 @@ const hi = {
     phone: "फ़ोन नंबर",
     address: "पता",
     currency: "₹",
+    companyName: "कंपनी (फ़र्म) का नाम",
 
     /*login Page */
     login: "लॉगइन",
@@ -70,7 +71,7 @@ const hi = {
     /*Debit Entry Form*/
     advanceDetails: "एडवांस का विवरण",
     amount: "एडवांस की राशि",
-    createCreditEntryButtonText: "एंट्री करें",
+    createEntryButtonText: "एंट्री करें",
     amountSBGTZ: "एडवांस की राशि 0 से अधिक होनी चाहिये। ",
 
     /*Advance Deposit Form*/
@@ -84,12 +85,12 @@ const hi = {
     carryForwardSectionTitle: "पिछले बक़ाये का विवरण",
     carryForwardTotal: "टोटल बक़ाया भुगतान",
     selectTradingType: "-- कमोडिटी का नाम  चुनें --",
-    numberOfBags: "बोरों की संख्या (नग) :",
-    totalWeight: "कुल वजन (कि.ग्रा.में) :",
-    ratePerKg: "प्रति किलोग्राम भाव (₹) :",
+    numberOfBags: "बोरों की संख्या (नग)",
+    totalWeight: "कुल वजन (कि.ग्रा.में)",
+    ratePerKg: "प्रति किलोग्राम भाव (₹)",
     grossTotal: "ट्रेडिंग टोटल (कमोडिटी का कुल मूल्य) : ₹ ",
     purchaserSectionTitle: "ख़रीददार का विवरण",
-    purchaserName: "ख़रीददार का नाम :",
+    purchaserName: "ख़रीददार का नाम",
     selectPurchaser: "-- ख़रीददार का नाम चुनें --",
     deductionsSectionTitle: "कटौती",
     commission: "कमीशन (% में) :",
@@ -105,6 +106,7 @@ const hi = {
     Matar: "मटर",
     Tamatar: "टमाटर",
     Dhaniya: "धनिया",
+    editCreditEntryButtonTitle: "एंट्री अपडेट करें",
 
     /*Credit Entry Form Errors*/
     numberOfBagsCNBLTZ: "बोरों की संख्या (नग) 0 से काम नहीं हो सकती है। ",
@@ -126,15 +128,39 @@ const hi = {
     selectingPurchaserIsRequired: "ख़रीददार का चयन करना अनिवार्य है। ",
 
     /* Inventory Langing */
-    inventoryLandingTitle: "Inventory",
-    addfasalType: "Add Item",
+    inventoryLandingTitle: "इनवेंटरी विवरणिका",
+    addfasalType: "कमोडिटी जोड़ें",
+    noInventoryForThisItem: "इस कमोडिटी की कोई इन्वेंटरी उपलब्ध नहीं है।",
+    transacted: "हस्तांतरित ",
 
     /* Inventory Add Item Type */
-    inventoryAddHeading: "Add New Item Type",
-    inventory_itemName: "Item Name",
-    inventory_itemError: "Item name is required",
-    inventory_addButtonText: "Add Item Type",
-    inventory_addSuccessful: "Item Added Successfully",
+    inventoryAddHeading: "नई  कमोडिटी (सामग्री) का विवरण",
+    inventory_itemName: "कमोडिटी (सामग्री) का नाम",
+    inventory_itemError: "कमोडिटी (सामग्री) का नाम देना अनिवार्य है।",
+    inventory_addSuccessful: "कमोडिटी सफलतापूर्वक जोड़ी गयी",
+
+    /* Purchaser */
+    purchaserLandingTitle: "ख़रीदार विवरणिका",
+    addPurchaserButtonText: "ख़रीदार जोड़ें",
+
+    /*Add Purchaser Form*/
+    companyNameIsRequired: "कंपनी (फ़र्म) का नाम देना अनिवार्य है।",
+    purchaser_addSuccessful: "ख़रीदार सफलतापूर्वक जोड़ा गया !",
+
+    /*Purchase Table*/
+    nameOfPurchase: "ख़रीदार का नाम",
+    outstandingPayment: "कुल बक़ाया पेमेंट (₹)",
+    outstandingPaymentADT: "एंट्री तक का बक़ाया (₹)",
+
+    /*Purchaser Details*/
+    purchaserDetailsPageTitle: "ख़रीदार का विवरण",
+    purchaserPaymentEntryButtonText: "पेमेंट एंट्री",
+    purchaseTotal: "ख़रीदी का टोटल (₹)",
+    transactionType: "लेन देन का प्रकार",
+    tt_purchase: "ख़रीद",
+    tt_payment: "पेमेंट",
+    purchaserPaymentFormTitle: "पेमेंट विवरण",
+    paymentAmount: "पेमेंट की राशि",
   },
 };
 export default hi;

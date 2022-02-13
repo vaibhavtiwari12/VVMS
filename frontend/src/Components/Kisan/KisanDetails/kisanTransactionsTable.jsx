@@ -193,27 +193,34 @@ const Kisantransactionstable = ({ kisan }) => {
                         </div>
                       ) : transaction.type === "ADVANCESETTLEMENT" ? (
                         <div className="d-flex">
-                          <Button color="success">
+                          <Button color="success" id="printAdvanceSettlement" >
                             <Link
                               className="link-no-decoration"
                               to={`/kisanAdvanceSettlement/${kisan._id}/edit/${transaction._id}`}
+
                             >
+
                               {/* <FormattedMessage id="editButtonText" /> */}
                               <FontAwesomeIcon  icon={solid('pen-to-square')} className="text-white"/>
                             </Link>
                           </Button>
+                          <Tooltip placement="top" isOpen={tooltipOpen} target="printAdvanceSettlement" toggle={toggle}>
+                              <FormattedMessage id="editButtonText" />
+                          </Tooltip>
+
+
                           <Button
                             className="ms-2"
                             color="primary"
                             id="printAdvance"
                             onClick={(e) => print(transaction)}
                           >
-                             <Tooltip placement="right" isOpen={tooltipOpen} target="printAdvance" toggle={toggle}>
-                              Print
-                            </Tooltip>
                             {/* <FormattedMessage id="printButtonText" /> */}
                              <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
+                          <Tooltip placement="top" isOpen={tooltipOpen} target="printAdvance" toggle={toggle}>
+                            <FormattedMessage id="printButtonText" />
+                          </Tooltip>
                         </div>
                       ) : (
                         <div className="d-flex">

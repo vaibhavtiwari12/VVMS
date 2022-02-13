@@ -133,7 +133,7 @@ const AddPurchaser = () => {
       </FormGroup>{" "}
       <FormGroup className="mt-2">
         <Label for="companyName">
-          Company Name:
+          <FormattedMessage id="companyName" /> :
         </Label>{" "}
         <Input
           invalid={companyName.length <= 0 && iscompanyNameValid === ""}
@@ -143,7 +143,7 @@ const AddPurchaser = () => {
           onChange={(e) => companyNameChange(e)}
         />{" "}
         <FormFeedback>
-            Company Name is required.
+            <FormattedMessage id="companyNameIsRequired" />
         </FormFeedback>{" "}
       </FormGroup>{" "}
       <FormGroup className="mt-2">
@@ -177,13 +177,13 @@ const AddPurchaser = () => {
         </FormFeedback>{" "}
       </FormGroup>{" "}
       <Button type="submit" color="primary" className="mt-3">
-        Add New Purchaser
+        <FormattedMessage id="addPurchaserButtonText" />
       </Button>
       <Button type="reset" color="danger" className="ms-1 mt-3" onClick={clear}>
         <FormattedMessage id="resetButtonText" />
       </Button>{" "}
       {showAlert ? (
-        <Alert className="mt-4">Purchser has been added successfully</Alert>
+        <Alert className="mt-4"><FormattedMessage id="purchaser_addSuccessful" /></Alert>
       ) : (
         ""
       )}

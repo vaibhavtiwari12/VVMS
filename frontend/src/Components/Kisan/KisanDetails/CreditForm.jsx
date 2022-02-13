@@ -603,7 +603,7 @@ const CreditForm = () => {
 
           <FormGroup className="mt-2">
             <Label for="numberofBags">
-              <FormattedMessage id="numberOfBags" />
+              <FormattedMessage id="numberOfBags" /> :
             </Label>{" "}
             <Input
               disabled={type === "edit" || itemType === "" ? true : false}
@@ -622,7 +622,7 @@ const CreditForm = () => {
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="totalweight">
-              <FormattedMessage id="totalWeight" />
+              <FormattedMessage id="totalWeight" /> :
             </Label>{" "}
             <Input
               disabled={type === "edit" || itemType === "" ? true : false}
@@ -641,7 +641,7 @@ const CreditForm = () => {
           </FormGroup>
           <FormGroup className="mt-2">
             <Label for="rate">
-              <FormattedMessage id="ratePerKg" />
+              <FormattedMessage id="ratePerKg" /> :
             </Label>
             <Input
               disabled={type === "edit" || itemType === "" ? true : false}
@@ -668,7 +668,7 @@ const CreditForm = () => {
         <div className="shadow p-3 m-3">
           <h3 className="text-secondary"><FormattedMessage id="purchaserSectionTitle" /></h3>
           <FormGroup>
-            <Label for="purchaserName" className="mt-2"><FormattedMessage id="purchaserName" /></Label>
+            <Label for="purchaserName" className="mt-2"><FormattedMessage id="purchaserName" /> : </Label>
             <Input
               type="select"
               disabled={type === "edit" || itemType === "" ? true : false}
@@ -932,7 +932,7 @@ const CreditForm = () => {
             className="mt-3"
             onClick={handleEdit}
           >
-            Edit a Credit Entry
+            <FormattedMessage id="editCreditEntryButtonTitle" />
           </Button>
         )}
         {showAlert ? (

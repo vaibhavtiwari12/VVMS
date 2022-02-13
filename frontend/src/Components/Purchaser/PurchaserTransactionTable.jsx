@@ -92,13 +92,13 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
             <th>
               <FormattedMessage id="date" />
             </th>
-            <th>Kisan</th>
-            <th>Weight</th>
-            <th>Number Of Bags</th>
-            <th>Rate</th>
-            <th>Transaction Amount</th>
-            <th>Type</th>
-            <th>Balance After This Transaction</th>
+            <th><FormattedMessage id="kisanDetailsTitle" /></th>
+            <th><FormattedMessage id="totalWeight" /></th>
+            <th><FormattedMessage id="numberOfBags" /></th>
+            <th><FormattedMessage id="ratePerKg" /></th>
+            <th><FormattedMessage id="purchaseTotal" /></th>
+            <th><FormattedMessage id="transactionType"/></th>
+            <th><FormattedMessage id="outstandingPaymentADT"/></th>
           </tr>
         </thead>
         <tbody>
@@ -148,7 +148,11 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
                               <td>{transaction.rate}</td>
                               <td>{transaction.transactionAmount}</td>
 
-                              <td>{transaction.type}</td>
+                              {transaction.type === "CREDIT" ?
+                                <td><b><FormattedMessage id="tt_payment" /></b></td>
+                              : <td><FormattedMessage id="tt_purchase" /></td>}
+
+
 
                               {/*  <td>{balances[index] <0 ? <span className="text-danger">{balances[index]}</span> : <span className="text-success">{balances[index]}</span> }</td> */}
                               <td>

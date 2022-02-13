@@ -4,6 +4,7 @@ import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import { getAllPurchasers } from "../../Utility/utility";
 import Search from "../Search/Search";
 import Purchasertable from "./PurchaserTable";
+import { FormattedMessage } from "react-intl";
 
 const Purchaserlanding = () => {
   const history = useHistory();
@@ -45,13 +46,13 @@ const Purchaserlanding = () => {
         <BreadcrumbItem active>Purchaser</BreadcrumbItem>
       </Breadcrumb>
       <div className="d-flex">
-        <h3 className="flex-fill d-flex justify-content-center">Purchaser</h3>
+        <h3 className="flex-fill d-flex justify-content-center"><FormattedMessage id="purchaserLandingTitle" /></h3>
         <Button
           className="justify-content-end me-3"
           color="primary"
           onClick={handleAddPurchaserClick}
         >
-          + Add Purchaser
+          + <FormattedMessage id="addPurchaserButtonText" />
         </Button>
       </div>
       <Search

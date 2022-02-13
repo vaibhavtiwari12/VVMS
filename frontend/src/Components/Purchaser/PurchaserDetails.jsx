@@ -49,7 +49,7 @@ const Purchaserdetails = () => {
         <BreadcrumbItem active>Details</BreadcrumbItem>
       </Breadcrumb>
       <h2 className="d-flex justify-content-center mt-2 capitalize">
-        Purchaser Details
+        <FormattedMessage id="purchaserDetailsPageTitle" />
       </h2>
       <div>
         <div>
@@ -58,8 +58,8 @@ const Purchaserdetails = () => {
         <div></div>
       </div>
       <div className="text-center">
-        <Button color="primary" onClick={e => handleButtonclick(`/purchaserCreditForm/${id}/add`)}>
-            Credit Entry for Purchaser
+        <Button color="success" onClick={e => handleButtonclick(`/purchaserCreditForm/${id}/add`)}>
+            <FormattedMessage id="purchaserPaymentEntryButtonText" />
         </Button>
       </div>
       <h3 className="text-center mt-4">

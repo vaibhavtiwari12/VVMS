@@ -93,7 +93,7 @@ const AddInventoryType = () => {
         </FormFeedback>
       </FormGroup>
       <Button type="submit" color="primary" className="mt-3">
-        <FormattedMessage id="inventory_addButtonText" />
+        <FormattedMessage id="createEntryButtonText" />
       </Button>
       <Button type="reset" color="danger" className="ms-1 mt-3" onClick={clear}>
         <FormattedMessage id="resetButtonText" />

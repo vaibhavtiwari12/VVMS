@@ -11,9 +11,9 @@ const Purchasertable = ({ purchasers, term, type }) => {
             <tr>
               <th>#</th>
               <th>
-                <FormattedMessage id="name" />
+                <FormattedMessage id="nameOfPurchase" />
               </th>
-              <th>Company Name</th>
+              <th><FormattedMessage id="companyName" /></th>
               <th>
                 <FormattedMessage id="phone" />
               </th>
@@ -21,7 +21,7 @@ const Purchasertable = ({ purchasers, term, type }) => {
                 <FormattedMessage id="address" />
               </th>
               <th>
-                <FormattedMessage id="balance" />
+                <FormattedMessage id="outstandingPayment" />
               </th>
             </tr>
           </thead>

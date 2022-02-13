@@ -8,11 +8,11 @@ const Purchasersummary = ({purchaser}) => {
           <Table bordered responsive className="p-3 kisan-detail">
             <tbody>
               <tr>
-                <th><FormattedMessage id="name"/></th>
+                <th><FormattedMessage id="purchaserName"/></th>
                 <td className="capitalize">{purchaser.name}</td>
               </tr>
               <tr>
-                <th>Company Name</th>
+                <th><FormattedMessage id="companyName"/></th>
                 <td className="capitalize">{purchaser.companyName}</td>
               </tr>
               <tr>
@@ -24,7 +24,7 @@ const Purchasersummary = ({purchaser}) => {
                 <td className="capitalize">{purchaser.address}</td>
               </tr>
               <tr>
-                <th><FormattedMessage id="balance"/></th>
+                <th><FormattedMessage id="outstandingPayment"/></th>
                 <td>{purchaser.balance}</td>
               </tr>
             </tbody>

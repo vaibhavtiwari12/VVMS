@@ -11,12 +11,12 @@ const InventoryTable = ({ transactions }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Kisan Name</th>
-              <th>Purchaser Name</th>
-              <th>Date</th>
-              <th>Number of Bags</th>
-              <th>Total Weight</th>
-              <th>Rate</th>
+              <th><FormattedMessage id="kisanDetailsTitle" /></th>
+              <th><FormattedMessage id="purchaserName" /></th>
+              <th><FormattedMessage id="date" /></th>
+              <th><FormattedMessage id="totalWeight" /></th>
+              <th><FormattedMessage id="numberOfBags" /></th>
+              <th><FormattedMessage id="ratePerKg" /></th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +43,7 @@ const InventoryTable = ({ transactions }) => {
         </Table>
       ) : (
         <div className="text-center pt-3 text-danger">
-          <h5>No Inventory is Available for This Item.</h5>
+          <h5><th><FormattedMessage id="noInventoryForThisItem" /></th></h5>
         </div>
       )}
     </div>

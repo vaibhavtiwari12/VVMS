@@ -246,7 +246,7 @@ const Advancesettlementform = () => {
         {type === "add" ? (
           <React.Fragment>
             <Button type="submit" color="primary" className="mt-3">
-              <FormattedMessage id="createCreditEntryButtonText" />
+              <FormattedMessage id="createEntryButtonText" />
             </Button>
             <Button
               type="reset"
