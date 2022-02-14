@@ -9,7 +9,7 @@
     "install-frontend": "cd ./frontend && npm install",
     "build-frontend": "cd ./frontend && env-cmd -f ../.env.prod npm run build",
     "install-backend": "cd ./backend && npm install",
-    "build:prod": "cd ./frontend && env-cmd -f ../.env.prod npm run build ",
+    "build:prod": "cd ./frontend && npm run build ",
     "heroku-postbuild": "npm run install-main && npm run install-frontend && npm run install-backend && npm run build-frontend",
     "start": "cd backend && nodemon app.js"
   },
