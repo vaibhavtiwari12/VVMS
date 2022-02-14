@@ -11,11 +11,13 @@ import {
   FormGroup,
   Input,
   Label,
+  Spinner,
 } from "reactstrap";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showSpinner, setShowSpinner] = useState(false)
   const [isUsernameValid, setIsUsernameValid] = useState("PRISTINE");
   const [isPasswordValid, setIsPasswordValid] = useState("PRISTINE");
   const [hasError, setHasError] = useState("");
@@ -37,14 +39,17 @@ const Login = () => {
       if (isFormvalid()) {
       console.log("Is Here")
       try{
+        setShowSpinner(true);
         const loginResponse = await axios.post('/getLogin',{
           userName: username, 
           password: password
         })
         setHasError("");
         window.sessionStorage.setItem("userName", username);
+        setShowSpinner(false);
         history.push(history.location.search.split("=")[1])
       }catch (error) {
+        setShowSpinner(false);
         setHasError(error.response.data.message)
       }
     }
@@ -93,17 +98,10 @@ const Login = () => {
             <FormFeedback><FormattedMessage id="passwordError" /></FormFeedback>
           </FormGroup>
           <React.Fragment>
-            <Button type="submit" color="primary" className="mt-3" size="md">
-            <FormattedMessage id="signin" />
+            <Button type="submit" color="primary" className="mt-3" size="md" disabled={showSpinner}>
+              {showSpinner && <Spinner className="text-white singin-spinner me-2"/>}
+              <FormattedMessage id="signin" />
             </Button>
-            {/* <Button
-              type="reset"
-              color="danger"
-              className="ms-1 mt-3"
-              onClick={clear}
-            >
-              Reset
-            </Button> */}
           </React.Fragment>
         </Form>
       </div>
