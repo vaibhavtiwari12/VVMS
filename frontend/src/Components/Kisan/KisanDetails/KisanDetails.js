@@ -56,7 +56,7 @@ const Kisandetails = () => {
         </div>
         <div></div>
       </div>
-      <div className="text-center">
+      <div className="text-center mt-3">
         <Button color="danger" onClick={e => handleButtonclick(`/kisanDebitForm/${id}/add`)}>
             <FormattedMessage id="giveAdvanceKisanButtonText" />
         </Button>
@@ -67,7 +67,7 @@ const Kisandetails = () => {
             <FormattedMessage id="depositAdvanceKisanButtonText" />
         </Button>
       </div>
-      <h3 className="text-center mt-4">
+      <h3 className="text-center mt-5">
         <FormattedMessage id="transactionDetailsTitle" />
       </h3>
       <div className="p-3">

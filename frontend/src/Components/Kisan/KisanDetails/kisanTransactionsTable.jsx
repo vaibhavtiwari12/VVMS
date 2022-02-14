@@ -16,12 +16,17 @@ import { Tooltip } from 'reactstrap';
 const Kisantransactionstable = ({ kisan }) => {
   /* const [balances, setBalances] = useState([]); */
   /* FOR TOOL TIP */
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const toggle = () => {
+  const [printToolTip, setPrintToolTip] = useState(false);
+  const [editToolTip, setEditTooltip] = useState(false);
+  const [detailsTooltip, setDetailsTooltip] = useState(false);
+  const [printCredit, setPrintCredit] = useState(false);
+  const [editAdvance, setEditAdvance] = useState(false);
+  const [advanceEntryPrint, setAdvanceEntryPrint] = useState(false);
+  /* const toggle = () => {
     setTooltipOpen(!tooltipOpen);
-  }  
+  }   */
   const [transaction, setTransaction] = useState({});
-
+ 
   const componentRef = useRef();
   const creditPrintRef = useRef();
   const print = (currentTransaction) => {
@@ -173,7 +178,7 @@ const Kisantransactionstable = ({ kisan }) => {
                     <td>
                       {transaction.type === "DEBIT" ? (
                         <div className="d-flex">
-                          <Button color="success">
+                          <Button color="success" id="advanceEntryEdit">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanDebitForm/${kisan._id}/edit/${transaction._id}`}
@@ -181,19 +186,26 @@ const Kisantransactionstable = ({ kisan }) => {
                               {/* <FormattedMessage id="editButtonText" /> */}
                               <FontAwesomeIcon  icon={solid('pen-to-square')} className="text-white"/>
                             </Link>
+                            <Tooltip placement="left" isOpen={editAdvance} target="advanceEntryEdit" toggle={e => setEditAdvance(!editAdvance)}>
+                              Edit
+                            </Tooltip>
                           </Button>
                           <Button
                             className="ms-2"
                             color="primary"
+                            id="advanceEntryPrint"
                             onClick={(e) => print(transaction)}
                           >
+                            <Tooltip placement="top" isOpen={advanceEntryPrint} target="advanceEntryPrint" toggle={e => setAdvanceEntryPrint(!advanceEntryPrint)}>
+                              Print
+                            </Tooltip>
                             {/* <FormattedMessage id="printButtonText" /> */}
                             <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
                         </div>
                       ) : transaction.type === "ADVANCESETTLEMENT" ? (
                         <div className="d-flex">
-                          <Button color="success">
+                          <Button color="success" id="edit">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanAdvanceSettlement/${kisan._id}/edit/${transaction._id}`}
@@ -201,6 +213,9 @@ const Kisantransactionstable = ({ kisan }) => {
                               {/* <FormattedMessage id="editButtonText" /> */}
                               <FontAwesomeIcon  icon={solid('pen-to-square')} className="text-white"/>
                             </Link>
+                            <Tooltip  placement="left" isOpen={editToolTip} target="edit" toggle={e => setEditTooltip(!editToolTip)}>
+                              Edit
+                            </Tooltip>
                           </Button>
                           <Button
                             className="ms-2"
@@ -208,7 +223,7 @@ const Kisantransactionstable = ({ kisan }) => {
                             id="printAdvance"
                             onClick={(e) => print(transaction)}
                           >
-                             <Tooltip placement="right" isOpen={tooltipOpen} target="printAdvance" toggle={toggle}>
+                             <Tooltip placement="top" isOpen={printToolTip} target="printAdvance" toggle={e => setPrintToolTip(!printToolTip)}>
                               Print
                             </Tooltip>
                             {/* <FormattedMessage id="printButtonText" /> */}
@@ -217,7 +232,7 @@ const Kisantransactionstable = ({ kisan }) => {
                         </div>
                       ) : (
                         <div className="d-flex">
-                          <Button color="secondary">
+                          <Button color="secondary" id="details">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanCreditForm/${kisan._id}/edit/${transaction._id}`}
@@ -226,13 +241,20 @@ const Kisantransactionstable = ({ kisan }) => {
                                <FontAwesomeIcon  icon={solid('list-ul')} className="text-white"/>
                             </Link>
                           </Button>
+                          <Tooltip hideArrow={false} placement="left" isOpen={detailsTooltip} target="details" toggle={e => setDetailsTooltip(!detailsTooltip)}>
+                              Details
+                            </Tooltip>
                           <Button
                             className="ms-2"
                             color="primary"
+                            id="printCredit"
                             onClick={(e) => printCreditEntry(transaction)}
                           >
                             {/* <FormattedMessage id="printButtonText" /> */}
                             <FontAwesomeIcon icon={solid('print')} className="text-white"/>
+                            <Tooltip hideArrow={false} placement="top" isOpen={printCredit} target="printCredit" toggle={e => setPrintCredit(!printCredit)}>
+                              Print
+                            </Tooltip>
                           </Button>
                         </div>
                       )}

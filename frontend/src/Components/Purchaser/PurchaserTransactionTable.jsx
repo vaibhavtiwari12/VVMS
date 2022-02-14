@@ -10,6 +10,7 @@ import PurchaserBill from "./PurchaserBill";
 
 const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
   console.log("purchaserDetails",purchaserDetails)
+  console.log("purchaser",purchaser)
   const [transaction, setTransaction] = useState({});
 
   const creditPrintRef = useRef();
@@ -105,10 +106,10 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
           {purchaser.length > 0 &&
             purchaser
               .sort((a, b) => new Date(b.date) - new Date(a.date))
-              .map((purchaser) => {
+              .map((purchaser,index) => {
                 return (
-                  <Fragment>
-                    <tr className="border  m-2">
+                  <Fragment  key={index}>
+                    <tr className="border  m-2" >
                       <td colSpan="9">
                         <div className="d-flex align-items-center">
                           <b>Date : {purchaser.date} </b>
@@ -131,7 +132,7 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
                         .map((transaction, index) => {
                           return (
                             <tr
-                              key={index}
+                              key={transaction._id}
                               className={
                                 transaction.type === "CREDIT" ? "bg-light" : ""
                               }

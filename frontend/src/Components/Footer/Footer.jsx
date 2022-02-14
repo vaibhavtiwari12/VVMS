@@ -10,7 +10,7 @@ const Footer = () => {
       <footer className="bg-primary text-white">
           <div className="d-flex align-items-center h-100">
             <div className="ps-3">
-                <a className="link-no-decoration" href="https://www.vaibhavtiwari.co.in" target="_blank">&copy; 2021-2022 - Avalons</a>
+                <a className="link-no-decoration" href="https://www.vaibhavtiwari.co.in" target="_blank">&copy; Copyright 2021-2022 - Avalons</a>
             </div>
             <div className="ps-3 flex-fill d-flex justify-content-end pe-3">
               <FontAwesomeIcon  icon={brands('facebook')} className="text-white"/>

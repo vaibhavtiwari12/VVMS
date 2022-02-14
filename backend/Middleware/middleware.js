@@ -6,7 +6,7 @@ module.exports = {
       next();
     } else {
       res.status(401).send({ success: false, error: "user is unauthorized" });
-    }
+    } 
   },
   login: async (req, res, next) => {
     next();
@@ -14,7 +14,7 @@ module.exports = {
 };
 
 const isValidSession = async (req) => {
-  const uri = `mongodb://${process.env.MONGO_URL}`;
+  const uri = `${process.env.MONGO_URL}`;
   const options = {};
   const client = new MongoClient(uri, options);
   await client.connect();

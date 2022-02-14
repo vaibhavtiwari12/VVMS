@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const createDBConnection = async () =>  {
-    return await mongoose.connect(`mongodb://${process.env.MONGO_URL}/VVMS`, {
+    return await mongoose.connect(`${process.env.MONGO_URL}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,

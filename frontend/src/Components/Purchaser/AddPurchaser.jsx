@@ -53,8 +53,10 @@ const AddPurchaser = () => {
   };
 
   const phoneChange = (e) => {
-    setPhone(e.target.value);
-    setIsPhonePristine("");
+    if(e.target.value.length<=10){
+      setPhone(e.target.value);
+      setIsPhonePristine("");
+    }
   };
   const addressChange = (e) => {
     setAddress(e.target.value);
@@ -153,7 +155,7 @@ const AddPurchaser = () => {
         <Input
           invalid={phone.length <= 0 && isPhonePristine === ""}
           name="phone"
-          type="phone"
+          type="number"
           value={phone}
           onChange={(e) => phoneChange(e)}
         />{" "}

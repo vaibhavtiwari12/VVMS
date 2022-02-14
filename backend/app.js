@@ -11,6 +11,7 @@ const loginRouter = require("./Router/loginRouter");
 const middlewares = require("./Middleware/middleware");
 const { controller } = require("./Mongo/loginController");
 const purchaserRouter = require("./Router/purchaserRouter");
+const  { generateDashboard} = require("./Utilities/utility");
 
 var MongoDBStore = require("connect-mongodb-session")(session);
 
@@ -21,7 +22,7 @@ const app = express();
 
 // -------------------------------- Session initilization ----------------------------
 var store = new MongoDBStore({
-  uri: "mongodb://localhost:27017/VVMS",
+  uri: `${process.env.MONGO_URL}`,
   collection: "mySessions",
 });
 store.on("error", function (error) {
@@ -100,6 +101,12 @@ app.get(
     res.json({ validSession: true, User: req.session.user });
   }
 );
+
+app.get('/dashboardinfo',async  (req,res) => {
+    console.log("Porcessing Dashboard Information")
+    const generatedData = await generateDashboard();
+    res.json(generatedData)
+})
 
 // ALL the API Calls Get Here
 app.get("/api/getName", (req, res) => {

@@ -23,6 +23,7 @@ import AddPurchaser from "./Components/Purchaser/AddPurchaser";
 import Purchaserdetails from "./Components/Purchaser/PurchaserDetails";
 import Purchasercreditform from "./Components/Purchaser/PurchaserCreditForm";
 import Footer from "./Components/Footer/Footer";
+import "@fontsource/varela-round"
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState("INIT");
