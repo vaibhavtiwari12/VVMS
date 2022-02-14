@@ -30,8 +30,8 @@ store.on("error", function (error) {
 });
 // -------------------------------- Session initilization ----------------------------
 
-app.listen(process.env.NODE_PORT);
-console.log(`Server Listening on ${process.env.NODE_PORT}`);
+app.listen(process.env.PORT);
+console.log(`Server Listening on ${process.env.PORT}`);
 
 //Creating MONGO Connection
 /* (async () => await controller("Patch",{id:'60ec52b2fb729b44c4e48667'}))(); */
