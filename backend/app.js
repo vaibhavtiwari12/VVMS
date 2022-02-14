@@ -117,6 +117,8 @@ app.get("/api/heartbeat", (req, res) => {
   res.send({ message: "Backend Application is alive." });
 });
 
+//serve the static files from the server.
+app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });

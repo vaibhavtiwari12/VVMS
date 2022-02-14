@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copy": "shx rm -rf ./backend/build && shx mkdir -p ./backend/build && shx cp -r ./frontend/build/* ./backend/build/",
-    "build:dev": "cd ./frontend && env-cmd -f ../.env.development npm run build && cd .. &&  npm run copy",
-    "build:prod": "cd ./frontend && env-cmd -f ../.env.prod npm run build && cd .. &&  npm run copy",
-    "postinstall": "cd ./frontend && env-cmd -f ../.env.prod npm run build && cd .. &&  npm run copy",
-    "start": "cd backend && node app.js"
+    "install-main": "npm install",
+    "install-frontend": "cd ./frontend && npm install",
+    "build-frontend": "cd ./frontend && env-cmd -f ../.env.prod npm run build",
+    "install-backend": "cd ./backend && npm install",
+    "build:prod": "cd ./frontend && env-cmd -f ../.env.prod npm run build ",
+    "heroku-postbuild": "npm run install-main && npm run install-frontend && npm run install-backend && npm run build-frontend",
+    "start": "cd backend && nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "dotenv": "^10.0.0",
     "env-cmd": "^10.1.0",
     "mongoose": "^5.13.2",
+    "nodemon": "^2.0.15",
     "redux-thunk": "^2.3.0",
     "shx": "^0.3.3"
   }
