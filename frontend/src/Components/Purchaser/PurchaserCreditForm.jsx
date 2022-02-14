@@ -18,6 +18,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
 
+
 const Purchasercreditform = () => {
   const { id, type, transactionNumber } = useParams();
   const [comment, setComment] = useState("");
@@ -176,7 +177,7 @@ const Purchasercreditform = () => {
         <BreadcrumbItem active>Purchaser Credit Form</BreadcrumbItem>
       </Breadcrumb>
       <h2 className="text-center text-secondary mt-3">
-        Add Credit Entry for Purcahser
+        <FormattedMessage id="purchaserPaymentEntryButtonText" />
       </h2>
       <div>
         <div>
@@ -187,11 +188,11 @@ const Purchasercreditform = () => {
       <Form onSubmit={(e) => submit(e)} className="p-3">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
         <h2 className="text-center text-secondary mt-3">
-          Credit Form
+          <FormattedMessage id="purchaserPaymentFormTitle" />
         </h2>
         <FormGroup className="mt-2">
           <Label for="amount">
-            Credit Amount
+             <FormattedMessage id="paymentAmount" />
           </Label>
           <Input
             disabled={type === "edit" ? true : false}
@@ -228,7 +229,7 @@ const Purchasercreditform = () => {
         {type === "add" ? (
           <React.Fragment>
             <Button type="submit" color="primary" className="mt-3">
-              <FormattedMessage id="createCreditEntryButtonText" />
+              <FormattedMessage id="createEntryButtonText" />
             </Button>
             <Button
               type="reset"

@@ -11,13 +11,13 @@ const Inventorysummary = ({inventory}) => {
         <tbody>
           <tr>
             <th>
-              Total Weight Available(in KGs)
+              <FormattedMessage id="transacted" /><FormattedMessage id="totalWeight" />
             </th>
             <td className="capitalize">{inventory.totalWeight}</td>
           </tr>
           <tr>
             <th>
-              Total Number of Bags Available
+              <FormattedMessage id="transacted" /><FormattedMessage id="numberOfBags" />
             </th>
             <td className="capitalize">{inventory.totalBags}</td>
           </tr>

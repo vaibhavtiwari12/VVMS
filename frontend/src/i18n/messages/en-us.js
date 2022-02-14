@@ -7,6 +7,8 @@ const en = {
     phone: "Phone Number",
     address: "Address",
     currency: "₹",
+    companyName: "Name of the Firm",
+
 
     /*login Page */
     login: "LOGIN",
@@ -70,7 +72,7 @@ const en = {
     /*Debit Entry Form*/
     advanceDetails: "Advance Details",
     amount: "Advance Amount",
-    createCreditEntryButtonText: "Create Entry",
+    createEntryButtonText: "Create Entry",
     amountSBGTZ: "The amount should be greater than 0.",
 
     /*Advance Deposit Form*/
@@ -84,12 +86,12 @@ const en = {
     carryForwardTotal: "Carry Forward Total",
     tradingSectionTitle: "Trading Details",
     selectTradingType: "-- Select a Commodity  --",
-    numberOfBags: "Number of Bags :",
-    totalWeight: "Total Weight (In KGs) :",
-    ratePerKg: "Rate per KG (₹) :",
+    numberOfBags: "Number of Bags",
+    totalWeight: "Total Weight (In KGs)",
+    ratePerKg: "Rate per KG (₹)",
     grossTotal: "Trading Total (Cost of Commodity) : ₹ ",
     purchaserSectionTitle: "Purchaser Details",
-    purchaserName: "Purchaser Name :",
+    purchaserName: "Purchaser Name",
     selectPurchaser: "-- Select a Purchaser --",
     deductionsSectionTitle: "Deductions",
     commission: "Commission (In %) :",
@@ -105,6 +107,7 @@ const en = {
     Matar: "Matar",
     Tamatar: "Tamatar",
     Dhaniya: "Dhaniya",
+    editCreditEntryButtonTitle: "Update Entry",
 
     /*Credit Entry Form Errors*/
     numberOfBagsCNBLTZ: "Number of Bags cannot be less than 0.",
@@ -127,14 +130,42 @@ const en = {
 
     /* Inventory Langing */
     inventoryLandingTitle: "Inventory",
-    addfasalType: "Add Item",
+    addfasalType: "Add Commodity",
+    noInventoryForThisItem: "No Inventory is Available for This commodity.",
+    transacted: "Transacted ",
 
     /* Inventory Add Item Type */
-    inventoryAddHeading: "Add New Item Type",
-    inventory_itemName: "Item Name",
-    inventory_itemError: "Item name is required",
-    inventory_addButtonText: "Add Item Type",
-    inventory_addSuccessful: "Item Added Successfully",
+    inventoryAddHeading: "Add New Commodity Detail",
+    inventory_itemName: "Commodity Name",
+    inventory_itemError: "Commodity name is required.",
+    inventory_addSuccessful: "Commodity Added Successfully !",
+
+    /* Purchaser Landing Page */
+    purchaserLandingTitle: "Purchaser Landing Page",
+    addPurchaserButtonText: "Add Purchaser",
+
+    /*Add Purchaser Form*/
+    companyNameIsRequired: "Firm name is required.",
+    purchaser_addSuccessful: "Purchaser has been added successfully",
+
+    /*Purchase Table*/
+    nameOfPurchase: "Purchaser Name",
+    outstandingPayment: "Total Outstanding Payments (₹)",
+    outstandingPaymentADT: "Outstanding Till This Entry  (₹)",
+
+    /*Purchaser Details*/
+    purchaserDetailsPageTitle: "Purchaser Details",
+    purchaserPaymentEntryButtonText: "Payment Entry",
+    purchaseTotal: "Purchase Total (₹)",
+    transactionType: "Transaction Type",
+    tt_purchase: "Purchase",
+    tt_payment: "Payment",
+    purchaserPaymentFormTitle: "Payment Details",
+    paymentAmount: "Payment Amount",
+
+
+
+
   },
 };
 export default en;
