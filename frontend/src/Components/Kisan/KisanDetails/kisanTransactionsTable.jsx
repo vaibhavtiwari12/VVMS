@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table } from "reactstrap";
+import { Button, Table, Spinner } from "reactstrap";
 import { useReactToPrint } from "react-to-print";
 import Kisanreceipt from "./KisanReceipt";
 import { useRef } from "react";
@@ -25,6 +25,7 @@ const Kisantransactionstable = ({ kisan }) => {
   /* const toggle = () => {
     setTooltipOpen(!tooltipOpen);
   }   */
+  const [isLoading, setIsLoading] = useState(true);
   const [transaction, setTransaction] = useState({});
  
   const componentRef = useRef();
@@ -67,6 +68,11 @@ const Kisantransactionstable = ({ kisan }) => {
       txn_paidToKisan: currentTransaction.paidToKisan,
     });
   };
+  useEffect(()=> {
+    if(kisan && kisan.transactions){
+      setIsLoading(false);
+    }
+  },[kisan])
   useEffect(() => {
     if (Object.keys(transaction).length > 0) {
       if (transaction && transaction.type === "DEBIT") {
@@ -98,6 +104,14 @@ const Kisantransactionstable = ({ kisan }) => {
   }, [kisan]); */
   return (
     <div>
+      {isLoading ? 
+      <div className="text-center text-primary ">
+        <Spinner />
+      </div>
+            
+      :
+      
+      
       <Table striped bordered responsive size="sm" className="shadow">
         <thead>
           <tr>
@@ -219,10 +233,6 @@ const Kisantransactionstable = ({ kisan }) => {
                               Edit
                             </Tooltip>
                           </Button>
-                          <Tooltip placement="top" isOpen={tooltipOpen} target="printAdvanceSettlement" toggle={toggle}>
-                              <FormattedMessage id="editButtonText" />
-                          </Tooltip>
-
 
                           <Button
                             className="ms-2"
@@ -236,9 +246,6 @@ const Kisantransactionstable = ({ kisan }) => {
                             {/* <FormattedMessage id="printButtonText" /> */}
                              <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
-                          <Tooltip placement="top" isOpen={tooltipOpen} target="printAdvance" toggle={toggle}>
-                            <FormattedMessage id="printButtonText" />
-                          </Tooltip>
                         </div>
                       ) : (
                         <div className="d-flex">
@@ -274,6 +281,8 @@ const Kisantransactionstable = ({ kisan }) => {
               })}
         </tbody>
       </Table>
+      }
+      
       <div className="hide-till-print">
         <Kisanreceipt data={transaction} ref={componentRef} />
       </div>

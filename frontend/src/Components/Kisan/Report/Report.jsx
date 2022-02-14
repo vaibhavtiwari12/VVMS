@@ -12,6 +12,7 @@ import {
    FormGroup,
    Input,
    Label,
+   Spinner,
 } from "reactstrap";
 import {
    convertOnlyDate,
@@ -24,6 +25,7 @@ import {
 import Reportprint from "./ReportPrint";
 import Transactionperiodsummary from "./transactionPeriodSummary";
 import Transactiontable from "./TransactionTable";
+
 const Report = () => {
    const componentRef = useRef();
    const [transactions, setTransactions] = useState();
@@ -33,6 +35,7 @@ const Report = () => {
    const [radioSelection, setRadioSelection] = useState("bydate");
    const [date, setDate] = useState(convertOnlyDate(new Date()));
    const [month, setMonth] = useState(getOnlyMonth(new Date()));
+   const [isLoading, setIsLoading] = useState(true);
    useEffect(() => {
       try {
          const fetchData = async () => {
@@ -40,6 +43,7 @@ const Report = () => {
             setTransactions([
                ...(await getTransactionsBydate(convertOnlyDate(new Date()))),
             ]);
+            setIsLoading(false);
          };
          fetchData();
       } catch (e) {
@@ -52,19 +56,22 @@ const Report = () => {
    }, [transactions]);
 
    const dateChange = async (e) => {
+      setIsLoading(true);
       console.log("Date ==", e.target.value);
       setDate(e.target.value);
-
       setTransactions([...(await getTransactionsBydate(e.target.value))]);
+      setIsLoading(false);
    };
    const monthChange = async (e) => {
+      setIsLoading(true);
       console.log("Month ==", e.target.value);
       setMonth(e.target.value);
-
       setTransactions([...(await getTransactionsByMonth(e.target.value))]);
+      setIsLoading(false);
    };
    const submit = () => {};
    const handleRadioChange = async (e) => {
+      setIsLoading(true);
       console.log("RADIOSS ", e.target.name);
       setRadioSelection(e.target.name);
       if (e.target.name === "bydate") {
@@ -72,12 +79,15 @@ const Report = () => {
          setTransactions([
             ...(await getTransactionsBydate(convertOnlyDate(new Date()))),
          ]);
+         setIsLoading(false);
       } else if (e.target.name === "bymonth") {
          setMonth(getOnlyMonth(new Date()));
          setTransactions([
             ...(await getTransactionsByMonth(getOnlyMonth(new Date()))),
          ]);
+         setIsLoading(false);
       } else if (e.target.name === "betweenDates") {
+         setIsLoading(false);
       }
    };
    const handlePrint = useReactToPrint({
@@ -92,6 +102,7 @@ const Report = () => {
       setIsInit(false);
    };
    useEffect(() => {
+      setIsLoading(true);
       const fetchData = async () => {
          if (new Date(startDate) <= new Date(endDate) && !isInit) {
             console.log("is Here");
@@ -100,6 +111,7 @@ const Report = () => {
             setTransactions([
                ...(await getTransactionsBetweenDates(startDate, ed)),
             ]);
+            setIsLoading(false);
          }
       };
       fetchData();
@@ -235,7 +247,11 @@ const Report = () => {
                ""
             )}
          </Form>
-         {transactions && transactions.length > 0 ? (
+         {isLoading ? (
+            <div class="text-center mt-5 text-primary">
+               <Spinner/>
+            </div>
+         ) : transactions && transactions.length > 0 ? (
             <div>
                <div className="d-flex justify-content-center">
                   <Button
@@ -278,6 +294,7 @@ const Report = () => {
                </h6>
             </div>
          )}
+
          <div className="hide-till-print">
             <Reportprint
                transactionSummary={transactions}

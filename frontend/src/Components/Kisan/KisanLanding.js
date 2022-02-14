@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, Spinner } from "reactstrap";
 import Search from "../Search/Search";
 import KisanTable from "./KisanSearch/KisanTable";
 import { getAllKisan } from "../../Utility/utility";
 import { FormattedMessage } from "react-intl";
+import { Fragment } from "react";
 
 const KisanLanding = () => {
   const history = useHistory();
@@ -12,6 +13,7 @@ const KisanLanding = () => {
     history.push("/addKisan");
   };
   const [kisans, setKisans] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("Name");
   const handleSearchTermChange = (term) => {
@@ -27,6 +29,7 @@ const KisanLanding = () => {
     try {
       const fetchData = async () => {
         setKisans(await getAllKisan());
+        setIsLoading(false)        
       };
       fetchData();
     } catch (e) {
@@ -43,28 +46,37 @@ const KisanLanding = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Kisan</BreadcrumbItem>
       </Breadcrumb>
-      <div className="d-flex">
-        <h3 className="flex-fill d-flex justify-content-center">
-          <FormattedMessage id="kisanLandingTitle" />
-        </h3>
-        <Button
-          className="justify-content-end me-3"
-          color="primary"
-          onClick={handleAddKisanClick}
-        >
-          + <FormattedMessage id="addKisanButtonText" />
-        </Button>
-      </div>
-      {/* <AddKisan></AddKisan> */}
-      <Search
-        setSearchTermChange={handleSearchTermChange}
-        setSearchTermType={handleSearchTypeChange}
-      ></Search>
-      <KisanTable
-        kisans={kisans}
-        term={searchTerm}
-        type={searchType}
-      ></KisanTable>
+      {isLoading ? (
+            <div className="text-center mt-5 text-primary">
+               <Spinner />
+            </div>
+         ) : (
+           <Fragment>
+             <div className="d-flex">
+               <h3 className="flex-fill d-flex justify-content-center">
+                 <FormattedMessage id="kisanLandingTitle" />
+               </h3>
+               <Button
+                 className="justify-content-end me-3"
+                 color="primary"
+                 onClick={handleAddKisanClick}
+               >
+                 + <FormattedMessage id="addKisanButtonText" />
+               </Button>
+             </div>
+             {/* <AddKisan></AddKisan> */}
+             <Search
+               setSearchTermChange={handleSearchTermChange}
+               setSearchTermType={handleSearchTypeChange}
+             ></Search>
+             <KisanTable
+               kisans={kisans}
+               term={searchTerm}
+               type={searchType}
+             ></KisanTable>
+           </Fragment>
+
+         )}
     </div>
   );
 };
