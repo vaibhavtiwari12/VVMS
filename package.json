@@ -8,7 +8,7 @@
     "copy": "shx rm -rf ./backend/build && shx mkdir -p ./backend/build && shx cp -r ./frontend/build/* ./backend/build/",
     "build:dev": "cd ./frontend && env-cmd -f ../.env.development npm run build && cd .. &&  npm run copy",
     "build:prod": "cd ./frontend && env-cmd -f ../.env.prod npm run build && cd .. &&  npm run copy",
-    "postinstall": "(cd frontend && npm install); && (cd backend && npm install);",
+    "postinstall": "cd ./frontend && env-cmd -f ../.env.prod npm run build && cd .. &&  npm run copy",
     "start": "cd backend && node app.js"
   },
   "author": "",
