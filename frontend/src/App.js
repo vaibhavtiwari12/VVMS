@@ -7,10 +7,10 @@ import "@fontsource/varela-round";
 import AuthenticatedRoute from "./Auth/AuthenticatedRoute";
 import UnAuthenticatedRoute from "./Auth/unAuthenticatedRoute";
 import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
+import NavBar from "./Components/NavBar/NavBar";
 
 /* import Login from "./Components/Login/Login";
 import Landing from "./Components/Landing/Landing";
-import NavBar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer/Footer";
 import AddKisan from "./Components/Kisan/AddKisan/AddKisan";
 import CreditForm from "./Components/Kisan/KisanDetails/CreditForm";
@@ -24,11 +24,11 @@ import AddInventoryType from "./Components/Inventory/AddInventoryType";
 import Purchaserlanding from "./Components/Purchaser/PurchaserLanding";
 import AddPurchaser from "./Components/Purchaser/AddPurchaser";
 import Purchaserdetails from "./Components/Purchaser/PurchaserDetails";
+const NavBar = lazy(()=> import("./Components/NavBar/NavBar"))
 import Purchasercreditform from "./Components/Purchaser/PurchaserCreditForm"; */
 
 const Login = lazy(()=> import("./Components/Login/Login"));
 const Landing = lazy(()=>import ("./Components/Landing/Landing"));
-const NavBar = lazy(()=> import("./Components/NavBar/NavBar"))
 const Footer = lazy(()=> import("./Components/Footer/Footer"))
 const AddKisan = lazy(()=> import("./Components/Kisan/AddKisan/AddKisan"))
 const CreditForm = lazy(()=> import("./Components/Kisan/KisanDetails/CreditForm"))
