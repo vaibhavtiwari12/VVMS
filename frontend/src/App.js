@@ -8,7 +8,6 @@ import Footer from "./Components/Footer/Footer";
 import NavBar from "./Components/NavBar/NavBar";
 import { I18nProvider, LOCALES } from "./i18n";
 import axios from "axios";
-import "@fontsource/varela-round";
 import "./App.css";
 
 /* import Login from "./Components/Login/Login";
