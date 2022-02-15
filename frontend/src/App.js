@@ -1,17 +1,17 @@
-import "./App.css";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
-import axios from "axios";
-import { I18nProvider, LOCALES } from "./i18n";
-import "@fontsource/varela-round";
 import AuthenticatedRoute from "./Auth/AuthenticatedRoute";
 import UnAuthenticatedRoute from "./Auth/unAuthenticatedRoute";
 import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
-import NavBar from "./Components/NavBar/NavBar";
-
-/* import Login from "./Components/Login/Login";
 import Landing from "./Components/Landing/Landing";
 import Footer from "./Components/Footer/Footer";
+import NavBar from "./Components/NavBar/NavBar";
+import { I18nProvider, LOCALES } from "./i18n";
+import axios from "axios";
+import "@fontsource/varela-round";
+import "./App.css";
+
+/* import Login from "./Components/Login/Login";
 import AddKisan from "./Components/Kisan/AddKisan/AddKisan";
 import CreditForm from "./Components/Kisan/KisanDetails/CreditForm";
 import Debitform from "./Components/Kisan/KisanDetails/DebitForm";
@@ -25,11 +25,11 @@ import Purchaserlanding from "./Components/Purchaser/PurchaserLanding";
 import AddPurchaser from "./Components/Purchaser/AddPurchaser";
 import Purchaserdetails from "./Components/Purchaser/PurchaserDetails";
 const NavBar = lazy(()=> import("./Components/NavBar/NavBar"))
+const Landing = lazy(()=>import ("./Components/Landing/Landing"));
+const Footer = lazy(()=> import("./Components/Footer/Footer"))
 import Purchasercreditform from "./Components/Purchaser/PurchaserCreditForm"; */
 
 const Login = lazy(()=> import("./Components/Login/Login"));
-const Landing = lazy(()=>import ("./Components/Landing/Landing"));
-const Footer = lazy(()=> import("./Components/Footer/Footer"))
 const AddKisan = lazy(()=> import("./Components/Kisan/AddKisan/AddKisan"))
 const CreditForm = lazy(()=> import("./Components/Kisan/KisanDetails/CreditForm"))
 const Debitform = lazy(()=> import("./Components/Kisan/KisanDetails/DebitForm"))
@@ -87,7 +87,7 @@ function App() {
 
    return (
       <React.Fragment>
-         <Suspense fallback={<div>Loading...</div>}>
+         <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
             <ErrorBoundary>
                <I18nProvider locale={locale}>
                   <NavBar
