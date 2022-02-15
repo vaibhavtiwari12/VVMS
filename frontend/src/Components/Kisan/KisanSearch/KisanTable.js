@@ -1,9 +1,6 @@
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-
-
-
 const KisanTable = ({ kisans, term, type }) => {
   return (
     <div>
