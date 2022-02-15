@@ -18,7 +18,8 @@ import createRootReducer from './Store/reducer';
 
 
 export const history = createBrowserHistory();
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/* const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; */
+const composeEnhancers = compose;
 /* const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk))); */
 const store = createStore(createRootReducer(history),
                 composeEnhancers(applyMiddleware(thunk,routerMiddleware(history))))

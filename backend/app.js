@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
+var compression = require('compression')
 /* const { controller } = require('./Mongo/mongoController'); */
 const MongoRouter = require("./Router/mongoRouter");
 const KisanRouter = require("./Router/kisanRouter");
@@ -16,10 +17,22 @@ const  { generateDashboard} = require("./Utilities/utility");
 var MongoDBStore = require("connect-mongodb-session")(session);
 
 //Conifiguring the dotenv to read the env file variables.
-dotenv.config({ path: path.resolve(__dirname, "../.env.prod") });
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
 
+// -------------------------------- Enabling Compression on requests ----------------------------
+const shouldCompress = (req, res) => {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false
+  }
+ 
+  // fallback to standard filter function
+  return compression.filter(req, res)
+}
+app.use(compression({ filter: shouldCompress }));
+// -------------------------------- Enabling Compression on requests ----------------------------
 // -------------------------------- Session initilization ----------------------------
 var store = new MongoDBStore({
   uri: `${process.env.MONGO_URL}`,

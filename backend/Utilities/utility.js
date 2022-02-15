@@ -263,9 +263,9 @@ const getDayWisecommissions = (kisans) => {
       date : monthToNumberMapping[month].name,
       dateNumber : month,
       commissions: 0
-    }
+    } 
    })
-   const finalComissionsObject = [...groupArrays, ...emptyMonths]
+   const finalComissionsObject = [...groupArrays, ...emptyMonths].sort((a,b)=>parseFloat(a.dateNumber)-parseFloat(b.dateNumber))
    console.log("commissions",finalComissionsObject)
    return finalComissionsObject;
 };

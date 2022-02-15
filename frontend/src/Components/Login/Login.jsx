@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
@@ -47,13 +47,16 @@ const Login = () => {
         setHasError("");
         window.sessionStorage.setItem("userName", username);
         history.push(history.location.search.split("=")[1])
-        setShowSpinner(false);
       }catch (error) {
-        setShowSpinner(false);
         setHasError(error.response.data.message)
       }
     }
   };
+  useEffect(() => {
+    return () => {
+      setShowSpinner(false);
+    };
+  }, []);
   const userNameChange = (e) => {
     setUsername(e.target.value);
     setIsUsernameValid("");
