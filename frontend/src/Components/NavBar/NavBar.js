@@ -35,7 +35,9 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   const handleLanguageChange = () => {
     setIsLanguageEnglish((isLanguageEnglish) => !isLanguageEnglish);
   };
-
+  const collapse = () => {
+    setCollapsed(true)
+  }
   useEffect(() => {
     console.log("Language Change ", isLanguageEnglish);
     changelanguage(isLanguageEnglish);
@@ -52,25 +54,25 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
           <Nav className="" navbar>
             <Link
               className="nav-item ps-3 link-no-decoration text-white"
-              to="/purchaser"
+              onClick={collapse} to="/purchaser"
             >
               <FormattedMessage id="purchaser" />
             </Link>
             <Link
               className="nav-item ps-3 link-no-decoration text-white"
-              to="/kisan"
+              onClick={collapse} to="/kisan"
             >
               <FormattedMessage id="kisan" />
             </Link>
             <Link
               className="nav-item ps-3 link-no-decoration text-white"
-              to="/Report"
+              onClick={collapse} to="/Report"
             >
               <FormattedMessage id="report" />
             </Link>
             <Link
               className="nav-item ps-3 link-no-decoration text-white"
-              to="/inventory"
+              onClick={collapse} to="/inventory"
             >
               <FormattedMessage id="inventory" />
             </Link>
