@@ -5,6 +5,7 @@ const {
   getTransactionsBetweenDates,
   getTransaction,
   modifyTransactionGroupByDate,
+  getPurchasers,
 } = require("../Utilities/utility");
 
 /* IMPORTANT
@@ -86,6 +87,37 @@ const controller = async (type, data) => {
       console.log("PURCHASER CREDIT ENTRY ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
       return finalKisan;
+    }
+    case "todaystransactions": {
+      // Delete
+      const allPurchasers = await Purchaser.find();
+      const transactions = getPurchasers(
+        allPurchasers,
+        data.dateToSearch,
+        "byDate"
+      );
+      return transactions;
+    }
+    case "monthTransaction": {
+      // Delete
+      const allPurchasers = await Purchaser.find();
+      const transactions = getPurchasers(
+        allPurchasers,
+        data.monthToSearch,
+        "byMonth"
+      );
+      return transactions;
+    }
+    case "transactionBetweenDates": {
+      // Delete
+      const allPurchasers = await Purchaser.find();
+      const transactions = getTransactionsBetweenDates(
+        allPurchasers,
+        data.startDate,
+        data.endDate,
+        data.type
+      );
+      return transactions;
     }
     /* 
     case "editTransaction": {

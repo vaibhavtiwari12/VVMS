@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Button, Table } from "reactstrap";
-import { dateConverter } from "../../../Utility/utility";
+import { dateConverter } from "../../Utility/utility";
 
 const Transactiontable = ({ transactionSummary }) => {
   return (
@@ -60,8 +60,8 @@ const Transactiontable = ({ transactionSummary }) => {
                                   <td className="ps-2">{transaction.bhada}</td>
                                 </tr>
                                 <tr>
-                                  <td >Commission</td>
-                                  <td className="ps-2">{transaction.commission}</td>
+                                  <td >Commission({transaction.commission}%)</td>
+                                  <td className="ps-2">{transaction.grossTotal * (transaction.commission/100)}</td>
                                 </tr>
                               </tbody>
                             </table>

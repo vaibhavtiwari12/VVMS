@@ -104,7 +104,8 @@ const controller = async (type, data) => {
       const transactions = getTransactionsBetweenDates(
         allKisans,
         data.startDate,
-        data.endDate
+        data.endDate,
+        data.type
       );
       return transactions;
     }

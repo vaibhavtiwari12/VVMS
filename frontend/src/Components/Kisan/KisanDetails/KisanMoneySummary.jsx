@@ -1,11 +1,6 @@
 import React from "react";
 import { Table } from "reactstrap";
 import { FormattedMessage } from "react-intl";
-
-
-
-
-
 const Kisanmoneysummary = ({ kisan }) => {
   return (
     <div className="p-3">

@@ -77,3 +77,25 @@ export const fetchCustomTransactionsForPurchaser = async  (id) => {
   console.log("Purchaser Fetched - CUSTOM", allPurchaser)
   return allPurchaser.data;
 }
+
+
+export const getPurchaserTransactionsBydate = async (date) => {
+  const res = await fetch(`purchaser/getTodaysTransaction/${date}`);
+  const allTransactions = await res.json();
+  console.log("PURCHASER ALL TRANSACTION", allTransactions);
+  return allTransactions;
+};
+export const getPurchaserTransactionsByMonth = async (month) => {
+  const res = await fetch(`purchaser/getTransactionByMonth/${month}`);
+  const allTransactions = await res.json();
+  console.log("PURCHASER ALL TRANSACTION -- Month", allTransactions);
+  return allTransactions;
+};
+export const getPurchaserTransactionsBetweenDates = async (startDate, endDate) => {
+  const res = await fetch(
+    `purchaser/getTransactionsBetweenDates/${startDate}/${endDate}`
+  );
+  const allTransactions = await res.json();
+  console.log("PURCHASER ALL TRANSACTION -- Month", allTransactions);
+  return allTransactions;
+};

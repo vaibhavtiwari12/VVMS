@@ -34,7 +34,7 @@ const CreditForm = lazy(()=> import("./Components/Kisan/KisanDetails/CreditForm"
 const Debitform = lazy(()=> import("./Components/Kisan/KisanDetails/DebitForm"))
 const Kisandetails = lazy(()=> import("./Components/Kisan/KisanDetails/KisanDetails"))
 const KisanLanding = lazy(()=> import("./Components/Kisan/KisanLanding"))
-const Report = lazy(()=> import("./Components/Kisan/Report/Report"))
+const Report = lazy(()=> import("./Components/Report/Report"))
 const Advancesettlementform = lazy(()=> import("./Components/Kisan/KisanDetails/AdvanceSettlementForm"))
 const InventoryLanding = lazy(()=> import("./Components/Inventory/InventoryLanding"))
 const AddInventoryType = lazy(()=> import("./Components/Inventory/AddInventoryType"))

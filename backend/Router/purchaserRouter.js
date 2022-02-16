@@ -33,6 +33,36 @@ purchaserRouter.get("/getTransactionsById/:id", async (req, res) => {
   const allKisan = await controller("findByCustomTransactions", req.params.id);
   res.json(allKisan);
 });
+
+purchaserRouter.get("/getTodaysTransaction/:dateToSearch", async (req, res) => {
+  const todaysTransaction = await controller("todaystransactions", {
+    dateToSearch: req.params.dateToSearch,
+  });
+  //console.log("todaystransactions - Purchaser", todaysTransaction);
+  res.json(todaysTransaction);
+});
+
+purchaserRouter.get("/getTransactionByMonth/:monthToSearch", async (req, res) => {
+  const monthsTransaction = await controller("monthTransaction", {
+    monthToSearch: req.params.monthToSearch,
+  });
+  console.log("monthsTransaction - Purchaser", monthsTransaction);
+  res.json(monthsTransaction);
+});
+
+purchaserRouter.get(
+  "/getTransactionsBetweenDates/:startDate/:endDate",
+  async (req, res) => {
+    const monthsTransaction = await controller("transactionBetweenDates", {
+      startDate: req.params.startDate,
+      endDate: req.params.endDate,
+      type: "purchaser",
+    });
+    console.log("between Dates - Purchaser", monthsTransaction);
+    res.json(monthsTransaction);
+  }
+);
+
 /* 
 purchaserRouter.post("/editTransaction/:id", async (req, res) => {
   const editedTransaction = await controller("editTransaction", {

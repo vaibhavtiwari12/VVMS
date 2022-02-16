@@ -21,12 +21,14 @@ import {
    getTransactionsByMonth,
    getTransactionsBetweenDates,
    dateConverter,
-} from "../../../Utility/utility";
+} from "../../Utility/utility";
 import Reportprint from "./ReportPrint";
 import Transactionperiodsummary from "./transactionPeriodSummary";
 import Transactiontable from "./TransactionTable";
 
-const Report = () => {
+
+const Kisanreport = () => {
+    
    const componentRef = useRef();
    const [transactions, setTransactions] = useState();
    const [startDate, setStartDate] = useState(convertOnlyDate(new Date()));
@@ -87,6 +89,13 @@ const Report = () => {
          ]);
          setIsLoading(false);
       } else if (e.target.name === "betweenDates") {
+        setStartDate(convertOnlyDate(new Date()));  
+        let ed = new Date();
+        ed = new Date(ed.setDate(ed.getDate() + 1));
+        setEndDate(convertOnlyDate(new Date()));  
+        setTransactions([
+            ...(await getTransactionsBetweenDates(convertOnlyDate(new Date()), convertOnlyDate(ed)))
+         ]);
          setIsLoading(false);
       }
    };
@@ -116,25 +125,14 @@ const Report = () => {
       };
       fetchData();
    }, [startDate, endDate]);
-   return (
-      <div>
-         <Breadcrumb className="ps-3 mt-2">
-            <BreadcrumbItem>
-               <Link className="link-no-decoration-black text-primary" to="/">
-                  Home
-               </Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>Report</BreadcrumbItem>
-         </Breadcrumb>
-         <h2 className="d-flex justify-content-center mt-2 capitalize text-dark">
-            Report
-         </h2>
+    return (
+        <div>
          <Form onSubmit={(e) => submit(e)} className="m-3 p-3 shadow">
             {/*  <h6>Please Change the date to generate report of different Date</h6> */}
-            <FormGroup tag="fieldset">
-               <legend className="col-form-label">
+            <FormGroup tag="fieldset" className="mt-2">
+               <legend>
                   <h5>
-                     <u>Select the report search option</u>{" "}
+                     Select Timeline
                   </h5>
                </legend>
                <FormGroup check>
@@ -176,7 +174,7 @@ const Report = () => {
             </FormGroup>
             {/* for DATE */}
             {radioSelection === "bydate" ? (
-               <FormGroup className="mt-2">
+               <FormGroup className="mt-2 mb-2">
                   <Label for="date"> Select Date to generate report </Label>
                   <Input
                      name="date"
@@ -248,7 +246,7 @@ const Report = () => {
             )}
          </Form>
          {isLoading ? (
-            <div class="text-center mt-5 text-primary">
+            <div className="text-center mt-5 text-primary">
                <Spinner/>
             </div>
          ) : transactions && transactions.length > 0 ? (
@@ -311,7 +309,7 @@ const Report = () => {
             />
          </div>
       </div>
-   );
-};
+    );
+}
 
-export default Report;
+export default Kisanreport;

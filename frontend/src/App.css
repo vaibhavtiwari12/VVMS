@@ -280,3 +280,12 @@
    width: 1.1rem!important;
    font-size: 0.8rem!important;
 }
+
+.nav-item {
+   cursor: pointer;
+}
+
+.custom-logo-design {
+   margin-left: -2rem;
+   margin-right: -2rem;
+}

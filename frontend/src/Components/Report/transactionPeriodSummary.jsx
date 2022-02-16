@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import { dateConverter } from "../../../Utility/utility";
+import { dateConverter } from "../../Utility/utility";
 
 const Transactionperiodsummary = ({ transactionSummary, date }) => {
   const [outGoingCash, setOutGoingCash] = useState(0);

@@ -16,7 +16,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import logo from "./no-bg.svg";
+import logo from "./particleBG.svg";
 const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
@@ -44,7 +44,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
   return (
     <div>
       <Navbar color="primary" dark expand="md" light className="p-3">
-        <Link className="nav-brand link-no-decoration text-white" to="/">
+        <Link className="nav-brand link-no-decoration text-white custom-logo-design" to="/">
           <img className="logo" src={logo} alt="MahrajVegetables" />
         </Link>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />

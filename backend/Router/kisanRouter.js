@@ -80,6 +80,7 @@ KisanRouter.get(
     const monthsTransaction = await controller("transactionBetweenDates", {
       startDate: req.params.startDate,
       endDate: req.params.endDate,
+      type: "kisan",
     });
     console.log("between Dates", monthsTransaction);
     res.json(monthsTransaction);

@@ -34,7 +34,7 @@ const Purchaserdetails = () => {
     history.push(link)
 }
   return (
-    <div>
+    <div className="mt-3">
       <Breadcrumb className="ps-3 mt-2">
         <BreadcrumbItem>
           <Link className="link-no-decoration-black text-primary" to="/">
