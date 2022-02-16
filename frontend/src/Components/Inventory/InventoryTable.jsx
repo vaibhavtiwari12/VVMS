@@ -7,7 +7,7 @@ const InventoryTable = ({ transactions }) => {
   return (
     <div className="">
       {transactions.length > 0 ? (
-        <Table striped size="sm" className="mt-3">
+        <Table striped size="sm" className="mt-3" responsive>
           <thead>
             <tr>
               <th>#</th>

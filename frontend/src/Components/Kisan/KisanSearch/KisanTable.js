@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 const KisanTable = ({ kisans, term, type }) => {
   return (
     <div>
-      <Table striped size="sm" className="mt-3">
+      <Table striped size="sm" className="mt-3" responsive>
         <thead>
           <tr>
             <th>#</th>
