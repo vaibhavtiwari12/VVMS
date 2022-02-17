@@ -24,19 +24,16 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const posts = await Kisan.find();
-      /* await closeConnection(); */
       return posts;
     }
     case "Add": {
       //Adding data
-      const data = await data.save();
-      /* await closeConnection(); */
-      return data
+      const saved = await data.save();
+      return saved
     }
     case "FindByID": {
       console.log("IS Here", data);
       const kisan = await Kisan.findById(data);
-      /* await closeConnection(); */
       return kisan;
     }
     case "AddTransaction": {
@@ -66,7 +63,6 @@ const controller = async (type, data) => {
           data.transaction.carryForwardFromThisEntry;
       }
       const finalKisan = await updatekisan.save();
-      /* await closeConnection(); */
       return finalKisan;
     }
     case "editTransaction": {
@@ -81,7 +77,6 @@ const controller = async (type, data) => {
       kisanToUpdate.transactions = newKisanTransaction;
       console.log("kisanToUpdate", kisanToUpdate);
       const finalKisan = await kisanToUpdate.save();
-      /* await closeConnection(); */
       return finalKisan;
     }
     case "todaystransactions": {
@@ -92,7 +87,6 @@ const controller = async (type, data) => {
         data.dateToSearch,
         "byDate"
       );
-      /* await closeConnection(); */
       return transactions;
     }
     case "monthTransaction": {
@@ -103,7 +97,6 @@ const controller = async (type, data) => {
         data.monthToSearch,
         "byMonth"
       );
-      /* await closeConnection(); */
       return transactions;
     }
     case "transactionBetweenDates": {
@@ -115,7 +108,6 @@ const controller = async (type, data) => {
         data.endDate,
         data.type
       );
-      /* await closeConnection(); */
       return transactions;
     }
   }

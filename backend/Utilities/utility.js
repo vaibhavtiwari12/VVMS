@@ -1,4 +1,4 @@
-const { createDBConnection } = require("../Mongo/mongoConnector");
+const { createDBConnection, closeConnection } = require("../Mongo/mongoConnector");
 const Kisan = require("../Schema/kisanSchema");
 const monthToNumberMapping = {
    "01": {
@@ -243,7 +243,7 @@ const generateDashboard = async () => {
    const topPurchaserDefaulters = [];
    const topSoldItems = [];
    const topBuyingPurchaser = [];
-
+   await createDBConnection();
    const kisans = await Kisan.find();
    kisans.map((kisan) => {
       totalAdvancePending += kisan.balance;
@@ -257,6 +257,7 @@ const generateDashboard = async () => {
    commissions = getDayWisecommissions(kisans);
    const advanceDataGivenAndTakenConsolidated =
       getAdvancePaidAndSettledByKisan(kisans);
+      await closeConnection();
    return {
       totalAdvancePending,
       totalItemWeight,

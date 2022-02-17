@@ -12,7 +12,6 @@ const controller = async (type, data) => {
         password: data.password,
       });
       console.log(logins);
-      /* await closeConnection(); */
       return logins;
     }
     case "add": {
@@ -23,7 +22,6 @@ const controller = async (type, data) => {
         password: data.password,
       });
       const addedUser = logn.save();
-      /* await closeConnection(); */
       return addedUser;
     }
   }

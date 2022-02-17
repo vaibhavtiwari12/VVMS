@@ -1,4 +1,4 @@
-const { createDBConnection } = require("./mongoConnector");
+const { createDBConnection, closeConnection } = require("./mongoConnector");
 const Kisan = require("../Schema/kisanSchema");
 
 /* IMPORTANT
@@ -39,5 +39,6 @@ const controller = async (type, data) => {
             return deletedData;
         } */
   }
+  await closeConnection();
 };
 module.exports = { controller };

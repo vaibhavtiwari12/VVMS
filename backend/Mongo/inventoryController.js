@@ -13,18 +13,15 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const inventory = await Inventory.find();
-      /* await closeConnection(); */
       return inventory;
     }
     case "Add": {
       //Adding data
-      const data = await data.save();
-      /* await closeConnection(); */
-      return data;
+      const saved = await data.save();
+      return saved;
     }
     case "FindByID": {
       const inventory = await Inventory.findById(data);
-      /* await closeConnection(); */
       return inventory;
     }
     case "AddTransaction": {
@@ -47,7 +44,6 @@ const controller = async (type, data) => {
       fetchedInventory.totalBags += data.numberofBags;
       console.log("Updated Inventory ", fetchedInventory);
       const finalInventory = await fetchedInventory.save();
-      /* await closeConnection(); */
       return finalInventory;
     }
   }
