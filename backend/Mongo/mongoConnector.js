@@ -8,4 +8,8 @@ const createDBConnection = async () =>  {
         useCreateIndex: true
     })
 }
-module.exports = {createDBConnection};
+
+const closeConnection = async () => {
+    return await mongoose.connection.close();
+}
+module.exports = {createDBConnection, closeConnection};

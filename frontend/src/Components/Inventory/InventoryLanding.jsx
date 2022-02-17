@@ -47,13 +47,14 @@ const InventoryLanding = () => {
          ) : (
             <Fragment>
                <div className="d-flex">
-                  <h3 className="flex-fill d-flex justify-content-center">
+                  <h3 className="flex-fill d-flex justify-content-center font-15">
                      <FormattedMessage id="inventoryLandingTitle" />
                   </h3>
                   <Button
-                     className="justify-content-end me-3"
+                     className="justify-content-end me-3 font-10"
                      color="primary"
                      onClick={handleAddInventoryType}
+                     size="sm"
                   >
                      + <FormattedMessage id="addfasalType" />
                   </Button>

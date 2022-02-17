@@ -6,7 +6,7 @@ const Purchasertable = ({ purchasers, term, type }) => {
   return (
     <div>
       {purchasers.length > 0 ? (
-        <Table striped size="sm" className="mt-3" responsive>
+        <Table striped size="sm" className="mt-3 font-10" responsive >
           <thead>
             <tr>
               <th>#</th>

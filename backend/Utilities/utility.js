@@ -244,8 +244,6 @@ const generateDashboard = async () => {
    const topSoldItems = [];
    const topBuyingPurchaser = [];
 
-   await createDBConnection();
-
    const kisans = await Kisan.find();
    kisans.map((kisan) => {
       totalAdvancePending += kisan.balance;

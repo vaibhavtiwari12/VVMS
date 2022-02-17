@@ -28,27 +28,27 @@ const Landing = () => {
    }, []);
    return (
       <div>
-         <h5 className="text-center text-muted mt-5 text-capitalize">
+         <h5 className="text-center text-muted mt-5 text-capitalize font-12">
             <FormattedMessage id="welcomeMsg" />
          </h5>
-         <h2 className="text-center text-primary mb-5 mt-1 text-uppercase">
+         <h3 className="text-center text-primary mb-5 mt-1 text-capitalize">
             <FormattedMessage id="brandName" />
-         </h2>
+         </h3>
          {isLoading ? (
             <div className="text-center mt-5 text-primary">
                <Spinner />
             </div>
          ) : (
             <Fragment>
-               <div className="d-flex mt-4 details-card-container">
+               <div className="d-flex mt-4 details-card-container font-10">
                   <Card className="flex-even details-card shadow">
                      <CardBody>
                         <CardTitle className="text-gray">
                            {" "}
-                           <h5> Total kisan Advance Pending</h5>
+                           <h5 className="font-11"> Total kisan Advance Pending</h5>
                         </CardTitle>
                         <div>
-                           <h4 className="text-danger">
+                           <h4 className="text-danger font-14">
                               {dashBoardData.totalAdvancePending}
                            </h4>
                         </div>
@@ -58,10 +58,10 @@ const Landing = () => {
                      <CardBody>
                         <CardTitle className="text-gray">
                            {" "}
-                           <h5> Total Purchaser Outstanding</h5>
+                           <h5 className="font-11"> Total Purchaser Outstanding</h5>
                         </CardTitle>
                         <div>
-                           <h4 className="text-danger">-2150000</h4>
+                           <h4 className="text-danger font-14">-2150000</h4>
                         </div>
                      </CardBody>
                   </Card>
@@ -69,10 +69,10 @@ const Landing = () => {
                      <CardBody className="text-gray">
                         <CardTitle>
                            {" "}
-                           <h5> Total Item weight (in KGs)</h5>
+                           <h5 className="font-11"> Total Item weight (in KGs)</h5>
                         </CardTitle>
                         <div>
-                           <h4 className="text-primary">
+                           <h4 className="text-primary font-14">
                               {dashBoardData.totalItemWeight}
                            </h4>
                         </div>
@@ -82,10 +82,10 @@ const Landing = () => {
                      <CardBody className="text-gray">
                         <CardTitle>
                            {" "}
-                           <h5> Total bags sold today (in KGs)</h5>
+                           <h5 className="font-11"> Total bags sold today (in KGs)</h5>
                         </CardTitle>
                         <div>
-                           <h4 className="text-primary">
+                           <h4 className="text-primary font-14">
                               {dashBoardData.totalBagsSold}
                            </h4>
                         </div>

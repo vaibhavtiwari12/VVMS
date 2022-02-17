@@ -47,7 +47,7 @@ const Kisandetails = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Details</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="d-flex justify-content-center mt-2 capitalize">
+      <h2 className="d-flex justify-content-center mt-2 capitalize font-14">
         <FormattedMessage id="kisanDetailsTitle" />
       </h2>
       <div>
@@ -57,20 +57,20 @@ const Kisandetails = () => {
         <div></div>
       </div>
       <div className="text-center mt-3">
-        <Button color="danger" onClick={e => handleButtonclick(`/kisanDebitForm/${id}/add`)}>
+        <Button className="font-10" color="danger" onClick={e => handleButtonclick(`/kisanDebitForm/${id}/add`)}>
             <FormattedMessage id="giveAdvanceKisanButtonText" />
         </Button>
-        <Button color="primary" className="ms-3" onClick={e => handleButtonclick(`/kisanCreditForm/${id}/add`)}>
+        <Button color="primary" className="ms-3 font-10" onClick={e => handleButtonclick(`/kisanCreditForm/${id}/add`)}>
             <FormattedMessage id="createBillKisanButtonText" />
         </Button>
-        <Button color="success" className="ms-3" onClick={e => handleButtonclick(`/kisanAdvanceSettlement/${id}/add`)}>
+        <Button color="success" className="ms-3 font-10" onClick={e => handleButtonclick(`/kisanAdvanceSettlement/${id}/add`)}>
             <FormattedMessage id="depositAdvanceKisanButtonText" />
         </Button>
       </div>
-      <h3 className="text-center mt-5">
+      <h3 className="text-center mt-5 font-14">
         <FormattedMessage id="transactionDetailsTitle" />
       </h3>
-      <div className="p-3">
+      <div className="p-3 font-10">
         <Kisantransactionstable kisan={kisan} />
       </div>
     </div>

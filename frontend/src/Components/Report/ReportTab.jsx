@@ -21,7 +21,7 @@ const ReportTab = ({ inventory }) => {
 
   return (
     <div>
-        <div className="pt-2">
+        <div className="pt-2 font-10">
           <Nav tabs>
                 <NavItem >
                   <NavLink

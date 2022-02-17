@@ -176,7 +176,7 @@ const Purchasercreditform = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Purchaser Credit Form</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="text-center text-secondary mt-3">
+      <h2 className="text-center text-secondary mt-3 font-13">
         <FormattedMessage id="purchaserPaymentEntryButtonText" />
       </h2>
       <div>
@@ -185,9 +185,9 @@ const Purchasercreditform = () => {
         </div>
         <div></div>
       </div>
-      <Form onSubmit={(e) => submit(e)} className="p-3">
+      <Form onSubmit={(e) => submit(e)} className="p-3 font-10">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
-        <h2 className="text-center text-secondary mt-3">
+        <h2 className="text-center text-secondary mt-3 font-13">
           <FormattedMessage id="purchaserPaymentFormTitle" />
         </h2>
         <FormGroup className="mt-2">
@@ -199,6 +199,7 @@ const Purchasercreditform = () => {
             invalid={amount <= 0 && isAmountValid === ""}
             name="amount"
             type="number"
+            className="font-10"
             value={amount.toString()}
             onWheel={(e) => e.target.blur()}
             onChange={(e) => amountChange(e)}
@@ -218,6 +219,7 @@ const Purchasercreditform = () => {
             name="comment"
             type="text"
             value={comment}
+            className="font-10"
             onWheel={(e) => e.target.blur()}
             onChange={(e) => commentChange(e)}
           />
@@ -228,13 +230,13 @@ const Purchasercreditform = () => {
         </FormGroup>
         {type === "add" ? (
           <React.Fragment>
-            <Button type="submit" color="primary" className="mt-3">
+            <Button type="submit" color="primary" className="mt-3 font-10">
               <FormattedMessage id="createEntryButtonText" />
             </Button>
             <Button
               type="reset"
               color="danger"
-              className="ms-1 mt-3"
+              className="ms-1 mt-3 font-10"
               onClick={clear}
             >
               <FormattedMessage id="resetButtonText" />
@@ -244,7 +246,7 @@ const Purchasercreditform = () => {
           <Button
             type="button"
             color="primary"
-            className="mt-3"
+            className="mt-3 font-10"
             onClick={handleEdit}
           >
             <FormattedMessage id="editButtonText" />
@@ -252,9 +254,9 @@ const Purchasercreditform = () => {
         )}
         {showAlert ? (
           type === "add" ? (
-            <Alert className="mt-4">Credit Entry been added successfully</Alert>
+            <Alert className="mt-4 font-10">Credit Entry been added successfully</Alert>
           ) : (
-            <Alert className="mt-4">
+            <Alert className="mt-4 font-10">
               Credit Entry has been Edited successfully
             </Alert>
           )

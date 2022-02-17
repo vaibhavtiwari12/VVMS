@@ -15,7 +15,7 @@ module.exports = {
 
 const isValidSession = async (req) => {
   const uri = `${process.env.MONGO_URL}`;
-  const options = {};
+  const options = { useUnifiedTopology: true };
   const client = new MongoClient(uri, options);
   await client.connect();
   const db = client.db("VVMS");
@@ -23,5 +23,6 @@ const isValidSession = async (req) => {
   document = await db
     .collection("mySessions")
     .findOne({ _id: req.session.id, "session.user": req.session.user });
+    await client.close()
   return document;
 };

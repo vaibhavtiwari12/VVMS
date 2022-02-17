@@ -112,7 +112,7 @@ const Kisantransactionstable = ({ kisan }) => {
       :
       
       
-      <Table striped bordered responsive size="sm" className="shadow">
+      <Table striped bordered responsive size="sm" className="shadow font-10">
         <thead>
           <tr>
             <th>#</th>
@@ -192,7 +192,7 @@ const Kisantransactionstable = ({ kisan }) => {
                     <td>
                       {transaction.type === "DEBIT" ? (
                         <div className="d-flex">
-                          <Button color="success" id="advanceEntryEdit">
+                          <Button color="success" id="advanceEntryEdit" className="font-10">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanDebitForm/${kisan._id}/edit/${transaction._id}`}
@@ -205,7 +205,7 @@ const Kisantransactionstable = ({ kisan }) => {
                             </Tooltip>
                           </Button>
                           <Button
-                            className="ms-2"
+                            className="ms-2 font-10"
                             color="primary"
                             id="advanceEntryPrint"
                             onClick={(e) => print(transaction)}
@@ -221,7 +221,8 @@ const Kisantransactionstable = ({ kisan }) => {
                         <div className="d-flex">
                           <Button color="success" id="edit">
                             <Link
-                              className="link-no-decoration"
+                            className="ms-2 "
+                            className="link-no-decoration font-10"
                               to={`/kisanAdvanceSettlement/${kisan._id}/edit/${transaction._id}`}
 
                             >
@@ -235,7 +236,7 @@ const Kisantransactionstable = ({ kisan }) => {
                           </Button>
 
                           <Button
-                            className="ms-2"
+                            className="ms-2 font-10"
                             color="primary"
                             id="printAdvance"
                             onClick={(e) => print(transaction)}
@@ -249,7 +250,7 @@ const Kisantransactionstable = ({ kisan }) => {
                         </div>
                       ) : (
                         <div className="d-flex">
-                          <Button color="secondary" id="details">
+                          <Button color="secondary" id="details" className="font-10">
                             <Link
                               className="link-no-decoration"
                               to={`/kisanCreditForm/${kisan._id}/edit/${transaction._id}`}
@@ -262,7 +263,7 @@ const Kisantransactionstable = ({ kisan }) => {
                               Details
                             </Tooltip>
                           <Button
-                            className="ms-2"
+                            className="ms-2 font-10"
                             color="primary"
                             id="printCredit"
                             onClick={(e) => printCreditEntry(transaction)}

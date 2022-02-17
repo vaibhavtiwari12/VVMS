@@ -49,10 +49,20 @@
 }
 
 @media print {
+   html, body {
+      height:100vh; 
+      margin: 0 !important; 
+      padding: 0 !important;
+      overflow: hidden;
+    }
    .no-print,
    .no-print * {
       display: none !important;
    }
+   .print:last-child {
+      page-break-after: auto;
+   }
+  
 }
 
 .hide-till-print {
@@ -60,7 +70,7 @@
 }
 
 .receipt-font-size {
-   font-size: 1.9vh;
+   font-size: 1rem;
 }
 
 .capitalize {
@@ -74,7 +84,7 @@
    width: 80%;
 }
 .company-heading {
-   font-size: 4vh;
+   font-size: 2rem;
 }
 .no-border {
    border-style: hidden !important;
@@ -288,4 +298,15 @@
 .custom-logo-design {
    margin-left: -2rem;
    margin-right: -2rem;
+}
+
+.breadcrumb{
+   font-size: 1rem!important;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+   float: left;
+   padding-right: 0.5rem;
+   color: #6c757d;
+   content: var(--bs-breadcrumb-divider, ">")!important;
 }

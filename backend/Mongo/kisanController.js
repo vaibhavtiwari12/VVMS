@@ -1,4 +1,4 @@
-const { createDBConnection } = require("./mongoConnector");
+const { createDBConnection, closeConnection } = require("./mongoConnector");
 const Kisan = require("../Schema/kisanSchema");
 const InventoryController = require("../Mongo/inventoryController");
 const Inventory = require("../Schema/inventorySchema");
@@ -24,15 +24,19 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const posts = await Kisan.find();
+      closeConnection();
       return posts;
     }
     case "Add": {
       //Adding data
-      return await data.save();
+      const data = await data.save();
+      closeConnection();
+      return data
     }
     case "FindByID": {
       console.log("IS Here", data);
       const kisan = await Kisan.findById(data);
+      closeConnection();
       return kisan;
     }
     case "AddTransaction": {
@@ -62,6 +66,7 @@ const controller = async (type, data) => {
           data.transaction.carryForwardFromThisEntry;
       }
       const finalKisan = await updatekisan.save();
+      closeConnection();
       return finalKisan;
     }
     case "editTransaction": {
@@ -76,6 +81,7 @@ const controller = async (type, data) => {
       kisanToUpdate.transactions = newKisanTransaction;
       console.log("kisanToUpdate", kisanToUpdate);
       const finalKisan = await kisanToUpdate.save();
+      closeConnection();
       return finalKisan;
     }
     case "todaystransactions": {
@@ -86,6 +92,7 @@ const controller = async (type, data) => {
         data.dateToSearch,
         "byDate"
       );
+      closeConnection();
       return transactions;
     }
     case "monthTransaction": {
@@ -96,6 +103,7 @@ const controller = async (type, data) => {
         data.monthToSearch,
         "byMonth"
       );
+      closeConnection();
       return transactions;
     }
     case "transactionBetweenDates": {
@@ -107,6 +115,7 @@ const controller = async (type, data) => {
         data.endDate,
         data.type
       );
+      closeConnection();
       return transactions;
     }
   }

@@ -1,4 +1,4 @@
-const { createDBConnection } = require("./mongoConnector");
+const { createDBConnection, closeConnection } = require("./mongoConnector");
 const Inventory = require("../Schema/inventorySchema");
 const mongoose = require("mongoose");
 
@@ -13,14 +13,18 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const inventory = await Inventory.find();
+      closeConnection();
       return inventory;
     }
     case "Add": {
       //Adding data
-      return await data.save();
+      const data = await data.save();
+      closeConnection();
+      return data;
     }
     case "FindByID": {
       const inventory = await Inventory.findById(data);
+      closeConnection();
       return inventory;
     }
     case "AddTransaction": {
@@ -43,6 +47,7 @@ const controller = async (type, data) => {
       fetchedInventory.totalBags += data.numberofBags;
       console.log("Updated Inventory ", fetchedInventory);
       const finalInventory = await fetchedInventory.save();
+      closeConnection();
       return finalInventory;
     }
     /* case "editTransaction": {

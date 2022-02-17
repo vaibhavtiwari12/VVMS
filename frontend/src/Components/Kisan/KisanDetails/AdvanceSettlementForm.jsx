@@ -178,7 +178,7 @@ const Advancesettlementform = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Advance Settlement Form</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="text-center text-secondary mt-3">
+      <h2 className="text-center text-secondary mt-3 font-15">
         <FormattedMessage id="depositAdvanceKisanButtonText" />
       </h2>
       <div>
@@ -189,7 +189,7 @@ const Advancesettlementform = () => {
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
-        <h2 className="text-center text-secondary mt-3"><FormattedMessage id="advanceDepositDetails" /></h2>
+        <h2 className="text-center text-secondary mt-3 font-15"><FormattedMessage id="advanceDepositDetails" /></h2>
         {type === "edit" ? (
           <h6>
              <b>

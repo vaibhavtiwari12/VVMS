@@ -523,7 +523,7 @@ const CreditForm = () => {
       </Breadcrumb>
 
 
-      <h2 className="text-center text-secondary mt-3">
+      <h2 className="text-center text-secondary mt-3 font-15">
         <FormattedMessage id="createBillKisanButtonText" />
       </h2>
       <div>
@@ -535,7 +535,7 @@ const CreditForm = () => {
 
 
       <Form onSubmit={(e) => submit(e)} className="p-3">
-        <h2 className="text-center text-secondary mt-3">
+        <h2 className="text-center text-secondary mt-3 font-15">
           <FormattedMessage id="billDetails" />
         </h2>
 
@@ -573,7 +573,7 @@ const CreditForm = () => {
 
         {/* ------------------ Trading Details Section ------------------ */}
         <div className="shadow p-3 m-3">
-          <h3 className="text-secondary">
+          <h3 className="text-dark font-15">
                 <FormattedMessage id="tradingSectionTitle" />
           </h3>
           <FormGroup>
@@ -666,7 +666,7 @@ const CreditForm = () => {
 
         {/* ------------------ Purchaser Details Section ------------------ */}
         <div className="shadow p-3 m-3">
-          <h3 className="text-secondary"><FormattedMessage id="purchaserSectionTitle" /></h3>
+          <h3 className="text-dark font-15"><FormattedMessage id="purchaserSectionTitle" /></h3>
           <FormGroup>
             <Label for="purchaserName" className="mt-2"><FormattedMessage id="purchaserName" /> : </Label>
             <Input
@@ -696,7 +696,7 @@ const CreditForm = () => {
 
         {/* ------------------ Deductions Section ------------------ */}
         <div className="shadow p-3 m-3">
-          <h3 className="text-secondary">
+          <h3 className="text-dark font-15">
             <FormattedMessage id="deductionsSectionTitle" />
           </h3>
           <FormGroup className="mt-2">
@@ -791,11 +791,11 @@ const CreditForm = () => {
         {/* ------------------ Settlement Section ------------------ */}
         <div className="shadow p-3 m-3">
           <div>
-            <h3 className="text-secondary">
+            <h3 className="text-dark font-15">
               <FormattedMessage id="settlementSectionTitle" />
             </h3>
             <h5 className="mt-3">
-              <FormattedMessage id="amountToSettle" />
+              <span className="text-secondary"><FormattedMessage id="amountToSettle" /></span>
               <span className="text-primary">
                 <FormattedMessage id="currency" />{" "}
                 {netTotal + previousBillSettlementAmount}

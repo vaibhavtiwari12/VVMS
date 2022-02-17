@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 const Kisanmoneysummary = ({ kisan }) => {
   return (
-    <div className="p-3">
+    <div className="p-3 font-10">
       <Table bordered responsive className="p-3 kisan-detail">
         <tbody>
           <tr>

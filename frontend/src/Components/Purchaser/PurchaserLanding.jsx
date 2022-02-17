@@ -54,12 +54,13 @@ const Purchaserlanding = () => {
          ) : (
             <Fragment>
                <div className="d-flex">
-                  <h3 className="flex-fill d-flex justify-content-center">
+                  <h3 className="flex-fill d-flex justify-content-center font-13">
                      <FormattedMessage id="purchaserLandingTitle" />
                   </h3>
                   <Button
-                     className="justify-content-end me-3"
+                     className="justify-content-end me-3 font-10"
                      color="primary"
+                     size="sm"
                      onClick={handleAddPurchaserClick}
                   >
                      + <FormattedMessage id="addPurchaserButtonText" />

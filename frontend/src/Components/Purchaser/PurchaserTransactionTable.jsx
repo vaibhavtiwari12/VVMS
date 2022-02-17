@@ -105,7 +105,7 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
                <Spinner />
             </div>
          ) : (
-            <Table bordered hover responsive>
+            <Table bordered hover responsive className="font-10">
                <thead>
                   <tr>
                      <th>#</th>
@@ -148,7 +148,7 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
                                           <b>Date : {purchaser.date} </b>
                                           <div className="flex-fill d-flex justify-content-end">
                                              <Button
-                                                className="m-2"
+                                                className=""
                                                 color="primary"
                                                 onClick={(e) =>
                                                    printCreditEntry(purchaser)

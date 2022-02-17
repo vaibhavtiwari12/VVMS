@@ -1,4 +1,4 @@
-const { createDBConnection } = require("./mongoConnector");
+const { createDBConnection, closeConnection } = require("./mongoConnector");
 const login = require("../Schema/loginSchema");
 const { getTodaysTransaction } = require("../Utilities/utility");
 
@@ -12,6 +12,7 @@ const controller = async (type, data) => {
         password: data.password,
       });
       console.log(logins);
+      closeConnection();
       return logins;
     }
     case "add": {
@@ -22,6 +23,7 @@ const controller = async (type, data) => {
         password: data.password,
       });
       const addedUser = logn.save();
+      closeConnection();
       return addedUser;
     }
   }

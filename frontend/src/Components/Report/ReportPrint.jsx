@@ -11,7 +11,7 @@ const Reportprint = React.forwardRef((props, ref) => {
         transactionSummary={props.transactionSummary}
         date = {props.date}
       />
-      <Transactiontable transactionSummary={props.transactionSummary} />
+      <Transactiontable isPrint={true} transactionSummary={props.transactionSummary} />
     </div>
   );
 });

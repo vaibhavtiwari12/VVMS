@@ -1,4 +1,4 @@
-const { createDBConnection } = require("./mongoConnector");
+const { createDBConnection, closeConnection } = require("./mongoConnector");
 const Purchaser = require("../Schema/purchaserSchema");
 const InventoryController = require("./inventoryController");
 const {
@@ -38,17 +38,20 @@ const controller = async (type, data) => {
         balance: 0,
         transactions: [],
       });
+      closeConnection();
       return await newPurchaser.save();
     }
     case "FindByID": {
       console.log("IS Here", data);
       const purchasers = await Purchaser.findById(data);
+      closeConnection();
       return purchasers;
     }
     case "findByCustomTransactions": {
       console.log("IS Here", data);
       const purchaser = await Purchaser.findById(data);
       const modifiedTransactions = modifyTransactionGroupByDate(purchaser)
+      closeConnection();
       return modifiedTransactions;
     }
     case "AddTransaction": {
@@ -71,6 +74,7 @@ const controller = async (type, data) => {
       }
       console.log("PURCHASER Data to be update ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
+      closeConnection();
       return finalKisan;
     } 
     case "AddCreditTransaction": {
@@ -86,6 +90,7 @@ const controller = async (type, data) => {
         });
       console.log("PURCHASER CREDIT ENTRY ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
+      closeConnection();
       return finalKisan;
     }
     case "todaystransactions": {
@@ -96,6 +101,7 @@ const controller = async (type, data) => {
         data.dateToSearch,
         "byDate"
       );
+      closeConnection();
       return transactions;
     }
     case "monthTransaction": {
@@ -106,6 +112,7 @@ const controller = async (type, data) => {
         data.monthToSearch,
         "byMonth"
       );
+      closeConnection();
       return transactions;
     }
     case "transactionBetweenDates": {
@@ -117,53 +124,9 @@ const controller = async (type, data) => {
         data.endDate,
         data.type
       );
+      closeConnection();
       return transactions;
     }
-    /* 
-    case "editTransaction": {
-      // Delete
-      const kisanToUpdate = await Kisan.findById(data.id);
-      const newKisanTransaction = kisanToUpdate.transactions.map((trans) => {
-        if (trans._id == data.transactionNumber) {
-          return { ...trans, comment: data.comment };
-        } else return trans;
-      });
-      console.log("newKisanTransaction", newKisanTransaction);
-      kisanToUpdate.transactions = newKisanTransaction;
-      console.log("kisanToUpdate", kisanToUpdate);
-      const finalKisan = await kisanToUpdate.save();
-      return finalKisan;
-    }
-    case "todaystransactions": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransaction(
-        allKisans,
-        data.dateToSearch,
-        "byDate"
-      );
-      return transactions;
-    }
-    case "monthTransaction": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransaction(
-        allKisans,
-        data.monthToSearch,
-        "byMonth"
-      );
-      return transactions;
-    }
-    case "transactionBetweenDates": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransactionsBetweenDates(
-        allKisans,
-        data.startDate,
-        data.endDate
-      );
-      return transactions;
-    } */
   }
 };
 module.exports = { controller };

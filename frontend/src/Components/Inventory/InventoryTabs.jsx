@@ -26,7 +26,7 @@ const InventoryTabs = ({ inventory }) => {
   };
 
   return (
-    <div>
+    <div className="font-10">
       {inventory.length > 0 ? (
         <div className="pt-5">
           <Nav tabs>

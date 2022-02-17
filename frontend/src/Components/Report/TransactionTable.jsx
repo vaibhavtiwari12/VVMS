@@ -2,18 +2,17 @@ import React, { Fragment } from "react";
 import { Button, Table } from "reactstrap";
 import { dateConverter } from "../../Utility/utility";
 
-const Transactiontable = ({ transactionSummary }) => {
+const Transactiontable = ({ transactionSummary,isPrint }) => {
   return (
     <div className="p-3">
-      <h3 className="text-center">Transactions in the Date</h3>
+      <h3 className="text-center font-13">Transactions in the Date</h3>
 
-      <div className="pt-4">
-        <Table bordered={true} striped responsive size="lg">
+      <div className="pt-4 font-10">
+        <Table bordered={true} striped responsive={isPrint? false:true} size="lg">
           <thead>
             <tr>
               <th>Name</th>
               <th>Date</th>
-              <th>Comment</th>
               <th>Advance Taken</th>
               <th>Particulars</th>
               <th>Bill Total</th>
@@ -32,7 +31,6 @@ const Transactiontable = ({ transactionSummary }) => {
                     <tr key={index}>
                       <th scope="row">{transaction.name}</th>
                       <td>{dateConverter(transaction.date)}</td>
-                      <td>{transaction.comment}</td>
                       <td>{transaction.type === "DEBIT" ? transaction.transactionAmount : ""}</td>
                       <td>
                         {transaction.type === "CREDIT" && (

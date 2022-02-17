@@ -40,7 +40,7 @@ const Report = () => {
             </BreadcrumbItem>
             <BreadcrumbItem active>Report</BreadcrumbItem>
          </Breadcrumb>
-         <h2 className="d-flex justify-content-center mt-2 capitalize text-dark">
+         <h2 className="d-flex justify-content-center mt-2 capitalize text-dark font-14">
             Report
          </h2>
          <ReportTab />

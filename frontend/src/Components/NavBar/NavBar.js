@@ -79,7 +79,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
           </Nav>
           <Nav className="d-flex justify-content-end flex-fill" navbar>
             {isAuthenticated === "TRUE" ? (
-              <div className="text-white greeting-container">
+              <div className="text-white greeting-container font-10">
                 <ButtonDropdown
                   color="primary"
                   isOpen={dropdownOpen}
@@ -100,7 +100,7 @@ const NavBar = ({ isAuthenticated, logout, changelanguage }) => {
               </div>
             ) : (
               <Link
-                className="signin-nav ps-3 link-no-decoration text-white"
+                className="signin-nav ps-3 link-no-decoration text-white font-10"
                 to="/Login"
               >
                 Sign In

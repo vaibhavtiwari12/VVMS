@@ -156,7 +156,7 @@ const Debitform = () => {
 
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 font-10">
       <Breadcrumb className="ps-3 mt-2">
         <BreadcrumbItem>
           <Link className="link-no-decoration-black text-primary" to="/">
@@ -175,7 +175,7 @@ const Debitform = () => {
         </BreadcrumbItem>
         <BreadcrumbItem active>Debit Form</BreadcrumbItem>
       </Breadcrumb>
-      <h2 className="text-center text-secondary mt-3"><FormattedMessage id="giveAdvanceKisanButtonText"/></h2>
+      <h2 className="text-center text-secondary mt-3 font-15"><FormattedMessage id="giveAdvanceKisanButtonText"/></h2>
       <div>
         <div>
           <Kisanmoneysummary kisan={kisan} />
@@ -184,7 +184,7 @@ const Debitform = () => {
       </div>
       <Form onSubmit={(e) => submit(e)} className="p-3">
         {/*  {hasError && <Alert color="danger"> FORM HAS AN ERROR </Alert>} */}
-        <h2 className="text-center text-secondary mt-3"><FormattedMessage id="advanceDetails"/></h2>
+        <h2 className="text-center text-secondary mt-3 font-15"><FormattedMessage id="advanceDetails"/></h2>
         <FormGroup className="mt-2">
           <Label for="amount"> <FormattedMessage id="amount"/> </Label>
           <Input

@@ -12,7 +12,7 @@ const Search = ({ setSearchTermChange, setSearchTermType }) => {
     handleReset,
   } = useSearch(setSearchTermChange, setSearchTermType);
   return (
-    <div className="mx-3 mt-3 shadow px-3 py-4">
+    <div className="mx-3 mt-3 shadow px-3 py-4 font-10">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="searchType"><FormattedMessage id="searchBy"/>:</Label>
@@ -20,6 +20,7 @@ const Search = ({ setSearchTermChange, setSearchTermType }) => {
             type="select"
             name="select"
             id="searchType"
+            className="font-10"
             value={
               searchType === "Name" || searchType === ""
                 ? "Name"
@@ -38,19 +39,20 @@ const Search = ({ setSearchTermChange, setSearchTermType }) => {
           <Label for="search"><FormattedMessage id="searchValue"/>:</Label>
           <Input
             name="search"
+            className="font-10"
             onChange={(e) => handleChange(e)}
             value={searchTerm}
           />
         </FormGroup>
         <FormGroup inline>
-          <Button size="md" color="primary" className="mt-3" type="submit">
+          <Button size="md" color="primary" className="mt-3 font-10" type="submit">
             <FormattedMessage id="searchButtonText"/>
           </Button>
           <Button
             size="md"
             color="danger"
             onClick={handleReset}
-            className="mt-3 ms-2"
+            className="mt-3 ms-2 font-10"
           >
             <FormattedMessage id="resetButtonText"/>
           </Button>

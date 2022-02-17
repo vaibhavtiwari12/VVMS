@@ -6,7 +6,7 @@ import { dateConverter } from "../../Utility/utility";
 const PurchaserReportTxnTable = ({ transactionSummary }) => {
    return (
       <div className="p-3">
-         <h3 className="text-center">Transactions in the Date</h3>
+         <h3 className="text-center font-13">Transactions in the Date</h3>
 
          <div className="pt-4">
             <Table bordered={true} striped responsive size="lg">

@@ -127,13 +127,13 @@ const Kisanreport = () => {
    }, [startDate, endDate]);
     return (
         <div>
-         <Form onSubmit={(e) => submit(e)} className="m-3 p-3 shadow">
+         <Form onSubmit={(e) => submit(e)} className="m-3 p-3 shadow font-10">
             {/*  <h6>Please Change the date to generate report of different Date</h6> */}
-            <FormGroup tag="fieldset" className="mt-2">
+            <FormGroup tag="fieldset" className="">
                <legend>
-                  <h5>
-                     Select Timeline
-                  </h5>
+                  <span className="font-10">
+                     <b>Select Filter</b>
+                  </span>
                </legend>
                <FormGroup check>
                   <Label check>
@@ -174,8 +174,8 @@ const Kisanreport = () => {
             </FormGroup>
             {/* for DATE */}
             {radioSelection === "bydate" ? (
-               <FormGroup className="mt-2 mb-2">
-                  <Label for="date"> Select Date to generate report </Label>
+               <FormGroup className="mt-3 mb-2">
+                  <Label for="date"><b> Select date to generate report </b></Label>
                   <Input
                      name="date"
                      type="date"
@@ -190,8 +190,8 @@ const Kisanreport = () => {
             )}
             {/* FOR MONTH */}
             {radioSelection === "bymonth" ? (
-               <FormGroup className="mt-2">
-                  <Label for="month"> Select Month to generate report </Label>
+               <FormGroup className="mt-3">
+                  <Label for="month"> <b>Select Month to generate report </b></Label>
                   <Input
                      name="month"
                      type="month"
@@ -208,8 +208,8 @@ const Kisanreport = () => {
             {/* FOR BETWEENDATES */}
             {radioSelection === "betweenDates" ? (
                <Fragment>
-                  <FormGroup className="mt-2">
-                     <Label for="startDate"> From</Label>
+                  <FormGroup className="mt-3">
+                     <Label for="startDate"> <b>From</b></Label>
                      <Input
                         invalid={new Date(endDate) < new Date(startDate)}
                         name="startDate"
@@ -225,7 +225,7 @@ const Kisanreport = () => {
                      </FormFeedback>
                   </FormGroup>
                   <FormGroup className="mt-2">
-                     <Label for="endDate"> To </Label>
+                     <Label for="endDate"><b>To</b></Label>
                      <Input
                         invalid={new Date(endDate) < new Date(startDate)}
                         name="endDate"
@@ -273,21 +273,21 @@ const Kisanreport = () => {
                           )}`
                   }
                />
-               <Transactiontable transactionSummary={transactions} />
+               <Transactiontable transactionSummary={transactions} isPrint={false} />
             </div>
          ) : (
             <div className="text-center pt-3">
                {date === convertOnlyDate(new Date()) ? (
-                  <h3 className="text-muted">
+                  <h3 className="text-muted font-14">
                      No Transactions were done Today.
                   </h3>
                ) : (
-                  <h3 className="text-muted">
+                  <h3 className="text-muted font-14">
                      No Transactions were done on this Date.
                   </h3>
                )}
 
-               <h6 className="text-danger">
+               <h6 className="text-danger font-10">
                   Please try a different date to see the transactions
                </h6>
             </div>
