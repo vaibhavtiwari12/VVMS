@@ -24,19 +24,19 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const posts = await Kisan.find();
-      closeConnection();
+      /* await closeConnection(); */
       return posts;
     }
     case "Add": {
       //Adding data
       const data = await data.save();
-      closeConnection();
+      /* await closeConnection(); */
       return data
     }
     case "FindByID": {
       console.log("IS Here", data);
       const kisan = await Kisan.findById(data);
-      closeConnection();
+      /* await closeConnection(); */
       return kisan;
     }
     case "AddTransaction": {
@@ -66,7 +66,7 @@ const controller = async (type, data) => {
           data.transaction.carryForwardFromThisEntry;
       }
       const finalKisan = await updatekisan.save();
-      closeConnection();
+      /* await closeConnection(); */
       return finalKisan;
     }
     case "editTransaction": {
@@ -81,7 +81,7 @@ const controller = async (type, data) => {
       kisanToUpdate.transactions = newKisanTransaction;
       console.log("kisanToUpdate", kisanToUpdate);
       const finalKisan = await kisanToUpdate.save();
-      closeConnection();
+      /* await closeConnection(); */
       return finalKisan;
     }
     case "todaystransactions": {
@@ -92,7 +92,7 @@ const controller = async (type, data) => {
         data.dateToSearch,
         "byDate"
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
     case "monthTransaction": {
@@ -103,7 +103,7 @@ const controller = async (type, data) => {
         data.monthToSearch,
         "byMonth"
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
     case "transactionBetweenDates": {
@@ -115,9 +115,10 @@ const controller = async (type, data) => {
         data.endDate,
         data.type
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
   }
+  await closeConnection();
 };
 module.exports = { controller };

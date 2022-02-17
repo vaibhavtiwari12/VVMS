@@ -13,18 +13,18 @@ const controller = async (type, data) => {
     case "Get": {
       // Find Request
       const inventory = await Inventory.find();
-      closeConnection();
+      /* await closeConnection(); */
       return inventory;
     }
     case "Add": {
       //Adding data
       const data = await data.save();
-      closeConnection();
+      /* await closeConnection(); */
       return data;
     }
     case "FindByID": {
       const inventory = await Inventory.findById(data);
-      closeConnection();
+      /* await closeConnection(); */
       return inventory;
     }
     case "AddTransaction": {
@@ -47,53 +47,10 @@ const controller = async (type, data) => {
       fetchedInventory.totalBags += data.numberofBags;
       console.log("Updated Inventory ", fetchedInventory);
       const finalInventory = await fetchedInventory.save();
-      closeConnection();
+      /* await closeConnection(); */
       return finalInventory;
     }
-    /* case "editTransaction": {
-      // Delete
-      const kisanToUpdate = await Kisan.findById(data.id);
-      const newKisanTransaction = kisanToUpdate.transactions.map((trans) => {
-        if (trans._id == data.transactionNumber) {
-          return { ...trans, comment: data.comment };
-        } else return trans;
-      });
-      console.log("newKisanTransaction", newKisanTransaction);
-      kisanToUpdate.transactions = newKisanTransaction;
-      console.log("kisanToUpdate", kisanToUpdate);
-      const finalKisan = await kisanToUpdate.save();
-      return finalKisan;
-    }
-    case "todaystransactions": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransaction(
-        allKisans,
-        data.dateToSearch,
-        "byDate"
-      );
-      return transactions;
-    }
-    case "monthTransaction": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransaction(
-        allKisans,
-        data.monthToSearch,
-        "byMonth"
-      );
-      return transactions;
-    }
-    case "transactionBetweenDates": {
-      // Delete
-      const allKisans = await Kisan.find();
-      const transactions = getTransactionsBetweenDates(
-        allKisans,
-        data.startDate,
-        data.endDate
-      );
-      return transactions;
-    } */
   }
+  await closeConnection();
 };
 module.exports = { controller };

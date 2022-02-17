@@ -38,20 +38,20 @@ const controller = async (type, data) => {
         balance: 0,
         transactions: [],
       });
-      closeConnection();
+      /* await closeConnection(); */
       return await newPurchaser.save();
     }
     case "FindByID": {
       console.log("IS Here", data);
       const purchasers = await Purchaser.findById(data);
-      closeConnection();
+      /* await closeConnection(); */
       return purchasers;
     }
     case "findByCustomTransactions": {
       console.log("IS Here", data);
       const purchaser = await Purchaser.findById(data);
       const modifiedTransactions = modifyTransactionGroupByDate(purchaser)
-      closeConnection();
+      /* await closeConnection(); */
       return modifiedTransactions;
     }
     case "AddTransaction": {
@@ -74,7 +74,7 @@ const controller = async (type, data) => {
       }
       console.log("PURCHASER Data to be update ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
-      closeConnection();
+      /* await closeConnection(); */
       return finalKisan;
     } 
     case "AddCreditTransaction": {
@@ -90,7 +90,7 @@ const controller = async (type, data) => {
         });
       console.log("PURCHASER CREDIT ENTRY ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
-      closeConnection();
+      /* await closeConnection(); */
       return finalKisan;
     }
     case "todaystransactions": {
@@ -101,7 +101,7 @@ const controller = async (type, data) => {
         data.dateToSearch,
         "byDate"
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
     case "monthTransaction": {
@@ -112,7 +112,7 @@ const controller = async (type, data) => {
         data.monthToSearch,
         "byMonth"
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
     case "transactionBetweenDates": {
@@ -124,9 +124,10 @@ const controller = async (type, data) => {
         data.endDate,
         data.type
       );
-      closeConnection();
+      /* await closeConnection(); */
       return transactions;
     }
   }
+  await closeConnection();
 };
 module.exports = { controller };
