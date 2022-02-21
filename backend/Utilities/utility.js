@@ -53,9 +53,7 @@ const monthToNumberMapping = {
    },
 };
 const getTransaction = (kisans, dateToSearch, type) => {
-   console.log("TodaysTransaction", kisans);
    const formattedDate = new Date(dateToSearch);
-
    if (kisans && kisans.length > 0) {
       const filteredTransactions = [];
       kisans.map((kisan) => {
@@ -77,7 +75,6 @@ const getTransaction = (kisans, dateToSearch, type) => {
             });
          }
       });
-      console.log("filtered transaction ", filteredTransactions);
       return filteredTransactions;
    }
 };
@@ -106,7 +103,6 @@ const getPurchasers = (purchasers, dateToSearch, type) => {
             });
          }
       });
-      //console.log("filtered transaction ", filtertxns);
       return filtertxns;
    }
 };
@@ -116,10 +112,8 @@ const getTransactionsBetweenDates = (
    endDate,
    type
 ) => {
-   console.log("between Dates", kisansOrPurchasers);
    const startDates = new Date(startDate);
    const endDates = new Date(endDate);
-   console.log(startDates, endDates);
 
    if (kisansOrPurchasers && kisansOrPurchasers.length > 0) {
       const filteredTransactions = [];
@@ -171,7 +165,6 @@ const getTransactionsBetweenDates = (
             });
          }
       });
-      console.log("filtered transaction ", filteredTransactions);
       return filteredTransactions;
    }
 };
@@ -212,7 +205,6 @@ const dateConverter = (date) => {
 };
 
 const modifyTransactionGroupByDate = (purchaser) => {
-   //console.log("Purchaser" ,purchaser)
    const groups = purchaser.transactions.reduce((groups, transaction) => {
       const D = new Date(transaction.date);
       const date = `${D.getDate()}/${D.getMonth() + 1}/${D.getFullYear()}`;
@@ -229,12 +221,11 @@ const modifyTransactionGroupByDate = (purchaser) => {
          transactions: groups[date],
       };
    });
-   console.log("groups", groupArrays);
    return groupArrays;
 };
 
 const generateDashboard = async () => {
-   let totalAdvancePending = 0; //
+   let totalAdvancePending = 0;
    let totalPurchaserPending = 0;
    let totalItemWeight = 0; //
    let totalBagsSold = 0; //
@@ -257,9 +248,7 @@ const generateDashboard = async () => {
    });
    const purchaserData = purchaserDataExtraction(purchasers);
    const topKisanDefaulters = topDefaulters(kisans);
-   console.log("Kisan Defaulters", topKisanDefaulters);
    const topPurchaserDefaulters = topDefaulters(purchasers);
-   console.log("Purchaser Defaulters", topPurchaserDefaulters);
    
    commissions = getDayWisecommissions(kisans);
    const advanceDataGivenAndTakenConsolidated =
@@ -297,9 +286,7 @@ const topDefaulters = (kisansOrPurchsers) => {
 }
 
 const topSellingItemByWeight = (items) => {
-   console.log("ITEMS", items)
    const topSellingItem = items.sort((a,b)=>a.totalWeight-b.totalWeight).slice(0,5);
-   console.log("topSellling Item By Weight", topSellingItem)
    return topSellingItem;
 }
 
@@ -348,7 +335,6 @@ const getDayWisecommissions = (kisans) => {
       `${todaysDate.getFullYear()}-01-01`,
       `${todaysDate.getFullYear()}-12-31`
    );
-   console.log("getmonthforyear", getMonthsForyear);
    const commissions = transactions.reduce((commissions, transaction) => {
       if (transaction.date > new Date(todaysDate.getFullYear(), 0, 1)) {
          if (transaction.type === "CREDIT") {
@@ -370,7 +356,6 @@ const getDayWisecommissions = (kisans) => {
    const groupArrays = Object.keys(commissions).map((date) => {
       const deleteExistingMonth = getMonthsForyear.indexOf(date);
       getMonthsForyear.splice(deleteExistingMonth, 1);
-      console.log("Months After Deletion", getMonthsForyear);
       return {
          date: monthToNumberMapping[date].name,
          dateNumber: date,
@@ -390,7 +375,6 @@ const getDayWisecommissions = (kisans) => {
    const finalComissionsObject = [...groupArrays, ...emptyMonths].sort(
       (a, b) => parseFloat(a.dateNumber) - parseFloat(b.dateNumber)
    );
-   console.log("commissions", finalComissionsObject);
    return finalComissionsObject;
 };
 
@@ -406,8 +390,6 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
          if (new Date(transaction.date) > dateSixMonthback) {
             const D = new Date(transaction.date);
             const date = `${("0" + (D.getMonth() + 1)).slice(-2)}`;
-            /* console.log("groups[date]",groups[date])
-         console.log("date",date) */
             if (!groups[date]) {
                groups[date] = {
                   advanceTaken: [],
@@ -435,11 +417,9 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
       },
       {}
    );
-   console.log("Advance Data", monthWiseAdvanceData);
    const filledMonths = Object.keys(monthWiseAdvanceData).map((month) => {
       const deleteExistingMonth = monthToPrint.indexOf(month);
       monthToPrint.splice(deleteExistingMonth, 1);
-      //console.log("monthToPrint",monthToPrint)
       return {
          month: monthToNumberMapping[month].name,
          monthNumber: month,
@@ -467,7 +447,6 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
       };
    });
    const allSixMonthsData = [...emptyMonths, ...filledMonths];
-   //console.log("Consolidated Advance Data", allSixMonthsData)
    return allSixMonthsData;
 };
 
@@ -498,11 +477,9 @@ const purchaserDataExtraction = (purchasers) => {
       },
       {}
    );
-   console.log("Purchaser Data -- Utility", monthwisepurchaserData);
    const filledMonths = Object.keys(monthwisepurchaserData).map((month) => {
       const deleteExistingMonth = monthToPrint.indexOf(month);
       monthToPrint.splice(deleteExistingMonth, 1);
-      //console.log("monthToPrint",monthToPrint)
       return {
          month: monthToNumberMapping[month].name,
          monthNumber: month,
@@ -522,7 +499,6 @@ const purchaserDataExtraction = (purchasers) => {
       };
    });
    const allSixMonthsData = [...emptyMonths, ...filledMonths];
-   console.log("Consolidated Purchaser Data", allSixMonthsData)
    return allSixMonthsData;
 }
 
@@ -534,7 +510,6 @@ const getDateSixMonthBack = () => {
    const dateSixMonthbackFormatted = `${dateSixMonthback.getFullYear()}-${
       dateSixMonthback.getMonth() + 1
    }-${dateSixMonthback.getDate()}`;
-   //console.log("Date Six Month back",dateSixMonthbackFormatted);
    const todaysDate = new Date();
    const todaysDateFormatted = `${todaysDate.getFullYear()}-${
       todaysDate.getMonth() + 1
@@ -557,7 +532,6 @@ const getMonthsBetweenDates = (startDate, endDate) => {
    var dates = [];
 
    for (var i = startYear; i <= endYear; i++) {
-      console.log("displayMonth", startYear, endYear);
       var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
       var startMon = i === startYear ? parseInt(start[1]) - 1 : 0;
       for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j + 1) {
