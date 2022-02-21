@@ -2,7 +2,7 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
 
-const TopSoldItem = () => {
+const TopSoldItem = ({items}) => {
   ChartJS.register(ArcElement, Tooltip, Legend);
 
    const options = {
@@ -21,11 +21,11 @@ const TopSoldItem = () => {
      },
    };
    const data = {
-      labels: ["Matar","Tamatar","Aalo","Dhaniya","Lehsun"],
+      labels: items.map(item=>item.itemName),
       datasets: [
          {
             label: "Outstanding",
-            data: [10000,500,600,800,200],
+            data: items.map(item=>item.totalWeight),
             backgroundColor: [
                "rgba(255, 99, 132, 0.2)",
                "rgba(54, 162, 235, 0.2)",

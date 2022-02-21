@@ -2,7 +2,7 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
 
-const TopSellerKisans = () => {
+const TopSellerKisans = ({kisans}) => {
    ChartJS.register(ArcElement, Tooltip, Legend);
 
    const options = {
@@ -21,11 +21,11 @@ const TopSellerKisans = () => {
      },
    };
    const data = {
-      labels: ["sattu Lal", "Prem Chand", "kisan Yadav", "raghav jaat", "aslam khan", "ramesh patwari"],
+      labels: kisans.map(kisan=>kisan.kisan_name),
       datasets: [
          {
             label: "Outstanding",
-            data: [12, 19, 3, 5, 2, 3],
+            data: kisans.map(kisan => kisan.sum),
             backgroundColor: [
                "rgba(255, 99, 132, 0.2)",
                "rgba(54, 162, 235, 0.2)",

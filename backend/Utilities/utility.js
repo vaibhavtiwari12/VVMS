@@ -1,5 +1,7 @@
 const { createDBConnection, closeConnection } = require("../Mongo/mongoConnector");
+const inventorySchema = require("../Schema/inventorySchema");
 const Kisan = require("../Schema/kisanSchema");
+const Purchaser = require("../Schema/purchaserSchema");
 const monthToNumberMapping = {
    "01": {
       name: "January",
@@ -233,16 +235,11 @@ const modifyTransactionGroupByDate = (purchaser) => {
 
 const generateDashboard = async () => {
    let totalAdvancePending = 0; //
-   const totalPurchaserOutstandingPending = 0;
+   let totalPurchaserPending = 0;
    let totalItemWeight = 0; //
    let totalBagsSold = 0; //
 
    let commissions = [];
-   const cashpaidByKisan = [];
-   const topKisanDefaulters = [];
-   const topPurchaserDefaulters = [];
-   const topSoldItems = [];
-   const topBuyingPurchaser = [];
    await createDBConnection();
    const kisans = await Kisan.find();
    kisans.map((kisan) => {
@@ -254,18 +251,91 @@ const generateDashboard = async () => {
          }
       });
    });
+   const purchasers = await Purchaser.find();
+   purchasers.map((purchaser) => {
+      totalPurchaserPending += purchaser.balance;
+   });
+   const purchaserData = purchaserDataExtraction(purchasers);
+   const topKisanDefaulters = topDefaulters(kisans);
+   console.log("Kisan Defaulters", topKisanDefaulters);
+   const topPurchaserDefaulters = topDefaulters(purchasers);
+   console.log("Purchaser Defaulters", topPurchaserDefaulters);
+   
    commissions = getDayWisecommissions(kisans);
    const advanceDataGivenAndTakenConsolidated =
       getAdvancePaidAndSettledByKisan(kisans);
-      await closeConnection();
+   const inventory = await inventorySchema.find();
+   const topSoldItems = topSellingItemByWeight(inventory)
+   const topBuyingPurchaser = topBuyingPurchasers(purchasers);
+   const topSellingKisans = topSellerKisans(kisans);
+   await closeConnection();
+
    return {
       totalAdvancePending,
       totalItemWeight,
       totalBagsSold,
       commissions,
       advanceDataGivenAndTakenConsolidated,
+      purchaserData,
+      topBuyingPurchaser,
+      topSoldItems,
+      topSellingKisans,
+      totalPurchaserPending,
+      topKisanDefaulters,
+      topPurchaserDefaulters
    };
 };
+
+const topDefaulters = (kisansOrPurchsers) => {
+   const topDefaulters = kisansOrPurchsers.map(kisanOrPurchaser => {
+      return {id:kisanOrPurchaser._id,
+      name: kisanOrPurchaser.name,
+      balance: kisanOrPurchaser.balance
+   }
+   }).sort((a,b) => a.balance-b.balance).slice(0,5);
+   return topDefaulters;
+}
+
+const topSellingItemByWeight = (items) => {
+   console.log("ITEMS", items)
+   const topSellingItem = items.sort((a,b)=>a.totalWeight-b.totalWeight).slice(0,5);
+   console.log("topSellling Item By Weight", topSellingItem)
+   return topSellingItem;
+}
+
+const topBuyingPurchasers = (purchasers) => {
+   return purchasers.map(purchaser => {
+      let transactionSum = 0
+      if(purchaser.transactions && purchaser.transactions.length>0){
+         purchaser.transactions.map(trn => {
+            if(trn.type==="DEBIT"){
+               transactionSum += trn.transactionAmount
+            }
+         })
+      }
+      return {
+         sum: transactionSum,
+         purchaser_id : purchaser._id,
+         purchaser_name: `${purchaser.name} - ${purchaser.companyName}`
+      }
+   })
+}
+
+const topSellerKisans = (kisans) => {
+   return kisans.map(kisan => {
+      let transactionSum = 0
+      kisan.transactions.map(trn => {
+         if(trn.type==="CREDIT"){
+            transactionSum += trn.grossTotal
+         }
+      })
+      return {
+         sum: transactionSum,
+         kisan_id : kisan._id,
+         kisan_name: kisan.name
+      }
+   })
+}
 
 //Get All Commission Data
 const getDayWisecommissions = (kisans) => {
@@ -323,27 +393,14 @@ const getDayWisecommissions = (kisans) => {
    console.log("commissions", finalComissionsObject);
    return finalComissionsObject;
 };
+
+// DASHBOARD = calculating everything related to kisan - other than commission.
 const getAdvancePaidAndSettledByKisan = (kisans) => {
    const transactions = [].concat.apply(
       [],
       kisans.map((kisan) => kisan.transactions)
    );
-   let date = new Date();
-   date.setMonth(date.getMonth() - 6);
-   const dateSixMonthback = new Date(date.getFullYear(), date.getMonth(), 1);
-   const dateSixMonthbackFormatted = `${dateSixMonthback.getFullYear()}-${
-      dateSixMonthback.getMonth() + 1
-   }-${dateSixMonthback.getDate()}`;
-   //console.log("Date Six Month back",dateSixMonthbackFormatted);
-   const todaysDate = new Date();
-   const todaysDateFormatted = `${todaysDate.getFullYear()}-${
-      todaysDate.getMonth() + 1
-   }-${todaysDate.getDate()}`;
-   const monthToPrint = getMonthsBetweenDates(
-      dateSixMonthbackFormatted,
-      todaysDateFormatted
-   );
-   //console.log(monthToPrint)
+   const {monthToPrint, dateSixMonthback} = getDateSixMonthBack();
    const monthWiseAdvanceData = transactions.reduce(
       (groups = [], transaction) => {
          if (new Date(transaction.date) > dateSixMonthback) {
@@ -355,19 +412,23 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
                groups[date] = {
                   advanceTaken: [],
                   advanceSettled: [],
+                  cashPaidToKisan: []
                };
             }
             if (transaction.type === "CREDIT") {
                groups[date].advanceSettled.push(transaction.advanceSettlement);
+               groups[date].cashPaidToKisan.push(transaction.paidToKisan)
                groups[date].advanceTaken.push(0);
             } else if (transaction.type === "ADVANCESETTLEMENT") {
                groups[date].advanceSettled.push(transaction.transactionAmount);
                groups[date].advanceTaken.push(0);
+               groups[date].cashPaidToKisan.push(0)
             } else if (transaction.type === "DEBIT") {
                groups[date].advanceSettled.push(0);
                groups[date].advanceTaken.push(
                   Math.abs(transaction.transactionAmount)
-               );
+                  );
+               groups[date].cashPaidToKisan.push(0)
             }
             return groups;
          }
@@ -391,6 +452,10 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
                (partialSum, a) => partialSum + a,
                0
             ),
+            cashPaidToKisan : monthWiseAdvanceData[month].cashPaidToKisan.reduce(
+               (partialSum, a) => partialSum + a,
+               0
+            ),
          },
       };
    });
@@ -398,13 +463,91 @@ const getAdvancePaidAndSettledByKisan = (kisans) => {
       return {
          month: monthToNumberMapping[month].name,
          monthNumber: month,
-         monthWiseAdvanceData: { advanceSettled: 0, advanceTaken: 0 },
+         monthWiseAdvanceData: { advanceSettled: 0, advanceTaken: 0,cashPaidToKisan:0 },
       };
    });
    const allSixMonthsData = [...emptyMonths, ...filledMonths];
    //console.log("Consolidated Advance Data", allSixMonthsData)
    return allSixMonthsData;
 };
+
+// DASHBOARD = calculating everything related to Purchaser 
+const purchaserDataExtraction = (purchasers) => {
+   const transactions = [].concat.apply(
+      [],
+      purchasers.map((purchaser) => purchaser.transactions)
+   );
+   const {monthToPrint, dateSixMonthback} = getDateSixMonthBack();
+   const monthwisepurchaserData = transactions.reduce(
+      (groups = [], transaction) => {
+         if (new Date(transaction.date) > dateSixMonthback) {
+            const D = new Date(transaction.date);
+            const date = `${("0" + (D.getMonth() + 1)).slice(-2)}`;
+            if (!groups[date]) {
+               groups[date] = {
+                  purchaserPaid :[]
+               };
+            }
+            if (transaction.type === "CREDIT") {
+               groups[date].purchaserPaid.push(transaction.transactionAmount);
+            }else {
+               groups[date].purchaserPaid.push(0);
+            }
+            return groups;
+         }
+      },
+      {}
+   );
+   console.log("Purchaser Data -- Utility", monthwisepurchaserData);
+   const filledMonths = Object.keys(monthwisepurchaserData).map((month) => {
+      const deleteExistingMonth = monthToPrint.indexOf(month);
+      monthToPrint.splice(deleteExistingMonth, 1);
+      //console.log("monthToPrint",monthToPrint)
+      return {
+         month: monthToNumberMapping[month].name,
+         monthNumber: month,
+         monthwisepurchaserData: {
+            cashPaidToKisan : monthwisepurchaserData[month].purchaserPaid.reduce(
+               (partialSum, a) => partialSum + a,
+               0
+            ),
+         },
+      };
+   });
+   const emptyMonths = monthToPrint.map((month) => {
+      return {
+         month: monthToNumberMapping[month].name,
+         monthNumber: month,
+         monthwisepurchaserData: { purchaserPaid : 0 },
+      };
+   });
+   const allSixMonthsData = [...emptyMonths, ...filledMonths];
+   console.log("Consolidated Purchaser Data", allSixMonthsData)
+   return allSixMonthsData;
+}
+
+
+const getDateSixMonthBack = () => {
+   let date = new Date();
+   date.setMonth(date.getMonth() - 6);
+   const dateSixMonthback = new Date(date.getFullYear(), date.getMonth(), 1);
+   const dateSixMonthbackFormatted = `${dateSixMonthback.getFullYear()}-${
+      dateSixMonthback.getMonth() + 1
+   }-${dateSixMonthback.getDate()}`;
+   //console.log("Date Six Month back",dateSixMonthbackFormatted);
+   const todaysDate = new Date();
+   const todaysDateFormatted = `${todaysDate.getFullYear()}-${
+      todaysDate.getMonth() + 1
+   }-${todaysDate.getDate()}`;
+   const monthToPrint = getMonthsBetweenDates(
+      dateSixMonthbackFormatted,
+      todaysDateFormatted
+   );
+   return {
+      monthToPrint,
+      dateSixMonthback
+   }
+}
 
 const getMonthsBetweenDates = (startDate, endDate) => {
    var start = startDate.split("-");

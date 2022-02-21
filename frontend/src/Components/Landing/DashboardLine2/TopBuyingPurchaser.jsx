@@ -2,7 +2,7 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
 
-const TopBuyingPurchaser = () => {
+const TopBuyingPurchaser = ({purchasers}) => {
   ChartJS.register(ArcElement, Tooltip, Legend);
    const options = {
         
@@ -20,11 +20,11 @@ const TopBuyingPurchaser = () => {
     },
   };
    const data = {
-      labels: ["cnc & sons", "Agra transport", "jaipan and co.", "miller association", "alpha corporation", "khemchand and sons"],
+      labels: purchasers.map(phr=>phr.purchaser_name),
       datasets: [
          {
             label: "Outstanding",
-            data: [100000, 50000, 70000, 360000, 78000, 50000],
+            data: purchasers.map(phr=>phr.sum),
             backgroundColor: [
                "rgba(255, 99, 132, 0.2)",
                "rgba(54, 162, 235, 0.2)",

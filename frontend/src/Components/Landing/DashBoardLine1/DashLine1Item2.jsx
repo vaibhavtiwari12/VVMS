@@ -17,7 +17,7 @@ export function App() {
   return 
 }
 
-const DashLine1Item2 = () => {
+const DashLine1Item2 = ({kisan, purchaser}) => {
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -40,20 +40,20 @@ const DashLine1Item2 = () => {
         },
       };
       
-      const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+      const labels = purchaser.map(phr => phr.month);
       
       const data = {
         labels,
         datasets: [
           {
             label: 'Paid To Kisan',
-            data: [10,20,30,400,500,800,10],
+            data: kisan.map(ksn=>ksn.monthWiseAdvanceData.cashPaidToKisan),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
           {
             label: 'Paid By Purchaser',
-            data: [900,800,450,358,100,233,98],
+            data: purchaser.map(phr=>phr.monthwisepurchaserData.purchaserPaid),
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
           },

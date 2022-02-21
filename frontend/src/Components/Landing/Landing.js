@@ -61,7 +61,7 @@ const Landing = () => {
                            <h5 className="font-11"> Total Purchaser Outstanding</h5>
                         </CardTitle>
                         <div>
-                           <h4 className="text-danger font-14">-2150000</h4>
+                           <h4 className="text-danger font-14">{dashBoardData.totalPurchaserPending}</h4>
                         </div>
                      </CardBody>
                   </Card>
@@ -114,7 +114,7 @@ const Landing = () => {
                            <h6>Cash Paid</h6>
                         </CardTitle>
                         <div>
-                           <DashLine1Item2 />
+                           <DashLine1Item2 kisan={dashBoardData.advanceDataGivenAndTakenConsolidated} purchaser={dashBoardData.purchaserData}/>
                         </div>
                      </CardBody>
                   </Card>
@@ -142,7 +142,7 @@ const Landing = () => {
                            <h6>Top Kisan Defaulters</h6>
                         </CardTitle>
                         <div>
-                           <Topkisandefaulters />
+                           <Topkisandefaulters defaulters={dashBoardData.topKisanDefaulters}/>
                         </div>
                      </CardBody>
                   </Card>
@@ -152,27 +152,27 @@ const Landing = () => {
                            <h6>Top Purchaser Defaulters</h6>
                         </CardTitle>
                         <div>
-                           <TopPurchaserDefaulter />
+                           <TopPurchaserDefaulter defaulters={dashBoardData.topPurchaserDefaulters}/>
                         </div>
                      </CardBody>
                   </Card>
                   <Card className="flex-even shadow details-card">
                      <CardBody>
                         <CardTitle className="text-gray">
-                           <h6>Top Sold Item</h6>
+                           <h6>Top Sold Item (In KGs)</h6>
                         </CardTitle>
                         <div>
-                           <TopSoldItem />
+                           <TopSoldItem items={dashBoardData.topSoldItems}/>
                         </div>
                      </CardBody>
                   </Card>
                   <Card className="flex-even shadow details-card">
                      <CardBody>
                         <CardTitle className="text-gray">
-                           <h6>Top Seller Kisan</h6>
+                           <h6>Top Seller Kisan (In &#x20B9;)</h6>
                         </CardTitle>
                         <div>
-                           <TopSellerKisans />
+                           <TopSellerKisans kisans={dashBoardData.topSellingKisans}/>
                         </div>
                      </CardBody>
                   </Card>
@@ -182,7 +182,7 @@ const Landing = () => {
                            <h6>Top Buying Purchaser</h6>
                         </CardTitle>
                         <div>
-                           <TopBuyingPurchaser />
+                           <TopBuyingPurchaser purchasers={dashBoardData.topBuyingPurchaser}/>
                         </div>
                      </CardBody>
                   </Card>
