@@ -75,7 +75,7 @@ const Login = () => {
   return (
     <div className="d-flex justify-content-center">
       <div className="form-width">
-        <h2 className="text-center text-secondary mt-3"><FormattedMessage id="login"/ ></h2>
+        <h2 className="text-center text-dark mt-5 font-14"><FormattedMessage id="login"/ ></h2>
         <Form onSubmit={(e) => submit(e)} className="p-3">
            {hasError && hasError.length>0 && <Alert color="danger"> {hasError} </Alert>}
           <FormGroup className="mt-2">
