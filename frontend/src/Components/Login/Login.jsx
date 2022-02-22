@@ -48,6 +48,7 @@ const Login = () => {
         window.sessionStorage.setItem("userName", username);
         history.push(history.location.search.split("=")[1])
       }catch (error) {
+        setShowSpinner(false);
         setHasError(error.response.data.message)
       }
     }

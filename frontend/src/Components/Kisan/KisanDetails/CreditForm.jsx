@@ -308,10 +308,12 @@ const CreditForm = () => {
     setIsTotalWeigthValid("");
   };
   const rateChange = (e) => {
-    setRate(parseInt(e.target.value));
-    setIsRateValid("");
+      const parsedRate = parseFloat(e.target.value).toFixed(2)
+      setRate(parseFloat(parsedRate));
+      setIsRateValid("");
   };
   const commisionChange = (e) => {
+    
     setCommission(parseInt(e.target.value));
     setIsCommissionValid("");
   };
@@ -649,6 +651,7 @@ const CreditForm = () => {
               name="rate"
               type="number"
               value={rate}
+              step="0.01"
               onChange={(e) => rateChange(e)}
               onWheel={(e) => e.target.blur()}
             />
