@@ -1,5 +1,7 @@
 # VVMS By Avalon
 
+VVMS is a comprehensive vegetable vendor management system that has all the capabilities to store manage and see the data for a vegetable vendors. 
+
 Avalon is a MERN framework, which serves the primary purpose to be **PLUG and PLAY**. Following some simple steps will get you up and running in no time, and will save a lot of time for you to start writing a framework from the scratch. 
 
 In Avalon, react app is served through the Node application and is build using a command so you essentially do not have to worry about the optimization and cleaning of code that has to be done for the production deployment as that is already been taken care of by webpack. 
