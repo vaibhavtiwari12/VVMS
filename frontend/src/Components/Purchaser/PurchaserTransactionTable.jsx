@@ -138,7 +138,12 @@ const Purchasertransactiontable = ({ purchaser, purchaserDetails }) => {
                <tbody>
                   {purchaser.length > 0 &&
                      purchaser
-                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                     .sort(function (a, b) {
+                        b = b.toString().split('/');
+                        a = a.toString().split('/');
+                        return b[2] - a[2] || b[1] - a[1] || b[0] - a[0];
+                    })
+                    .reverse()
                         .map((purchaser, index) => {
                            return (
                               <Fragment key={index}>

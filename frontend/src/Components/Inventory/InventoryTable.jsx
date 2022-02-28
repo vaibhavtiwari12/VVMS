@@ -20,7 +20,7 @@ const InventoryTable = ({ transactions }) => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction, index) => {
+            {transactions.sort((a,b) => new Date(b.date) - new Date(a.date)).map((transaction, index) => {
               return (
                 <tr key={transaction._id}>
                   <th scope="row">{index + 1}</th>
