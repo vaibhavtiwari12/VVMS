@@ -9,6 +9,8 @@ import NavBar from "./Components/NavBar/NavBar";
 import { I18nProvider, LOCALES } from "./i18n";
 import axios from "axios";
 import "./App.css";
+import EditKisan from "./Components/Kisan/EditKisan/EditKisan";
+import EditPurchaser from "./Components/Purchaser/EditPurchaser";
 
 /* import Login from "./Components/Login/Login";
 import AddKisan from "./Components/Kisan/AddKisan/AddKisan";
@@ -117,6 +119,12 @@ function App() {
                         />
                         <AuthenticatedRoute
                            exact
+                           path="/editKisan/:id"
+                           component={EditKisan}
+                           appProps={{ isAuthenticated }}
+                        />
+                        <AuthenticatedRoute
+                           exact
                            path="/addInventoryType"
                            component={AddInventoryType}
                            appProps={{ isAuthenticated }}
@@ -188,6 +196,12 @@ function App() {
                            exact
                            path="/addPurchaser"
                            component={AddPurchaser}
+                           appProps={{ isAuthenticated }}
+                        />
+                        <AuthenticatedRoute
+                           exact
+                           path="/editPurchaser/:id"
+                           component={EditPurchaser}
                            appProps={{ isAuthenticated }}
                         />
                         <AuthenticatedRoute

@@ -51,6 +51,9 @@ const Purchaserdetails = () => {
       <h2 className="d-flex justify-content-center mt-2 capitalize font-13">
         <FormattedMessage id="purchaserDetailsPageTitle" />
       </h2>
+      <div className="text-center">
+        <Button color="primary" onClick={e=> handleButtonclick(`/editPurchaser/${id}`)}>Edit Purchaser</Button>
+      </div>
       <div>
         <div>
           <Purchasersummary purchaser={purchaser}></Purchasersummary>

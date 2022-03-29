@@ -146,6 +146,7 @@ const hi = {
     /*Add Purchaser Form*/
     companyNameIsRequired: "कंपनी (फ़र्म) का नाम देना अनिवार्य है।",
     purchaser_addSuccessful: "ख़रीदार सफलतापूर्वक जोड़ा गया !",
+    purchaser_editSuccessful : "Purchaser has been edited successfully",
 
     /*Purchase Table*/
     nameOfPurchase: "ख़रीदार का नाम",

@@ -31,6 +31,18 @@ const controller = async (type, data) => {
       const saved = await data.save();
       return saved
     }
+    case "Edit": {
+      //Editing data
+      const kisan = await Kisan.findById(data.id);
+      console.log("Kisan Found ", kisan)
+      kisan.name = data.name;
+      kisan.fatherName = data.fatherName;
+      kisan.phone = data.phone;
+      kisan.address = data.address;
+      kisan.date= new Date();
+      const saved = await kisan.save();
+      return saved
+    }
     case "FindByID": {
       console.log("IS Here", data);
       const kisan = await Kisan.findById(data);

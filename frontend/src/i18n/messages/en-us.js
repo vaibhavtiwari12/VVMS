@@ -49,9 +49,9 @@ const en = {
     /*Kisan Detail Page*/
     kisanDetailsTitle: "Kisan Details",
     carryForwardAmount: "Carry forward payments up to last Bill (₹)",
-    giveAdvanceKisanButtonText: "Advance Entry",
+    giveAdvanceKisanButtonText: "Give Advance",
     createBillKisanButtonText: "Create Bill",
-    depositAdvanceKisanButtonText: "Deposit Entry",
+    depositAdvanceKisanButtonText: "Advance Settlement",
     transactionDetailsTitle: "Transaction Details",
 
     /*Table columns Kisan Detail Page*/
@@ -147,6 +147,7 @@ const en = {
     /*Add Purchaser Form*/
     companyNameIsRequired: "Firm name is required.",
     purchaser_addSuccessful: "Purchaser has been added successfully",
+    purchaser_editSuccessful : "Purchaser has been edited successfully",
 
     /*Purchase Table*/
     nameOfPurchase: "Purchaser Name",

@@ -20,6 +20,12 @@ purchaserRouter.post("/add", async (req, res) => {
   res.json(addedPurchaser);
 });
 
+purchaserRouter.post("/edit", async (req, res) => {
+  console.log("Purchaser Edit", req.body);
+  const editedPurchaser = await controller("Edit", req.body);
+  res.json(editedPurchaser);
+});
+
 purchaserRouter.post("/AddCreditTransaction/:id", async (req, res) => {
   const addedTransaction = await controller("AddCreditTransaction", {
     id: req.params.id,

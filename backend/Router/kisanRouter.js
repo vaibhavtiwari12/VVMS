@@ -18,7 +18,6 @@ KisanRouter.get("/getByID/:id", async (req, res) => {
 });
 
 KisanRouter.post("/add", async (req, res) => {
-  console.log("IS here", req.body);
   const newkisan = new Kisan({
     name: req.body.name,
     fatherName: req.body.fatherName,
@@ -31,6 +30,11 @@ KisanRouter.post("/add", async (req, res) => {
   });
   const addedKisan = await controller("Add", newkisan);
   res.json(addedKisan);
+});
+KisanRouter.post("/edit", async (req, res) => {
+  console.log("IS EDIT", req.body);
+  const editedKisan = await controller("Edit", req.body);
+  res.json(editedKisan);
 });
 
 KisanRouter.post("/AddTransaction/:id", async (req, res) => {

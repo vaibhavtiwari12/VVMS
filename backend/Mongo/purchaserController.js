@@ -40,6 +40,17 @@ const controller = async (type, data) => {
       });
       return await newPurchaser.save();
     }
+    case "Edit": {
+      //Adding data
+      const purchaser = await Purchaser.findById(data.id);
+      purchaser.name= data.name
+      purchaser.companyName= data.companyName
+      purchaser.phone= data.phone
+      purchaser.address= data.address
+      purchaser.date= new Date().toString()
+      const editedPurchaser = await purchaser.save();
+      return editedPurchaser
+    }
     case "FindByID": {
       console.log("IS Here", data);
       const purchasers = await Purchaser.findById(data);
