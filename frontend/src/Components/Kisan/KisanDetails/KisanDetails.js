@@ -22,6 +22,16 @@ const Kisandetails = () => {
       throw new Error("Something Went Wrong ", e);
     }
   }, []);
+  const updateKisan = () => {
+    try {
+      const fetchData = async () => {
+        setKisan(await getKisanByID(id));
+      };
+      fetchData();
+    } catch (e) {
+      throw new Error("Something Went Wrong ", e);
+    }
+  }
   useEffect(() => {
     console.log("KISAN ", kisan);
     if (kisan.name) {
@@ -74,7 +84,7 @@ const Kisandetails = () => {
         <FormattedMessage id="transactionDetailsTitle" />
       </h3>
       <div className="p-3 font-10">
-        <Kisantransactionstable kisan={kisan} />
+        <Kisantransactionstable kisan={kisan} updateKisan={updateKisan} />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ const { createDBConnection, closeConnection } = require("../Mongo/mongoConnector
 const inventorySchema = require("../Schema/inventorySchema");
 const Kisan = require("../Schema/kisanSchema");
 const Purchaser = require("../Schema/purchaserSchema");
+const dashboard = require("../Schema/dashboardSchema");
 const monthToNumberMapping = {
    "01": {
       name: "January",
@@ -224,11 +225,17 @@ const modifyTransactionGroupByDate = (purchaser) => {
    return groupArrays;
 };
 
+/* 
+
+ ------------------------------- MASTER DASHBOARD GENERATOR --------------------------------------------
+
+
+*/
 const generateDashboard = async () => {
    let totalAdvancePending = 0;
    let totalPurchaserPending = 0;
-   let totalItemWeight = 0; //
-   let totalBagsSold = 0; //
+   let totalItemWeight = 0; 
+   let totalBagsSold = 0;
 
    let commissions = [];
    await createDBConnection();
@@ -257,8 +264,10 @@ const generateDashboard = async () => {
    const topSoldItems = topSellingItemByWeight(inventory)
    const topBuyingPurchaser = topBuyingPurchasers(purchasers);
    const topSellingKisans = topSellerKisans(kisans);
+   
+   const data = 
    await closeConnection();
-
+   
    return {
       totalAdvancePending,
       totalItemWeight,
@@ -273,6 +282,7 @@ const generateDashboard = async () => {
       topKisanDefaulters,
       topPurchaserDefaulters
    };
+
 };
 
 const topDefaulters = (kisansOrPurchsers) => {

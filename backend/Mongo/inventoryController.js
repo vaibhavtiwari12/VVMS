@@ -44,7 +44,7 @@ const controller = async (type, data) => {
       fetchedInventory.totalBags += data.numberofBags;
       console.log("Updated Inventory ", fetchedInventory);
       const finalInventory = await fetchedInventory.save();
-      return finalInventory;
+      return {inventoryItemId:finalInventory._id, transaction: finalInventory.transactions[finalInventory.transactions.length-1]} ;
     }
   }
   await closeConnection();

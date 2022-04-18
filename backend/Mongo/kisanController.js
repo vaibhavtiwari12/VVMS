@@ -6,6 +6,7 @@ const {
   getTransactionsBetweenDates,
   getTransaction,
 } = require("../Utilities/utility");
+const Purchaser = require("../Schema/purchaserSchema");
 
 /* IMPORTANT
     RDBMS       VS      MONGO
@@ -51,7 +52,7 @@ const controller = async (type, data) => {
     case "AddTransaction": {
       // Updating the data
       let updatekisan = await Kisan.findById(data.id);
-      updatekisan.transactions.push(data.transaction);
+      
       if (
         data.transaction.type === "DEBIT" ||
         data.transaction.type === "ADVANCESETTLEMENT"
@@ -59,7 +60,7 @@ const controller = async (type, data) => {
         updatekisan.balance += data.transaction.transactionAmount;
       } else {
         if(data.transaction.purchaserId && data.transaction.itemType!==""){
-          await InventoryController.controller("AddTransaction", {
+          const transactionAdded = await InventoryController.controller("AddTransaction", {
             itemName: data.transaction.itemType,
             kisanName: updatekisan.name,
             kisanId: updatekisan._id,
@@ -67,15 +68,91 @@ const controller = async (type, data) => {
             totalweight: data.transaction.totalweight,
             rate: data.transaction.rate,
             purchaserId : data.transaction.purchaserId,
-            purchaserName: data.transaction.purchaserName
+            purchaserName: data.transaction.purchaserName,
+            purchaserTxnId: data.transaction.purchaserTxnId
           });
+          data.transaction["inventoryTxnId"] = transactionAdded.transaction._id.toString();
+          data.transaction["inventoryItemId"] = transactionAdded.inventoryItemId.toString();
         }
+
         updatekisan.balance += parseInt(data.transaction.advanceSettlement);
         updatekisan.carryForwardAmount =
           data.transaction.carryForwardFromThisEntry;
       }
+      updatekisan.transactions.push(data.transaction);
       const finalKisan = await updatekisan.save();
       return finalKisan;
+    }
+    case "deleteTransaction" : {
+      console.log("Data Received in Delete ", data)
+      let deleteKisanTxn = await Kisan.findById(data.id);
+      let deleteInventoryTxn = await Inventory.findById(data.inventoryItemId);
+      let deletePurchaserTxn = await Purchaser.findById(data.purchaseId);
+
+      //console.log("PURCHASES", deletePurchaserTxn);
+      //Delete PurchaserRecord
+      const updatedTransactionsForPurchase = []; 
+      if(deletePurchaserTxn) {
+        deletePurchaserTxn.transactions.map(txn => {
+          if(txn._id == data.purchaserTxnId){
+            console.log("Is Coming here?")
+            deletePurchaserTxn.balance += txn.transactionAmount;
+          }else {
+            updatedTransactionsForPurchase.push(txn);
+          }
+        })
+        deletePurchaserTxn.transactions = updatedTransactionsForPurchase;
+        console.log("delete PurchaserTxn",updatedTransactionsForPurchase)
+      }
+      await deletePurchaserTxn.save();
+
+      //Delete Inventory Transaction
+      const updatedInventoryTransactions = []
+      if(deleteInventoryTxn) {
+        deleteInventoryTxn.transactions.map(txn => {
+          if(txn._id != data.inventoryTxnId) {
+            updatedInventoryTransactions.push(txn)
+          }
+        })
+        deleteInventoryTxn.transactions = updatedInventoryTransactions;
+      }
+      await deleteInventoryTxn.save();
+
+      //deleteKisanTransaction
+      const updatedKisanTransaction = [];
+      deleteKisanTxn.transactions.map(txn => {
+        if(txn._id == data.kisanTxnId){
+          deleteKisanTxn.balance -= txn.advanceSettlement; 
+        }else {
+          updatedKisanTransaction.push(txn);
+        }
+        deleteKisanTxn.transactions = updatedKisanTransaction;
+      })
+      await deleteKisanTxn.save();
+      return "Updated Successfully";
+    }
+
+    case "deleteDebitTransaction" : {
+      let deleteKisanTxn = await Kisan.findById(data.kisanId);
+      if(deleteKisanTxn) {
+       if(deleteKisanTxn.transactions[deleteKisanTxn.transactions.length-1]._id.toString() === data.transactionID.toString()) {
+         deleteKisanTxn.balance -= deleteKisanTxn.transactions[deleteKisanTxn.transactions.length-1].transactionAmount;
+         deleteKisanTxn.transactions.pop();
+       }
+      }
+      await deleteKisanTxn.save();
+      return "Kisan Debit Transaction Deleted Successfully"
+    }
+    case "DeleteAdvanceSettlementTransaction" : {
+      let deleteKisanTxn = await Kisan.findById(data.kisanId);
+      if(deleteKisanTxn) {
+       if(deleteKisanTxn.transactions[deleteKisanTxn.transactions.length-1]._id.toString() === data.transactionID.toString()) {
+         deleteKisanTxn.balance -= deleteKisanTxn.transactions[deleteKisanTxn.transactions.length-1].transactionAmount;
+         deleteKisanTxn.transactions.pop();
+       }
+      }
+      await deleteKisanTxn.save();
+      return "Kisan AdvanceSettlement Transaction Deleted Successfully"
     }
     case "editTransaction": {
       // Delete

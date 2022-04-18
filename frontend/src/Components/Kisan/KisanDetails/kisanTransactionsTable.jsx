@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { Tooltip } from 'reactstrap';
 
-const Kisantransactionstable = ({ kisan }) => {
+const Kisantransactionstable = ({ kisan, updateKisan }) => {
   /* const [balances, setBalances] = useState([]); */
   /* FOR TOOL TIP */
   const [printToolTip, setPrintToolTip] = useState(false);
@@ -43,7 +43,6 @@ const Kisantransactionstable = ({ kisan }) => {
     });
   };
   const printCreditEntry = (currentTransaction) => {
-    console.log("Idhar");
     setTransaction({
       address: kisan.address,
       balance: kisan.balance,
@@ -88,6 +87,82 @@ const Kisantransactionstable = ({ kisan }) => {
   const handlePrintCreditEntry = useReactToPrint({
     content: () => creditPrintRef.current,
   });
+
+  const deleteTransaction = (txn,kisanId) => {
+    console.log("txn", txn)
+    const formData = {
+      kisanTxnId:txn._id,
+      purchaserId:txn.purchaserId,
+      purchaserTxnId:txn.purchaserTxnId,
+      inventoryItemId: txn.inventoryItemId,
+      inventoryTxnId:txn.inventoryTxnId,
+    };
+    fetch(`/kisan/DeleteTransacton/${kisanId}`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("Res", res);
+        updateKisan();
+      })
+      .catch((error) => {
+        console.log("is Here", error);
+        throw new error("Somethign Went Wrong", error);
+      });
+  }
+
+  const deleteTransactionAdvanceSettlement = (txn, kisanId) => {
+    const formData = {
+      kisanId:kisanId,
+      transactionID: txn._id 
+    };
+    fetch(`/kisan/DeleteAdvanceSettlementTransaction`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("Res", res);
+      updateKisan();
+    })
+    .catch((error) => {
+      console.log("is Here", error);
+      throw new error("Somethign Went Wrong", error);
+    });
+  }
+  const deleteTransactionDebit = (txn, kisanId) => {
+    console.log("is here")
+    const formData = {
+      kisanId:kisanId,
+      transactionID: txn._id 
+    };
+    fetch(`/kisan/DeleteDebitTransaction`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("Res", res);
+      updateKisan();
+    })
+    .catch((error) => {
+      console.log("is Here", error);
+      throw new error("Somethign Went Wrong", error);
+    });
+  }
   /*  useEffect(() => {
     let sum = 0;
     if (kisan && kisan.transactions) {
@@ -216,13 +291,15 @@ const Kisantransactionstable = ({ kisan }) => {
                             {/* <FormattedMessage id="printButtonText" /> */}
                             <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
+                          { index=== 0 && 
+                            transaction.type === "DEBIT" && <Button color="danger" className="ms-2" onClick={e => deleteTransactionDebit(transaction,kisan._id)}><FontAwesomeIcon icon={solid('trash')} className="text-white"/></Button>
+                          }
                         </div>
                       ) : transaction.type === "ADVANCESETTLEMENT" ? (
                         <div className="d-flex">
                           <Button color="success" id="edit">
                             <Link
-                            className="ms-2 "
-                            className="link-no-decoration font-10"
+                            className="ms-2 link-no-decoration font-10"
                               to={`/kisanAdvanceSettlement/${kisan._id}/edit/${transaction._id}`}
 
                             >
@@ -247,6 +324,9 @@ const Kisantransactionstable = ({ kisan }) => {
                             {/* <FormattedMessage id="printButtonText" /> */}
                              <FontAwesomeIcon icon={solid('print')} className="text-white"/>
                           </Button>
+                          { index===0 && 
+                            transaction.type === "ADVANCESETTLEMENT" && <Button color="danger" className="ms-2" onClick={e => deleteTransactionAdvanceSettlement(transaction,kisan._id)}><FontAwesomeIcon icon={solid('trash')} className="text-white"/></Button>
+                          }
                         </div>
                       ) : (
                         <div className="d-flex">
@@ -274,6 +354,9 @@ const Kisantransactionstable = ({ kisan }) => {
                               Print
                             </Tooltip>
                           </Button>
+                          { index===0 && 
+                            transaction.type === "CREDIT" && <Button color="danger" className="ms-2" onClick={e => deleteTransaction(transaction,kisan._id)}><FontAwesomeIcon icon={solid('trash')} className="text-white"/></Button>
+                          }
                         </div>
                       )}
                     </td>

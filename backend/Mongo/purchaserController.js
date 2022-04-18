@@ -82,7 +82,7 @@ const controller = async (type, data) => {
       }
       console.log("PURCHASER Data to be update ------- ", fetchedPurchaser)
       const finalKisan = await fetchedPurchaser.save();
-      return finalKisan;
+      return finalKisan.transactions[finalKisan.transactions.length-1];
     } 
     case "AddCreditTransaction": {
       // Updating the data

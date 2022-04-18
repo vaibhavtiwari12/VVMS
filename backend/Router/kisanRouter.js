@@ -39,18 +39,54 @@ KisanRouter.post("/edit", async (req, res) => {
 
 KisanRouter.post("/AddTransaction/:id", async (req, res) => {
   var id = mongoose.Types.ObjectId();
-  const addedTransaction = await controller("AddTransaction", {
-    id: req.params.id,
-    transaction: { ...req.body.transaction, date: new Date(), _id: id },
-  });
+  let purchaserDataGenerated = "";
   if(req.body.transaction && req.body.transaction.purchaserId && req.body.transaction.purchaserId !== "") {
     var id = mongoose.Types.ObjectId();
     console.log("req.body.purchaserId",req.body.transaction.purchaserId)
-    await purchaserController.controller("AddTransaction", {
+    purchaserDataGenerated =  await purchaserController.controller("AddTransaction", {
       id: req.body.transaction.purchaserId,
       transaction: { ...req.body.transaction, date: new Date(), _id: id },
     });
+    console.log(" PURCAHSER DATA GENERATED ----> ", purchaserDataGenerated)
   }
+  let addedtransaction = {};
+  if(req.body.transaction.type === "DEBIT" || req.body.transaction.type === "ADVANCESETTLEMENT"){
+    addedTransaction = await controller("AddTransaction", {
+      id: req.params.id,
+      transaction: { ...req.body.transaction, date: new Date(), _id: id },
+    });
+  }else {
+    addedTransaction = await controller("AddTransaction", {
+      id: req.params.id,
+      transaction: { ...req.body.transaction, date: new Date(), _id: id, purchaserTxnId: purchaserDataGenerated._id.toString() },
+    });
+  }
+  res.json(addedTransaction);
+});
+
+KisanRouter.post("/DeleteTransacton/:id", async (req, res) => {
+  const addedTransaction = await controller("deleteTransaction", {
+    id: req.params.id,
+    kisanTxnId: req.body.kisanTxnId,
+    purchaseId: req.body.purchaserId,
+    purchaserTxnId: req.body.purchaserTxnId,
+    inventoryItemId: req.body.inventoryItemId,
+    inventoryTxnId : req.body.inventoryTxnId,
+  });
+  res.json(addedTransaction);
+});
+KisanRouter.post("/DeleteDebitTransaction", async (req, res) => {
+  const addedTransaction = await controller("deleteDebitTransaction", {
+    kisanId: req.body.kisanId,
+    transactionID : req.body.transactionID
+  });
+  res.json(addedTransaction);
+});
+KisanRouter.post("/DeleteAdvanceSettlementTransaction", async (req, res) => {
+  const addedTransaction = await controller("DeleteAdvanceSettlementTransaction", {
+    kisanId: req.body.kisanId,
+    transactionID : req.body.transactionID
+  });
   res.json(addedTransaction);
 });
 
